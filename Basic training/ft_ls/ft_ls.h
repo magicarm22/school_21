@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:44:15 by djast             #+#    #+#             */
-/*   Updated: 2019/03/01 17:06:00 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/01 19:03:12 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 # include "./libft/libft.h"
 # include "./ft_printf/ft_printf.h"
 # include <sys/types.h>
+# include <sys/stat.h>
+# include <grp.h>
+# include <time.h>
+# include <pwd.h>
 # include <dirent.h>
 # define FT_FILE 1
 # define FT_DIR 2
@@ -38,7 +42,6 @@ typedef struct		s_ls
 	int is_reversed: 2;
 	int is_sort_by_time: 2;
 	int long_format: 2;
-	int is_dir: 2;
 	char *path;
 } 					t_ls;
 
@@ -48,10 +51,19 @@ typedef struct		s_dir
 	struct	s_dir	*subdir;
 	struct	s_dir	*next_file;
 	int				type;
+	int				rules;
+	int				links;
+	unsigned int	user;
+	unsigned int	group;
+	long long int	size;
+	long int		time;
 } 					t_dir;
 
 int					parsing_flags(int argc, char const *flags[], t_ls *ls);
 void				print_struct(t_ls *ls);
 int					prepare_output(t_ls *ls);
+void                list_sort_by_name(t_dir **begin_list);
+void                list_sort_by_name_rev(t_dir **begin_list);
+void                list_sort_by_time(t_dir **begin_list);
 
 #endif
