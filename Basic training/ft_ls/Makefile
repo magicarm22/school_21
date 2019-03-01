@@ -3,14 +3,12 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: djast <djast@student.42.fr>                +#+  +:+       +#+         #
+#    By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 17:18:06 by djast             #+#    #+#              #
-#    Updated: 2019/02/27 19:11:11 by djast            ###   ########.fr        #
+#    Updated: 2019/02/28 11:12:17 by vurrigon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-
 
 NAME = ft_ls
 NAME_LIBFT = ./libft/libft.a

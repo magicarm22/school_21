@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 19:52:06 by djast             #+#    #+#             */
-/*   Updated: 2019/02/27 19:53:37 by djast            ###   ########.fr       */
+/*   Updated: 2019/02/28 17:20:49 by vurrigon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "ft_ls.h"
 
 void print_struct(t_ls *ls)
 {
@@ -55,5 +55,11 @@ void print_struct(t_ls *ls)
 	else 
 		ft_printf(RED);
 	ft_printf("path: %s\n", ls->path);
+	ft_printf(RESET);
+	if (ls->is_dir) 
+		ft_printf(GREEN);
+	else 
+		ft_printf(RED);
+	ft_printf("is_dir: %d\n", ls->is_dir);
 	ft_printf(RESET);
 }

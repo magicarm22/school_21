@@ -6,13 +6,13 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:41:23 by djast             #+#    #+#             */
-/*   Updated: 2019/02/27 19:53:31 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/01 14:40:02 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "ft_ls.h"
 
-t_ls *init_struct()
+t_ls	*init_struct()
 {
 	t_ls *ls;
 
@@ -24,12 +24,26 @@ t_ls *init_struct()
 	ls->long_format = 0;
 	ls->dir_struct = NULL;
 	ls->path = NULL;
+	ls->is_dir = 0;
 	return (ls);
 }
 
+// t_dir	*init_file_list()
+// {
+// 	t_dir *file_list;
+
+// 	if (!(file_list = (t_dir *)malloc(sizeof(file_list))))
+// 		return (NULL);
+// 	file_list->fname = NULL;
+// 	file_list->subdir = NULL;
+// 	file_list->next_file = NULL;
+	
+// 	return (file_list);
+// }
+
 int main(int argc, char const *argv[])
 {
-	t_ls *ls;
+	t_ls	*ls;
 
 	ls = init_struct();
 	if (argc > 1 && parsing_flags(argc, argv, ls) == -1)
@@ -37,6 +51,8 @@ int main(int argc, char const *argv[])
 		ft_printf("ft_ls: illegal option -- ??\nusage: ls [-Ralrt] [file ...]\n");
 		return (-1);
 	}
+	if (!(prepare_output(argc, argv, ls)))
+		return (0);
 	print_struct(ls);
 	return 0;
 }
