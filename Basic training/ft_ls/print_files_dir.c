@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 12:53:20 by vurrigon          #+#    #+#             */
-/*   Updated: 2019/03/01 19:08:40 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/06 19:12:48 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,38 @@ char *ft_strmode(t_dir *file_list, unsigned int mode, char *buf)
   return (buf);
 }
 
+long long ft_total(t_dir *file_list)
+{
+	t_dir *current;
+	long long total;
+
+	total = 0;
+	current = file_list;
+	while (current)
+	{
+		total += current->block;
+		current = current->next_file;
+	}
+	return (total);
+}
+
 void print_long(t_ls *ls, t_dir *file_list)
 {
 	t_dir *current;
 	char *buf;
+	long long total;
+
+	total = ft_total(file_list);
+	printf("total: %lld\n", total);
 
 	current = file_list;
+
 	while (current)
 	{
 		buf = ft_strnew(10);
-		ft_printf("%-5s %5d %5s %5s %5d %5d %5d %5s\n", ft_strmode(current, current->rules, buf), current->links,
+		ft_printf("%-5s %4d %4s %5s %6d %-4s %s %5s %-5s\n", ft_strmode(current, current->rules, buf), current->links,
 			getpwuid(current->user)->pw_name, getgrgid(current->group)->gr_name, current->size,
-			gmtime(&current->time)->tm_mon, gmtime(&current->time)->tm_mday,
+			current->month, current->day, current->time,
 			ft_strrchr(current->path_file, '/') + 1);
 		current = current->next_file;
 	}
@@ -82,8 +102,10 @@ void print_long(t_ls *ls, t_dir *file_list)
 
 t_dir	*ft_create_file(char *fname, t_dir *subdir, int type)
 {
-	t_dir	*list;
+	t_dir		*list;
+	struct stat	status;
 
+	stat(fname, &status);
 	list = malloc(sizeof(t_dir));
 	if (list)
 	{
@@ -96,7 +118,10 @@ t_dir	*ft_create_file(char *fname, t_dir *subdir, int type)
 		list->user = 0;
 		list->group = 0;
 		list->size = 0;
-		list->time = 0;
+		list->month = ft_strsplit(ctime(&status.st_mtime), ' ')[1];
+		list->day = ft_strsplit(ctime(&status.st_mtime), ' ')[2];
+		list->time = ft_strsub(ft_strsplit(ctime(&status.st_mtime), ' ')[3], 0, 5);
+		list->block = status.st_blocks;
 	}
 	return (list);
 }
@@ -115,7 +140,33 @@ void	list_push_back(t_dir **begin_list, char *fname, unsigned char type)
 		else if (type == DT_REG)
 			current->next_file = ft_create_file(fname, NULL, FT_FILE);
 	}
+}
 
+void delete_branch(t_dir **file_list)
+{
+	t_dir *current;
+	t_dir *next;
+
+	current = *file_list;
+	next = (*file_list)->next_file;
+
+	while (next)
+	{
+		free(current->path_file);
+		free(current->month);
+		free(current->day);
+		free(current->time);
+		free(current);
+		current = next;
+		next = current->next_file;
+	}
+
+	free(current->path_file);
+	free(current->month);
+	free(current->day);
+	free(current->time);
+	free(current);
+	current = NULL;
 }
 
 static int add_in_list(const char *bpath, t_ls *ls, t_dir **file_list)
@@ -172,6 +223,7 @@ void take_info(t_dir *file_list)
 {
 	t_dir *cur;
 	struct stat buff;
+	char **parsed_time;
 	
 	cur = file_list;
 	while (cur)
@@ -182,7 +234,11 @@ void take_info(t_dir *file_list)
 		cur->user = buff.st_uid;
 		cur->group = buff.st_gid;
 		cur->size = buff.st_size;
-		cur->time = buff.st_mtime;
+		parsed_time = ft_strsplit(ctime(&buff.st_mtime), ' ');
+		cur->month = parsed_time[1];
+		cur->day = parsed_time[2];
+		cur->time = ft_strsub(parsed_time[3], 0, 5);
+		cur->block = buff.st_blocks;
 		cur = cur->next_file;
 	}
 	cur = file_list;
@@ -195,7 +251,6 @@ void take_info(t_dir *file_list)
 }
 
 
-
 int	prepare_output(t_ls *ls)
 {
 	int i;
@@ -204,8 +259,9 @@ int	prepare_output(t_ls *ls)
 	file_list = ft_create_file(ls->path, NULL, FT_ROOT);
 	i = 0;
 	add_in_list(ls->path, ls, &file_list);
-	ls->is_reversed ? list_sort_by_name_rev(&(file_list->next_file)) : list_sort_by_name(&(file_list->next_file));
-	ls->is_sort_by_time ? list_sort_by_time(&(file_list->next_file)) : NULL;
+	list_sort_by_name(&(file_list->next_file));
+	ls->is_sort_by_time ? list_sort_by_time(&(file_list->next_file)) : list_sort_by_name(&(file_list->next_file));
+	ls->is_reversed ? list_reverse(&(file_list->next_file)) : NULL;
 	if (ls->long_format == 1)
 	{
 		take_info(file_list->next_file);

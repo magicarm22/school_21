@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:44:15 by djast             #+#    #+#             */
-/*   Updated: 2019/03/01 19:03:12 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/06 16:14:18 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,18 @@ typedef struct		s_dir
 	unsigned int	user;
 	unsigned int	group;
 	long long int	size;
-	long int		time;
+	char			*month;
+	char			*day;
+	char			*time;
+	int				block;
+
 } 					t_dir;
 
 int					parsing_flags(int argc, char const *flags[], t_ls *ls);
 void				print_struct(t_ls *ls);
 int					prepare_output(t_ls *ls);
 void                list_sort_by_name(t_dir **begin_list);
-void                list_sort_by_name_rev(t_dir **begin_list);
+void    			list_reverse(t_dir **begin_list);
 void                list_sort_by_time(t_dir **begin_list);
 
 #endif
