@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:44:15 by djast             #+#    #+#             */
-/*   Updated: 2019/03/06 16:14:18 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/07 12:45:44 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct		s_dir
 	char			*month;
 	char			*day;
 	char			*time;
+	long int		mtime;
+	long int		mtime_nano;
 	int				block;
 
 } 					t_dir;

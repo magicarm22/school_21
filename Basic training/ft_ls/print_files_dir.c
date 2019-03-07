@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 12:53:20 by vurrigon          #+#    #+#             */
-/*   Updated: 2019/03/06 19:12:48 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/07 12:53:20 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,24 @@ void	print_dir(t_ls *ls, t_dir *file_list)
 {
 	t_dir *current;
 
+	(void)ls;
 	current = file_list;
 	while (current)
 	{
 		ft_printf("%s\n", ft_strrchr(current->path_file, '/') + 1);
 		current = current->next_file;
 	}
-	current = file_list;
-	if (ls->is_recursive == 1)
-		while (current)
-		{
-			if (current->type == FT_DIR)
-			{
-				ft_printf("\n%s:\n", current->subdir->path_file);
-				print_dir(ls, current->subdir->next_file);
-			}
-			current = current->next_file;
-		}
+	// current = file_list;
+	// if (ls->is_recursive == 1)
+	// 	while (current)
+	// 	{
+	// 		if (current->type == FT_DIR)
+	// 		{
+	// 			ft_printf("\n%s:\n", current->subdir->path_file);
+	// 			print_dir(ls, current->subdir->next_file);
+	// 		}
+	// 		current = current->next_file;
+	// 	}
 }
 
 char *ft_strmode(t_dir *file_list, unsigned int mode, char *buf) 
@@ -74,7 +75,7 @@ void print_long(t_ls *ls, t_dir *file_list)
 	long long total;
 
 	total = ft_total(file_list);
-	printf("total: %lld\n", total);
+	printf("total %lld\n", total);
 
 	current = file_list;
 
@@ -104,6 +105,8 @@ t_dir	*ft_create_file(char *fname, t_dir *subdir, int type)
 {
 	t_dir		*list;
 	struct stat	status;
+	char **mtime;
+	int i;
 
 	stat(fname, &status);
 	list = malloc(sizeof(t_dir));
@@ -118,10 +121,20 @@ t_dir	*ft_create_file(char *fname, t_dir *subdir, int type)
 		list->user = 0;
 		list->group = 0;
 		list->size = 0;
-		list->month = ft_strsplit(ctime(&status.st_mtime), ' ')[1];
-		list->day = ft_strsplit(ctime(&status.st_mtime), ' ')[2];
-		list->time = ft_strsub(ft_strsplit(ctime(&status.st_mtime), ' ')[3], 0, 5);
+		mtime = ft_strsplit(ctime(&status.st_mtime), ' ');
+		list->month = ft_strdup(mtime[1]);
+		list->day = ft_strdup(mtime[2]);
+		list->time = ft_strsub(mtime[3], 0, 5);
+		list->mtime = status.st_mtimespec.tv_sec;
+		list->mtime_nano = status.st_mtimespec.tv_nsec;
 		list->block = status.st_blocks;
+		i = 0;
+		while (mtime[i])
+		{
+			free(mtime[i]);
+			i++;
+		}
+		free(mtime);
 	}
 	return (list);
 }
@@ -148,19 +161,22 @@ void delete_branch(t_dir **file_list)
 	t_dir *next;
 
 	current = *file_list;
-	next = (*file_list)->next_file;
+	next = NULL;
+	if (current)
+		next = (*file_list)->next_file;
 
 	while (next)
 	{
-		free(current->path_file);
+	//	printf("DELETED: %s with month: %s, day: %s, time: %s\n", current->path_file, current->month, current->day, current->time);
 		free(current->month);
 		free(current->day);
 		free(current->time);
+		free(current->path_file);
 		free(current);
 		current = next;
 		next = current->next_file;
 	}
-
+	//printf("LAST DELETED: %s with month: %s, day: %s, time: %s\n", current->path_file, current->month, current->day, current->time);
 	free(current->path_file);
 	free(current->month);
 	free(current->day);
@@ -174,10 +190,14 @@ static int add_in_list(const char *bpath, t_ls *ls, t_dir **file_list)
 	DIR *dir;
 	char *path;
 	struct dirent *d_entry;
+	int dirs;
+	char *tmp;
 
-	path = ft_strnew(0);
+	dirs = 0;
 	if (!(dir = opendir(bpath)))
         return (-1);
+    if (ft_strcmp((*file_list)->path_file, ".") != 0)
+    	 ls->long_format == 0 ? (void)ft_printf("\n%s:\n", (*file_list)->path_file) : NULL;
 	while ((d_entry = readdir(dir)))
 	{
         if (d_entry->d_type == DT_REG)
@@ -185,7 +205,9 @@ static int add_in_list(const char *bpath, t_ls *ls, t_dir **file_list)
         	if (ft_strncmp(d_entry->d_name, ".", 1) == 0 && !ls->is_with_dot)
         		continue ;
         	path = ft_strjoin((*file_list)->path_file, "/");
+        	tmp = path;
         	path = ft_strjoin(path, d_entry->d_name);
+        	free(tmp);
         	list_push_back(file_list, path, d_entry->d_type);
         }
         else if (d_entry->d_type == DT_DIR)
@@ -193,12 +215,23 @@ static int add_in_list(const char *bpath, t_ls *ls, t_dir **file_list)
 			if (ft_strncmp(d_entry->d_name, ".", 1) == 0 && !ls->is_with_dot)
 				continue;
             path = ft_strjoin((*file_list)->path_file, "/");
+            tmp = path;
         	path = ft_strjoin(path, d_entry->d_name);
+        	free(tmp);
             list_push_back(file_list, path, d_entry->d_type);
+            dirs = 1;
         }
+        else
+        	continue;
+        //ls->long_format == 0 ? (void)printf("CREATED: %s\n", path) : NULL;
 	}
     closedir(dir);
+    list_sort_by_name(&((*file_list)->next_file));
+	ls->is_sort_by_time ? list_sort_by_time(&((*file_list)->next_file)) : list_sort_by_name(&((*file_list)->next_file));
+	ls->long_format == 0 ? print_dir(ls, (*file_list)->next_file) : NULL;
+
     ls->is_recursive == 1 ? find_subdirs(ls, &(*file_list)->next_file) : NULL;
+    //ls->long_format == 0 ? delete_branch(file_list);
     return (1); 
 }
 
@@ -224,6 +257,7 @@ void take_info(t_dir *file_list)
 	t_dir *cur;
 	struct stat buff;
 	char **parsed_time;
+	int i;
 	
 	cur = file_list;
 	while (cur)
@@ -235,11 +269,18 @@ void take_info(t_dir *file_list)
 		cur->group = buff.st_gid;
 		cur->size = buff.st_size;
 		parsed_time = ft_strsplit(ctime(&buff.st_mtime), ' ');
-		cur->month = parsed_time[1];
-		cur->day = parsed_time[2];
+		cur->month = ft_strdup(parsed_time[1]);
+		cur->day = ft_strdup(parsed_time[2]);
 		cur->time = ft_strsub(parsed_time[3], 0, 5);
 		cur->block = buff.st_blocks;
 		cur = cur->next_file;
+		i = 0;
+		while (parsed_time[i])
+		{
+			free(parsed_time[i]);
+			i++;
+		}
+		free(parsed_time);
 	}
 	cur = file_list;
 	while (cur != NULL)
@@ -259,16 +300,20 @@ int	prepare_output(t_ls *ls)
 	file_list = ft_create_file(ls->path, NULL, FT_ROOT);
 	i = 0;
 	add_in_list(ls->path, ls, &file_list);
-	list_sort_by_name(&(file_list->next_file));
-	ls->is_sort_by_time ? list_sort_by_time(&(file_list->next_file)) : list_sort_by_name(&(file_list->next_file));
-	ls->is_reversed ? list_reverse(&(file_list->next_file)) : NULL;
+	// free(file_list->month);
+	// free(file_list->day);
+	// free(file_list->time);
+	// free(file_list);
+	// list_sort_by_name(&(file_list->next_file));
+	// ls->is_sort_by_time ? list_sort_by_time(&(file_list->next_file)) : list_sort_by_name(&(file_list->next_file));
+	// ls->is_reversed ? list_reverse(&(file_list->next_file)) : NULL;
 	if (ls->long_format == 1)
 	{
 		take_info(file_list->next_file);
 		print_long(ls, file_list->next_file);
 	}
-	else
-		print_dir(ls, file_list->next_file);
+	//else
+	//	print_dir(ls, file_list->next_file);
 	file_list = NULL;
 	return (1);
 }
