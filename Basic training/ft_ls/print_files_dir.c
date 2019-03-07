@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 12:53:20 by vurrigon          #+#    #+#             */
-/*   Updated: 2019/03/07 12:53:20 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/07 13:26:02 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,8 @@ void delete_branch(t_dir **file_list)
 
 	while (next)
 	{
-	//	printf("DELETED: %s with month: %s, day: %s, time: %s\n", current->path_file, current->month, current->day, current->time);
+		//printf("TYPE: %d\n", current->type);
+		//printf("DELETED: %s with month: %s, day: %s, time: %s with address: %p\n", current->path_file, current->month, current->day, current->time, current);
 		free(current->month);
 		free(current->day);
 		free(current->time);
@@ -176,7 +177,8 @@ void delete_branch(t_dir **file_list)
 		current = next;
 		next = current->next_file;
 	}
-	//printf("LAST DELETED: %s with month: %s, day: %s, time: %s\n", current->path_file, current->month, current->day, current->time);
+	//printf("TYPE: %d\n", current->type);
+	//printf("LAST DELETED: %s with month: %s, day: %s, time: %s with address: %p\n", current->path_file, current->month, current->day, current->time, current);
 	free(current->path_file);
 	free(current->month);
 	free(current->day);
@@ -197,7 +199,7 @@ static int add_in_list(const char *bpath, t_ls *ls, t_dir **file_list)
 	if (!(dir = opendir(bpath)))
         return (-1);
     if (ft_strcmp((*file_list)->path_file, ".") != 0)
-    	 ls->long_format == 0 ? (void)ft_printf("\n%s:\n", (*file_list)->path_file) : NULL;
+    	 ls->long_format == 0 && ls->is_recursive == 1 ? (void)ft_printf("\n%s:\n", (*file_list)->path_file) : NULL;
 	while ((d_entry = readdir(dir)))
 	{
         if (d_entry->d_type == DT_REG)
@@ -227,11 +229,11 @@ static int add_in_list(const char *bpath, t_ls *ls, t_dir **file_list)
 	}
     closedir(dir);
     list_sort_by_name(&((*file_list)->next_file));
-	ls->is_sort_by_time ? list_sort_by_time(&((*file_list)->next_file)) : list_sort_by_name(&((*file_list)->next_file));
+	ls->is_sort_by_time ? list_sort_by_time(&((*file_list)->next_file)) : NULL;
 	ls->long_format == 0 ? print_dir(ls, (*file_list)->next_file) : NULL;
-
     ls->is_recursive == 1 ? find_subdirs(ls, &(*file_list)->next_file) : NULL;
-    //ls->long_format == 0 ? delete_branch(file_list);
+    ls->long_format == 0 ? delete_branch(file_list) : NULL;
+
     return (1); 
 }
 
@@ -245,7 +247,7 @@ void find_subdirs(t_ls *ls, t_dir **begin_list)
 		if (current->type == FT_DIR)
 		{
 			//ft_printf("%s\n", current->path_file);
-			current->subdir = ft_create_file(current->path_file, NULL, FT_DIR);
+			current->subdir = ft_create_file(ft_strdup(current->path_file), NULL, FT_ROOT);
 			add_in_list(current->path_file, ls, &(current->subdir));
 		}
 		current = current->next_file;
@@ -297,7 +299,7 @@ int	prepare_output(t_ls *ls)
 	int i;
 	t_dir	*file_list;
 
-	file_list = ft_create_file(ls->path, NULL, FT_ROOT);
+	file_list = ft_create_file(ft_strdup(ls->path), NULL, FT_ROOT);
 	i = 0;
 	add_in_list(ls->path, ls, &file_list);
 	// free(file_list->month);
