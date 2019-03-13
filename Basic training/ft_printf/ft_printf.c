@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:31:01 by djast             #+#    #+#             */
-/*   Updated: 2019/02/11 12:14:31 by djast            ###   ########.fr       */
+/*   Updated: 2019/02/11 12:20:29 by vurrigon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,60 +97,4 @@ int			ft_printf(const char *format, ...)
 	printed = ft_parse_str((char *)format, &argptr, &printed);
 	va_end(argptr);
 	return (printed);
-}
-
-int main(int argc, char const *argv[])
-{
-   int a, b;
-
-   a = printf("{%-+ 020f}\n", 0.1);
-   b = ft_printf("{%-+ 020f}\n", 0.1);
-
-   printf("%d %d\n", a, b);
-
-   a = printf("{%-+020f}\n", 0.1);
-   b = ft_printf("{%-+020f}\n", 0.1);
-
-   printf("%d %d\n", a, b);
-
-   a = printf("{%-+ 020.f}\n", 0.1);
-   b = ft_printf("{%-+ 020.f}\n", 0.1);
-
-   printf("%d %d\n", a, b);
-
-   a = printf("{%+20f.}\n", 0.1);
-   b = ft_printf("{%+20f.}\n", 0.1);
-
-   printf("%d %d\n", a, b);
-
-   a = printf("{%-+20.50f}\n", 0.1);
-   b = ft_printf("{%-+20.50f}\n", 0.1);
-
-   printf("%d %d\n", a, b);
-
-   a = printf("{%-+ 020f}\n", -0.1);
-   b = ft_printf("{%-+ 020f}\n", -0.1);
-
-   printf("%d %d\n", a, b);
-
-   a = printf("{%-+020f}\n", -0.1);
-   b = ft_printf("{%-+020f}\n", -0.1);
-
-   printf("%d %d\n", a, b);
-
-   a = printf("{%-+ 020.f}\n", -0.1);
-   b = ft_printf("{%-+ 020.f}\n", -0.1);
-
-   printf("%d %d\n", a, b);
-
-   a = printf("{%+20f.}\n", -0.1);
-   b = ft_printf("{%+20f.}\n", -0.1);
-
-   printf("%d %d\n", a, b);
-
-   a = printf("{%-+20.50f}\n", -0.1);
-   b = ft_printf("{%-+20.50f}\n", -0.1);
-
-   printf("%d %d\n", a, b);
-   return 0;
 }
