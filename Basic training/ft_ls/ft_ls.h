@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:44:15 by djast             #+#    #+#             */
-/*   Updated: 2019/03/10 15:44:59 by vurrigon         ###   ########.fr       */
+/*   Updated: 2019/03/13 15:39:50 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 **  color - выполняемые файлы и директории выделяются определенным цветом
 **  -A - не выводить "." и ".."
 **  -n - с флагом -l выводит id пользователя и группы вместо имени
+**  -G - выводить цвет
 */
 
 
@@ -42,8 +43,16 @@
 **	is_reversed - флаг -r - отсортировать в обратном порядке
 **	is_sort_by_time - флаг -t - отсортировать по времени изменения
 **	long_format - флаг -l - вывести в полном формате.
-**	path - путь, откуда считывается ls.
-**	dir_struct - структура типа DIR, которая описывает открытую папку.
+**  not_sort - флаг -f - не сортировать вывод
+**	is_sort_by_size - флаг -S - сортировка по размеру
+**	is_almost_all - флаг -A - не выводить "." и ".."
+**	is_numb_gr_user - флаг -n - с флагом -l выводит id пользователя и группы вместо имени 
+**	colors - флаг -G - выводить цвет
+**	multiple_files - 1, если файлов больше одного
+**  first_time - 1, если это первая папка
+**
+**
+** path - путь, откуда считывается ls.
 */
 
 typedef struct		s_ls
@@ -57,7 +66,10 @@ typedef struct		s_ls
 	int is_sort_by_size : 2;
 	int is_almost_all : 2;
 	int	is_numb_gr_user : 2;
-	char *path;
+	int colors : 2;
+	int multiple_files : 2;
+	int first_time : 2;
+	char **path;
 } 					t_ls;
 
 typedef struct		s_dir
@@ -87,5 +99,6 @@ void                list_sort_by_name(t_dir **begin_list);
 void    			list_reverse(t_dir **begin_list);
 void                list_sort_by_time(t_dir **begin_list);
 void				list_sort_by_size(t_dir **begin_list);
+int					ft_size_array(char **str);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 19:21:58 by djast             #+#    #+#             */
-/*   Updated: 2019/03/10 15:01:14 by vurrigon         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:29:05 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int fill_flags(const char **str, t_ls *ls)
 
 	flag = 0;
 	while (**str == 'r' || **str == 'R' || **str == 'l' || **str == 'a' ||
-	**str == 't' || **str == 'f' || **str == 'S' || **str == 'A' || **str == 'n')
+	**str == 't' || **str == 'f' || **str == 'S' || **str == 'A' || **str == 'n' || **str == 'G')
 	{
 		if (**str == 'r')
 			ls->is_reversed = 1;
@@ -46,36 +46,65 @@ static int fill_flags(const char **str, t_ls *ls)
 			ls->is_sort_by_size = 1;
 		else if (**str == 'A')
 			ls->is_almost_all = 1;
+		else if (**str == 'G')
+			ls->colors = 1;
 		flag = 1;
 		(*str)++;
 	}
 	if (**str != '\0')
-		return (0);
+		return (-**str);
 	return (flag);
+}
+
+int parsing_dirs(char const **str, t_ls *ls, int index)
+{
+	int count;
+	int i;
+	int size;
+
+	i = index;
+	count = 0;
+	size = ft_size_array((char **)str) - index > 0 ? ft_size_array((char **)str) - index : 1;
+	ls->path = (char **)malloc(sizeof(char *) * (size + 1));
+	while (str[i])
+		ls->path[count++] = (char *)str[i++];
+	ls->path[count] = NULL;
+	if (count == 0)
+	{
+		ls->path[0] = ".";
+		ls->path[1] = NULL;
+	}
+	ls->multiple_files = count > 1 ? 1 : 0;
+	return count > 0 ? 1 : 0;
 }
 
 int parsing_flags(int argc, char const **flags, t_ls *ls)
 {
 	int i;
+	int res;
 
 	i = 0;
+
 	while (i++ < argc - 1)
 	{
-		ls->path = (char *)flags[i];
 		if (*flags[i] == '-')
 		{
+			if (*(flags[i] + 1) == '\0')
+				break;
 			++flags[i];
-			if (!(fill_flags(&(flags[i]), ls)))
-				return (-1);
-			ls->path = ".";
+			if ( (res = fill_flags(&(flags[i]), ls)) < 0)
+				return (res);
 		}
-		else if (opendir(flags[i]) == NULL)
-			return (-2);
 		else
-		{
-			ls->path = (char *)flags[i];
-			return (0);
-		}
+			break ;
+	}
+	parsing_dirs(flags, ls, i);
+	i = 0;
+	while (ls->path[i])
+	{
+		if (opendir(ls->path[i]) == NULL)
+			ft_printf("ft_ls: %s: No such file or directory\n", ls->path[i]);
+		i++;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 19:52:06 by djast             #+#    #+#             */
-/*   Updated: 2019/03/01 15:03:07 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/13 15:19:19 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,14 @@ void print_struct(t_ls *ls)
 		ft_printf(RED);
 	ft_printf("path: %s\n", ls->path);
 	ft_printf(RESET);
+}
+
+int ft_size_array(char **str)
+{
+	int size;
+
+	size = 0;
+	while (str[size])
+		size++;
+	return (size);
 }
