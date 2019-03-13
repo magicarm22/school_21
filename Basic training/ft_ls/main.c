@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:41:23 by djast             #+#    #+#             */
-/*   Updated: 2019/03/07 12:24:22 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/10 15:17:31 by vurrigon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ t_ls	*init_struct()
 	ls->is_with_dot = 0;
 	ls->is_sort_by_time = 0;
 	ls->long_format = 0;
+	ls->not_sort = 0;
+	ls->is_sort_by_size = 0;
+	ls->is_almost_all = 0;
+	ls->is_numb_gr_user = 0;
 	ls->path = ".";
 	return (ls);
 }
@@ -55,7 +59,7 @@ int main(int argc, char const *argv[])
 		if (error_code == -1 || error_code == -2)
 			return (-1);
 	}
-	print_struct(ls);
+	//print_struct(ls);
 	prepare_output(ls);
 	free(ls);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:44:15 by djast             #+#    #+#             */
-/*   Updated: 2019/03/07 12:45:44 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/10 15:44:59 by vurrigon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,17 @@
 # define FT_FILE 1
 # define FT_DIR 2
 # define FT_ROOT 3
+# define FT_FILE_EXE 4
+# define FT_LNK 5
+
+/*
+**	bonus:
+**  -S - сортировка по размеру
+**  -f - не сортироват вывод
+**  color - выполняемые файлы и директории выделяются определенным цветом
+**  -A - не выводить "." и ".."
+**  -n - с флагом -l выводит id пользователя и группы вместо имени
+*/
 
 
 /*
@@ -42,6 +53,10 @@ typedef struct		s_ls
 	int is_reversed: 2;
 	int is_sort_by_time: 2;
 	int long_format: 2;
+	int	not_sort: 2;
+	int is_sort_by_size : 2;
+	int is_almost_all : 2;
+	int	is_numb_gr_user : 2;
 	char *path;
 } 					t_ls;
 
@@ -71,5 +86,6 @@ int					prepare_output(t_ls *ls);
 void                list_sort_by_name(t_dir **begin_list);
 void    			list_reverse(t_dir **begin_list);
 void                list_sort_by_time(t_dir **begin_list);
+void				list_sort_by_size(t_dir **begin_list);
 
 #endif
