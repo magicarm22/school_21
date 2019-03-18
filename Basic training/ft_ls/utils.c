@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 19:52:06 by djast             #+#    #+#             */
-/*   Updated: 2019/03/18 11:30:47 by vurrigon         ###   ########.fr       */
+/*   Updated: 2019/03/18 19:05:07 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			ft_size_array(char **str)
+int				ft_size_array(char **str)
 {
 	int	size;
 
@@ -22,7 +22,7 @@ int			ft_size_array(char **str)
 	return (size);
 }
 
-void		delete_branch(t_dir **file_list)
+void			delete_branch(t_dir **file_list)
 {
 	t_dir *current;
 	t_dir *next;
@@ -49,7 +49,7 @@ void		delete_branch(t_dir **file_list)
 	current = NULL;
 }
 
-void		list_reverse(t_dir **begin_list)
+void			list_reverse(t_dir **begin_list)
 {
 	t_dir	*list_prev;
 	t_dir	*list_cur;
@@ -68,7 +68,7 @@ void		list_reverse(t_dir **begin_list)
 	*begin_list = list_prev;
 }
 
-long long	ft_total(t_dir *file_list)
+long long		ft_total(t_dir *file_list)
 {
 	t_dir		*current;
 	long long	total;
@@ -81,4 +81,31 @@ long long	ft_total(t_dir *file_list)
 		current = current->next_file;
 	}
 	return (total);
+}
+
+void			print_dir(t_ls *ls, t_dir *file_list)
+{
+	t_dir *current;
+
+	current = file_list;
+	while (current)
+	{
+		if (ls->colors == 1)
+		{
+			if (current->type == FT_FILE_EXE)
+				ft_printf(RED_DARK"%s\n"RESET, ft_strrchr(
+					current->path_file, '/') + 1);
+			else if (current->type == FT_DIR)
+				ft_printf(CYAN"%s\n"RESET, ft_strrchr(
+					current->path_file, '/') + 1);
+			else if (current->type == FT_LNK)
+				ft_printf(MAGENTA_DARK"%s\n"RESET, ft_strrchr(
+					current->path_file, '/') + 1);
+			else
+				ft_printf("%s\n", ft_strrchr(current->path_file, '/') + 1);
+		}
+		else
+			ft_printf("%s\n", ft_strrchr(current->path_file, '/') + 1);
+		current = current->next_file;
+	}
 }

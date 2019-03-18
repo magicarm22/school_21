@@ -6,112 +6,123 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 17:53:33 by djast             #+#    #+#             */
-/*   Updated: 2019/03/18 13:26:42 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/18 19:11:57 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void			print_dir(t_ls *ls, t_dir *file_list)
+static void		print_color_else(t_dir *current, char *buf)
 {
-	t_dir *current;
-
-	current = file_list;
-	while (current)
-	{
-		if (ls->colors == 1)
-		{
-			if (current->type == FT_FILE_EXE)
-				ft_printf(RED_DARK"%s\n"RESET, ft_strrchr(
-					current->path_file, '/') + 1);
-			else if (current->type == FT_DIR)
-				ft_printf(CYAN"%s\n"RESET, ft_strrchr(
-					current->path_file, '/') + 1);
-			else if (current->type == FT_LNK)
-				ft_printf(MAGENTA_DARK"%s\n"RESET, ft_strrchr(
-					current->path_file, '/') + 1);
-			else
-				ft_printf("%s\n", ft_strrchr(current->path_file, '/') + 1);
-		}
-		else
-			ft_printf("%s\n", ft_strrchr(current->path_file, '/') + 1);
-		current = current->next_file;
-	}
+	if (current->type == FT_DIR)
+		ft_printf("%-10s %2d %3d %5d %4d %-3s %2s %5s "CYAN"%-s"RESET"\n",
+		ft_strmode(current, current->rules, buf), current->links,
+		getpwuid(current->user)->pw_uid, getgrgid(current->group)->gr_gid,
+		current->size, current->month, current->day, current->time,
+		ft_strrchr(current->path_file, '/') + 1);
+	else if (current->type == FT_FILE_EXE)
+		ft_printf("%-10s %2d %3d %5d %4d %-3s %2s %5s "RED_DARK"%-s"
+			RESET"\n",
+		ft_strmode(current, current->rules, buf), current->links,
+		getpwuid(current->user)->pw_uid, getgrgid(current->group)->gr_gid,
+		current->size, current->month, current->day, current->time,
+		ft_strrchr(current->path_file, '/') + 1);
+	else
+		ft_printf("%-10s %2d %3d %5d %4d %-3s %2s %5s %-s\n",
+		ft_strmode(current, current->rules, buf), current->links,
+		getpwuid(current->user)->pw_uid, getgrgid(current->group)->gr_gid,
+		current->size, current->month, current->day, current->time,
+		ft_strrchr(current->path_file, '/') + 1);
 }
 
-char			*ft_strmode(t_dir *file_list, unsigned int mode, char *buf)
+static void		print_color_gr_user(t_dir *current, char *buf)
 {
-	static char	chars[] = "rwxrwxrwx";
-	int			i;
+	if (current->type == FT_DIR)
+		ft_printf("%-10s %2d %3s %5s %4d %-3s %2s %5s "CYAN"%-s"RESET"\n",
+		ft_strmode(current, current->rules, buf), current->links,
+		getpwuid(current->user)->pw_name, getgrgid(current->group)->gr_name,
+		current->size, current->month, current->day, current->time,
+		ft_strrchr(current->path_file, '/') + 1);
+	else if (current->type == FT_FILE_EXE)
+		ft_printf("%-10s %2d %3s %5s %4d %-3s %2s %5s "RED_DARK"%-s"
+			RESET"\n",
+		ft_strmode(current, current->rules, buf), current->links,
+		getpwuid(current->user)->pw_name, getgrgid(current->group)->gr_name,
+		current->size, current->month, current->day, current->time,
+		ft_strrchr(current->path_file, '/') + 1);
+	else
+		ft_printf("%-10s %2d %3s %5s %4d %-3s %2s %5s %-s\n",
+		ft_strmode(current, current->rules, buf), current->links,
+		getpwuid(current->user)->pw_name, getgrgid(current->group)->gr_name,
+		current->size, current->month, current->day, current->time,
+		ft_strrchr(current->path_file, '/') + 1);
+}
 
-	i = 1;
-	if (file_list->type == FT_DIR)
-		buf[0] = 'd';
-	else if (file_list->type == FT_LNK)
-		buf[0] = 'l';
-	else if (file_list->type == FT_SOCK)
-		buf[0] = 's';
-	else
-		buf[0] = '-';
-	while (i < 10)
+static void		print_color_long(t_ls *ls, t_dir *current, char *buf)
+{
+	char		*file_link;
+
+	if (current->type == FT_LNK)
 	{
-		buf[i] = (mode & (1 << (8 - i + 1))) ? chars[i - 1] : '-';
-		i++;
+		file_link = ft_strnew(current->size);
+		readlink(current->path_file, file_link, current->size);
+		ft_printf("%-10s %2d %3s %5s %4d %-3s %2s %5s "MAGENTA_DARK"%-s"
+			RESET" -> %3s\n",
+		ft_strmode(current, current->rules, buf), current->links,
+		getpwuid(current->user)->pw_name, getgrgid(current->group)->gr_name,
+		current->size, current->month, current->day, current->time,
+		ft_strrchr(current->path_file, '/') + 1, file_link);
+		free(file_link);
 	}
-	if (file_list->extended_attributes > 0)
-		buf[10] = '@';
+	else if (ls->is_numb_gr_user)
+		print_color_gr_user(current, buf);
 	else
-		buf[10] = 0;
-	return (buf);
+		print_color_else(current, buf);
 }
 
 static void		print_long2(t_ls *ls, t_dir *current, char *buf)
 {
-	ls->colors == 1 && current->type == FT_FILE_EXE ?
-					(void)ft_printf(RED_DARK) : NULL;
-	ls->colors == 1 && current->type == FT_DIR ?
-					(void)ft_printf(CYAN) : NULL;
-	ls->colors == 1 && current->type == FT_LNK ?
-					(void)ft_printf(MAGENTA_DARK) : NULL;
-	if (ls->is_numb_gr_user && current->type != FT_LNK)
+	char		*file_link;
+
+	if (current->type == FT_LNK)
+	{
+		file_link = ft_strnew(current->size);
+		readlink(current->path_file, file_link, current->size);
+		ft_printf("%-10s %2d %3s %5s %4d %-3s %2s %5s %-s -> %3s\n",
+		ft_strmode(current, current->rules, buf), current->links,
+		getpwuid(current->user)->pw_name, getgrgid(current->group)->gr_name,
+		current->size, current->month, current->day, current->time,
+		ft_strrchr(current->path_file, '/') + 1, file_link);
+		free(file_link);
+	}
+	else if (ls->is_numb_gr_user)
 		ft_printf("%-10s %2d %3d %5d %4d %-3s %2s %5s %-s\n",
 			ft_strmode(current, current->rules, buf), current->links,
 			getpwuid(current->user)->pw_uid, getgrgid(current->group)->gr_gid,
 			current->size, current->month, current->day, current->time,
 			ft_strrchr(current->path_file, '/') + 1);
-	else if (current->type != FT_LNK)
+	else
 		ft_printf("%-10s %2d %3s %5s %4d %-3s %2s %5s %-s\n",
 			ft_strmode(current, current->rules, buf), current->links,
 			getpwuid(current->user)->pw_name, getgrgid(current->group)->gr_name,
 			current->size, current->month, current->day, current->time,
 			ft_strrchr(current->path_file, '/') + 1);
-	ls->colors == 1 ? (void)ft_printf(RESET) : NULL;
 }
 
 void			print_long(t_ls *ls, t_dir *file_list)
 {
 	t_dir		*current;
 	char		*buf;
-	char		*file_link;
 
 	ft_printf("total %lld\n", ft_total(file_list));
 	current = file_list;
 	while (current)
 	{
 		buf = ft_strnew(11);
-		if (current->type == FT_LNK)
-		{
-			file_link = ft_strnew(current->size);
-			readlink(current->path_file, file_link, current->size);
-			ls->colors == 1 ? (void)ft_printf(MAGENTA_DARK) : NULL;
-			ft_printf("%-10s %2d %3s %5s %4d %-3s %2s %5s %-s -> %3s\n",
-			ft_strmode(current, current->rules, buf), current->links,
-			getpwuid(current->user)->pw_name, getgrgid(current->group)->gr_name,
-			current->size, current->month, current->day, current->time,
-			ft_strrchr(current->path_file, '/') + 1, file_link);
-			ls->colors == 1 ? (void)ft_printf(RESET) : NULL;
-		}
-		print_long2(ls, current, buf);
+		if (ls->colors == 1)
+			print_color_long(ls, current, buf);
+		else
+			print_long2(ls, current, buf);
 		current = current->next_file;
 		free(buf);
 	}

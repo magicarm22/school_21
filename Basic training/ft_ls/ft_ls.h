@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:44:15 by djast             #+#    #+#             */
-/*   Updated: 2019/03/18 11:36:09 by vurrigon         ###   ########.fr       */
+/*   Updated: 2019/03/18 19:10:11 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ long long			ft_total(t_dir *file_list);
 void				list_push_back(t_dir **begin_list, char *fname,
 									unsigned char type);
 t_dir				*ft_create_file(char *fname, t_dir *subdir, int type);
-
+char				*ft_strmode(t_dir *file_list, unsigned int mode, char *buf);
+char				*generate_name(t_dir **file_list, struct dirent *d);
 #endif

@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 19:21:58 by djast             #+#    #+#             */
-/*   Updated: 2019/03/18 13:34:17 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/18 19:06:24 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void				check_dirs(t_ls *ls)
 	i = 0;
 	while (ls->path[i])
 	{
-		
 		if (!(dir = opendir(ls->path[i])))
 		{
 			ft_printf("ft_ls: %s: No such file or directory\n",

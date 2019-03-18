@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 18:52:11 by djast             #+#    #+#             */
-/*   Updated: 2019/03/18 13:34:09 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/18 19:09:33 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	sort_list(t_ls *ls, t_dir **file_list, char *start_path)
 	print_long(ls, (*file_list)->next_file);
 	ls->is_recursive == 1 ? find_subdirs(ls, &(*file_list)->next_file,
 		start_path) : NULL;
-	delete_branch(file_list);
+	
 }
 
 static DIR	*print_open_dir(const char *bpath, t_ls *ls, t_dir **file_list,
@@ -51,7 +51,6 @@ static void	add_in_list(const char *bpath, t_ls *ls, t_dir **file_list,
 	DIR				*dir;
 	char			*path;
 	struct dirent	*d;
-	char			*tmp;
 	int				flag;
 
 	dir = print_open_dir(bpath, ls, file_list, start_path);
@@ -64,15 +63,13 @@ static void	add_in_list(const char *bpath, t_ls *ls, t_dir **file_list,
 		if ((!ft_strcmp(d->d_name, ".") || !ft_strcmp(d->d_name, "..")) &&
 			ls->is_almost_all && !ls->is_with_dot)
 			continue ;
-		path = ft_strjoin((*file_list)->path_file, "/");
-		tmp = path;
-		path = ft_strjoin(path, d->d_name);
-		free(tmp);
+		path = generate_name(file_list, d);
 		list_push_back(file_list, path, d->d_type);
 		flag = 1;
 	}
 	closedir(dir);
 	flag == 1 ? sort_list(ls, file_list, start_path) : NULL;
+	delete_branch(file_list);
 }
 
 void		find_subdirs(t_ls *ls, t_dir **begin_list, char *start_path)
