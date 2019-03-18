@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 17:53:33 by djast             #+#    #+#             */
-/*   Updated: 2019/03/18 12:59:31 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/18 13:26:42 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,19 @@ static void		print_long2(t_ls *ls, t_dir *current, char *buf)
 					(void)ft_printf(CYAN) : NULL;
 	ls->colors == 1 && current->type == FT_LNK ?
 					(void)ft_printf(MAGENTA_DARK) : NULL;
-	if (ls->is_numb_gr_user)
-	{
-		ft_printf("%-10s %2d %3d %5d %4d %-3s %2s %5s %-s\n"RESET,
+	if (ls->is_numb_gr_user && current->type != FT_LNK)
+		ft_printf("%-10s %2d %3d %5d %4d %-3s %2s %5s %-s\n",
 			ft_strmode(current, current->rules, buf), current->links,
 			getpwuid(current->user)->pw_uid, getgrgid(current->group)->gr_gid,
 			current->size, current->month, current->day, current->time,
 			ft_strrchr(current->path_file, '/') + 1);
-	}
-	else
-		ft_printf("%-10s %2d %3s %5s %4d %-3s %2s %5s %-s\n"RESET,
+	else if (current->type != FT_LNK)
+		ft_printf("%-10s %2d %3s %5s %4d %-3s %2s %5s %-s\n",
 			ft_strmode(current, current->rules, buf), current->links,
 			getpwuid(current->user)->pw_name, getgrgid(current->group)->gr_name,
 			current->size, current->month, current->day, current->time,
 			ft_strrchr(current->path_file, '/') + 1);
+	ls->colors == 1 ? (void)ft_printf(RESET) : NULL;
 }
 
 void			print_long(t_ls *ls, t_dir *file_list)
@@ -105,14 +104,14 @@ void			print_long(t_ls *ls, t_dir *file_list)
 			file_link = ft_strnew(current->size);
 			readlink(current->path_file, file_link, current->size);
 			ls->colors == 1 ? (void)ft_printf(MAGENTA_DARK) : NULL;
-			ft_printf("%-10s %2d %3s %5s %4d %-3s %2s %5s %-s -> %3s\n" RESET,
+			ft_printf("%-10s %2d %3s %5s %4d %-3s %2s %5s %-s -> %3s\n",
 			ft_strmode(current, current->rules, buf), current->links,
 			getpwuid(current->user)->pw_name, getgrgid(current->group)->gr_name,
 			current->size, current->month, current->day, current->time,
 			ft_strrchr(current->path_file, '/') + 1, file_link);
+			ls->colors == 1 ? (void)ft_printf(RESET) : NULL;
 		}
-		else
-			print_long2(ls, current, buf);
+		print_long2(ls, current, buf);
 		current = current->next_file;
 		free(buf);
 	}

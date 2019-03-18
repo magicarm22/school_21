@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_lists.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 18:52:11 by djast             #+#    #+#             */
-/*   Updated: 2019/03/18 12:51:44 by vurrigon         ###   ########.fr       */
+/*   Updated: 2019/03/18 13:34:09 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,11 @@ int			prepare_output(t_ls *ls)
 	i = 0;
 	while (ls->path[i])
 	{
+		if (ft_strcmp(ls->path[i], "") == 0)
+		{
+			i++;
+			continue ;
+		}
 		file_list = ft_create_file(ft_strdup(ls->path[i]), NULL, FT_ROOT);
 		add_in_list(ls->path[i], ls, &file_list, ls->path[i]);
 		i++;
