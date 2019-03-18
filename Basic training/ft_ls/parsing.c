@@ -6,7 +6,7 @@
 /*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 19:21:58 by djast             #+#    #+#             */
-/*   Updated: 2019/03/14 17:44:01 by vurrigon         ###   ########.fr       */
+/*   Updated: 2019/03/18 12:03:54 by vurrigon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,25 @@ int					parsing_dirs(char const **str, t_ls *ls, int index)
 	return (count > 0 ? 1 : 0);
 }
 
+void				check_dirs(t_ls *ls)
+{
+	int	i;
+	DIR	*dir;
+
+	i = 0;
+	while (ls->path[i])
+	{
+		if (!(dir = opendir(ls->path[i++])))
+			ft_printf("ft_ls: %s: No such file or directory\n",
+				ls->path[i - 1]);
+		closedir(dir);
+	}
+}
+
 int					parsing_flags(int argc, char const **flags, t_ls *ls)
 {
 	int i;
 	int res;
-	DIR	*dir;
 
 	i = 0;
 	while (i++ < argc - 1)
@@ -108,11 +122,6 @@ int					parsing_flags(int argc, char const **flags, t_ls *ls)
 			break ;
 	}
 	parsing_dirs(flags, ls, i);
-	i = 0;
-	while (ls->path[i])
-		if (!(dir = opendir(ls->path[i++])))
-			ft_printf("ft_ls: %s: No such file or directory\n",
-				ls->path[i - 1]);
-		closedir(dir);
+	check_dirs(ls);
 	return (0);
 }

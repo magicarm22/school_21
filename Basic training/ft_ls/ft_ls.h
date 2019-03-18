@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:44:15 by djast             #+#    #+#             */
-/*   Updated: 2019/03/18 11:08:22 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/18 11:36:09 by vurrigon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,11 @@ void				print_dir(t_ls *ls, t_dir *file_list);
 void				print_long(t_ls *ls, t_dir *file_list);
 void				delete_branch(t_dir **file_list);
 void				list_reverse(t_dir **begin_list);
-void				find_subdirs(t_ls *ls, t_dir **begin_list, char *start_path);
+void				find_subdirs(t_ls *ls, t_dir **begin_list,
+									char *start_path);
 long long			ft_total(t_dir *file_list);
+void				list_push_back(t_dir **begin_list, char *fname,
+									unsigned char type);
+t_dir				*ft_create_file(char *fname, t_dir *subdir, int type);
 
 #endif

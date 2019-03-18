@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 19:52:06 by djast             #+#    #+#             */
-/*   Updated: 2019/03/18 11:06:24 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/18 11:30:47 by vurrigon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			ft_size_array(char **str)
 {
-	int size;
+	int	size;
 
 	size = 0;
 	while (str[size])
@@ -51,9 +51,9 @@ void		delete_branch(t_dir **file_list)
 
 void		list_reverse(t_dir **begin_list)
 {
-	t_dir *list_prev;
-	t_dir *list_cur;
-	t_dir *list_next;
+	t_dir	*list_prev;
+	t_dir	*list_cur;
+	t_dir	*list_next;
 
 	list_next = NULL;
 	list_prev = NULL;
@@ -68,7 +68,7 @@ void		list_reverse(t_dir **begin_list)
 	*begin_list = list_prev;
 }
 
-long long		ft_total(t_dir *file_list)
+long long	ft_total(t_dir *file_list)
 {
 	t_dir		*current;
 	long long	total;
