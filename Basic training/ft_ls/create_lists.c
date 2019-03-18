@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 18:52:11 by djast             #+#    #+#             */
-/*   Updated: 2019/03/13 19:57:42 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/18 11:07:45 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_dir		*ft_create_file(char *fname, t_dir *subdir, int type)
 	char		**mtime;
 	int			i;
 
-	stat(fname, &status);
+	lstat(fname, &status);
 	list = malloc(sizeof(t_dir));
 	if (list)
 	{
@@ -27,10 +27,10 @@ t_dir		*ft_create_file(char *fname, t_dir *subdir, int type)
 		list->next_file = NULL;
 		list->subdir = subdir;
 		list->type = type;
-		list->rules = 0;
-		list->links = 0;
-		list->user = 0;
-		list->group = 0;
+		list->rules = status.st_mode;
+		list->links = status.st_nlink;
+		list->user = status.st_uid;
+		list->group = status.st_gid;
 		list->size = status.st_size;
 		mtime = ft_strsplit(ctime(&status.st_mtime), ' ');
 		list->month = ft_strdup(mtime[1]);
@@ -39,7 +39,7 @@ t_dir		*ft_create_file(char *fname, t_dir *subdir, int type)
 		list->mtime = status.st_mtimespec.tv_sec;
 		list->mtime_nano = status.st_mtimespec.tv_nsec;
 		list->block = status.st_blocks;
-		list->extended_attributes = 0;
+		list->extended_attributes = listxattr(list->path_file, NULL, 300, 0);
 		i = 0;
 		while (i != 5)
 			free(mtime[i++]);
@@ -66,6 +66,8 @@ void		list_push_back(t_dir **begin_list, char *fname, unsigned char type)
 			current->next_file = ft_create_file(fname, NULL, FT_FILE);
 		else if (type == DT_LNK)
 			current->next_file = ft_create_file(fname, NULL, FT_LNK);
+		else if (type == DT_SOCK)
+			current->next_file = ft_create_file(fname, NULL, FT_SOCK);
 	}
 }
 
@@ -104,6 +106,7 @@ static int	add_in_list(const char *bpath, t_ls *ls, t_dir **file_list,
 		flag = 1;
 	}
 	closedir(dir);
+
 	if (flag == 1)
 	{
 		if (!ls->not_sort)
@@ -130,7 +133,9 @@ void		find_subdirs(t_ls *ls, t_dir **begin_list, char *start_path)
 	current = *begin_list;
 	while (current != NULL)
 	{
-		if (current->type == FT_DIR && !ft_strstr(current->path_file, ".."))
+		if (current->type == FT_DIR && ft_strncmp((current->path_file +
+				((int)ft_strlen(current->path_file) - 2)), "..", 2) != 0)
+		{
 			if (ft_strncmp((current->path_file +
 				((int)ft_strlen(current->path_file) - 2)), "/.", 2) != 0)
 			{
@@ -139,6 +144,7 @@ void		find_subdirs(t_ls *ls, t_dir **begin_list, char *start_path)
 				add_in_list(current->path_file, ls, &(current->subdir),
 								start_path);
 			}
+		}
 		current = current->next_file;
 	}
 }

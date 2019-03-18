@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:41:23 by djast             #+#    #+#             */
-/*   Updated: 2019/03/13 19:55:58 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/14 16:54:22 by vurrigon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int			main(int argc, char const *argv[])
 		ls->path[1] = NULL;
 	}
 	prepare_output(ls);
-	//free(ls->path);
+	free(ls->path);
 	free(ls);
 	return (0);
 }

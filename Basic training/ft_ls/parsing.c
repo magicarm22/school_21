@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 19:21:58 by djast             #+#    #+#             */
-/*   Updated: 2019/03/13 18:48:25 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/14 17:44:01 by vurrigon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int					parsing_flags(int argc, char const **flags, t_ls *ls)
 {
 	int i;
 	int res;
+	DIR	*dir;
 
 	i = 0;
 	while (i++ < argc - 1)
@@ -109,8 +110,9 @@ int					parsing_flags(int argc, char const **flags, t_ls *ls)
 	parsing_dirs(flags, ls, i);
 	i = 0;
 	while (ls->path[i])
-		if (opendir(ls->path[i++]) == NULL)
+		if (!(dir = opendir(ls->path[i++])))
 			ft_printf("ft_ls: %s: No such file or directory\n",
 				ls->path[i - 1]);
+		closedir(dir);
 	return (0);
 }

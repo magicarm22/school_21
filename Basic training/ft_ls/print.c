@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 17:53:33 by djast             #+#    #+#             */
-/*   Updated: 2019/03/13 20:09:18 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/18 11:08:46 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char			*ft_strmode(t_dir *file_list, unsigned int mode, char *buf)
 		buf[0] = 'd';
 	else if (file_list->type == FT_LNK)
 		buf[0] = 'l';
+	else if (file_list->type == FT_SOCK)
+		buf[0] = 's';
 	else
 		buf[0] = '-';
 	while (i < 10)
@@ -61,21 +63,6 @@ char			*ft_strmode(t_dir *file_list, unsigned int mode, char *buf)
 	else
 		buf[10] = 0;
 	return (buf);
-}
-
-long long		ft_total(t_dir *file_list)
-{
-	t_dir		*current;
-	long long	total;
-
-	total = 0;
-	current = file_list;
-	while (current)
-	{
-		total += current->block;
-		current = current->next_file;
-	}
-	return (total);
 }
 
 static void		print_long2(t_ls *ls, t_dir *current, char *buf)
@@ -100,7 +87,7 @@ void			print_long(t_ls *ls, t_dir *file_list)
 	char		*buf;
 	char		*file_link;
 
-	take_info(file_list);
+	//take_info(file_list);
 	ft_printf("total %lld\n", ft_total(file_list));
 	current = file_list;
 	while (current)
@@ -123,7 +110,7 @@ void			print_long(t_ls *ls, t_dir *file_list)
 		else
 			print_long2(ls, current, buf);
 		current = current->next_file;
-		//free(buf);
+		free(buf);
 		
 	}
 }
