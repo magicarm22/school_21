@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_lists.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 18:52:11 by djast             #+#    #+#             */
-/*   Updated: 2019/03/18 19:09:33 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/18 19:19:47 by vurrigon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	sort_list(t_ls *ls, t_dir **file_list, char *start_path)
 	print_long(ls, (*file_list)->next_file);
 	ls->is_recursive == 1 ? find_subdirs(ls, &(*file_list)->next_file,
 		start_path) : NULL;
-	
 }
 
 static DIR	*print_open_dir(const char *bpath, t_ls *ls, t_dir **file_list,

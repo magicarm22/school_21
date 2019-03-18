@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vurrigon <vurrigon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 18:54:51 by djast             #+#    #+#             */
-/*   Updated: 2019/03/18 19:08:54 by djast            ###   ########.fr       */
+/*   Updated: 2019/03/18 19:19:59 by vurrigon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char			*ft_strmode(t_dir *file_list, unsigned int mode, char *buf)
 	return (buf);
 }
 
-char *generate_name(t_dir **file_list, struct dirent *d)
+char			*generate_name(t_dir **file_list, struct dirent *d)
 {
 	char *path;
 	char *tmp;
