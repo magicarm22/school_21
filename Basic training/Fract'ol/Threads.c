@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 14:17:39 by djast             #+#    #+#             */
-/*   Updated: 2019/05/08 16:34:58 by djast            ###   ########.fr       */
+/*   Updated: 2019/05/08 18:33:22 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ int init_threads_and_start(t_complex *clx, t_mlx *mlx)
 	}
 	while (i-- >= 0)
 		pthread_join(threads[i], NULL);
+	free_args(args);
 	return (1);
 }

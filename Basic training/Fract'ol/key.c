@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 17:00:08 by djast             #+#    #+#             */
-/*   Updated: 2019/05/08 17:24:14 by djast            ###   ########.fr       */
+/*   Updated: 2019/05/08 18:35:38 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ int		key_release(int key, t_mlx *mlx)
 		close_win(mlx);
 	else if (key == 0 || key == 2 || key == 1 || key == 13)
 		move(mlx, key);
+	else if (key == 18 || key == 19 || key == 20 || key == 21 || key == 23)
+	{
+		mlx->color_mode = key - 17;
+		restart(mlx);
+	}
 	else if (key == 3)
 		mlx->fixed_image = !mlx->fixed_image;
 	else if (key == 69)
@@ -45,6 +50,7 @@ int		key_release(int key, t_mlx *mlx)
 int		close_win(t_mlx *mlx)
 {
 	(void) mlx;
+	free_mlx(mlx);
 	exit(0);
 	return (0);
 }
@@ -79,9 +85,12 @@ int		mouse_move(int x, int y, t_mlx *mlx)
 	restart(mlx);
 	if (ft_strcmp(mlx->type, "julia") == 0 && mlx->fixed_image == 0)
 	{
+
 		clx = (t_complex *)malloc(sizeof(t_complex));
 		clx->c = ((double)x - (SIZE_MAP_X / 2)) /SIZE_MAP_X;
 		clx->i = ((double)y - (SIZE_MAP_Y / 2)) /SIZE_MAP_Y;
+		if (mlx->clx != NULL)
+			free(mlx->clx);
 		mlx->clx = clx;
 		init_threads_and_start(clx, mlx);
 	}

@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:50:55 by djast             #+#    #+#             */
-/*   Updated: 2019/05/08 17:27:34 by djast            ###   ########.fr       */
+/*   Updated: 2019/05/08 18:31:13 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct		s_mlx
 	void			*w_p;
 	void			*img;
 	int				*img_data;
-	t_point			**points;
 	int				bbp;
 	int				size_line;
 	int				endian;
@@ -60,6 +59,7 @@ typedef struct		s_mlx
 	int				max_step;
 	t_complex		*clx;
 	int 			fixed_image : 2;
+	int				color_mode;
 }					t_mlx;
 
 
@@ -107,5 +107,6 @@ int			init_threads_and_start(t_complex *clx, t_mlx *mlx);
 void		mandelbrot_threads(t_complex *clx, t_mlx *mlx);
 int			mouse_move(int x, int y, t_mlx *mlx);
 void 		start_mlx(const char *fractol_name);
-
+void		free_mlx(t_mlx *mlx);
+void		free_args(t_thread **args);
 #endif
