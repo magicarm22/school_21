@@ -16,13 +16,13 @@ void		restart(t_mlx *mlx)
 {
 	mlx_clear_window(mlx->m_p, mlx->w_p);
 	ft_bzero(mlx->img_data, SIZE_MAP_X * SIZE_MAP_Y);
-	if (ft_strcmp(mlx->type, "julia") == 0)
+	if (ft_strcmp(mlx->type, "fractol_params") == 0)
 	{
-		julia_threads(mlx->clx, mlx);
+		init_threads_and_start(mlx->clx, mlx);
 	}
 	if (ft_strcmp(mlx->type, "mandelbrot") == 0)
 	{
-		mandelbrot_threads(mlx->clx, mlx);
+		init_threads_and_start(mlx->clx, mlx);
 	}
 		mlx_put_image_to_window(mlx->m_p, mlx->w_p, mlx->img, 0, 0);
 }

@@ -22,6 +22,8 @@
 # define SIZE_MAP_X 600
 # define SIZE_MAP_Y 600
 # define NUM_THREADS 4
+# define FRACTOL_fractol_params 1
+# define FRACTOL_MANDEL 2
 
 typedef struct		s_points
 {
@@ -51,15 +53,15 @@ typedef struct		s_mlx
 	int				endian;
 	long long		zoom;
 	char			*type;
-	double			place_x;
-	double			place_y;
+	int				place_x;
+	int				place_y;
 	int				max_step;
 	t_complex		*clx;
 	int 			fixed_image : 2;
 }					t_mlx;
 
 
-typedef struct		s_julia	
+typedef struct		s_fractol	
 {
 	t_complex		*const_C;
 	long double		const_R;
@@ -73,7 +75,7 @@ typedef struct		s_julia
     long double		yStep;
     int				max_idx;
     long double		tmp;
-}					t_julia;
+}					t_fractol;
 
 typedef struct		s_thread
 {
@@ -86,19 +88,20 @@ typedef struct		s_thread
 	int 			max_x;
 	int 			max_y;
 	int				num_thread;
+	int				type_of_fractol;
 }					t_thread;
 
 
 
 
 t_mlx		*init_struct_mlx();
-void		*julia_fractol();
+void		*init_fractol_and_start_to_calc();
 int			key_release(int key, t_mlx *mlx);
 int			close_win(t_mlx *mlx);
 void		*mandelbrot_fractol();
 int			mouse_press(int button, int x, int y, t_mlx *mlx);
 void		restart(t_mlx *mlx);
-void		julia_threads(t_complex *clx, t_mlx *mlx);
+int		init_threads_and_start(t_complex *clx, t_mlx *mlx);
 void		mandelbrot_threads(t_complex *clx, t_mlx *mlx);
 int			mouse_move(int x, int y, t_mlx *mlx);
 

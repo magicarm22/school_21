@@ -76,15 +76,15 @@ int		mouse_move(int x, int y, t_mlx *mlx)
 	t_complex *clx;
 
 	restart(mlx);
-	if (ft_strcmp(mlx->type, "julia") == 0 && mlx->fixed_image == 0)
+	if (ft_strcmp(mlx->type, "fractol_params") == 0 && mlx->fixed_image == 0)
 	{
 		clx = (t_complex *)malloc(sizeof(t_complex));
 		clx->c = ((double)x - (SIZE_MAP_X / 2)) /SIZE_MAP_X;
 		clx->i = ((double)y - (SIZE_MAP_Y / 2)) /SIZE_MAP_Y;
 		mlx->clx = clx;
-		julia_threads(clx, mlx);
+		init_threads_and_start(clx, mlx);
 	}
-	else if (ft_strcmp(mlx->type, "julia") == 0 && mlx->fixed_image == 1)
-		julia_threads(mlx->clx, mlx);
+	else if (ft_strcmp(mlx->type, "fractol_params") == 0 && mlx->fixed_image == 1)
+		init_threads_and_start(mlx->clx, mlx);
 	return (0);
 }

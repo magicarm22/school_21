@@ -20,7 +20,7 @@ int main(int argc, char const *argv[])
 	if (argc < 2)
 	{
 		ft_putstr("Invalid argument\n");
-		ft_putstr("Usage: ./fractol [julia/mandelbrot]");
+		ft_putstr("Usage: ./fractol [fractol_params/mandelbrot]");
 		return (-1);
 	}
 
@@ -32,7 +32,7 @@ int main(int argc, char const *argv[])
 	mlx->img_data = (int *)mlx_get_data_addr(mlx->img, &mlx->bbp,
 		&mlx->size_line, &mlx->endian);
 	mlx->type = (char *)argv[1];
-	if (ft_strcmp(mlx->type, "julia") == 0)
+	if (ft_strcmp(mlx->type, "fractol_params") == 0)
 	{
 		mlx->clx = (t_complex *)malloc(sizeof(t_complex));
 		mlx->clx->c = 0;
@@ -43,12 +43,12 @@ int main(int argc, char const *argv[])
 		mlx->clx = (t_complex *)malloc(sizeof(t_complex));
 		mlx->clx->c = 0;
 		mlx->clx->i = 0;
-		mandelbrot_threads(mlx->clx, mlx);
+		init_threads_and_start(mlx->clx, mlx);
 	}
 	else
 	{
 		ft_putstr("Invalid argument\n");
-		ft_putstr("Usage: ./fractol [julia/mandelbrot]");
+		ft_putstr("Usage: ./fractol [fractol_params/mandelbrot]");
 		return (-1);
 	}
 	mlx_put_image_to_window(mlx->m_p, mlx->w_p, mlx->img, 0, 0);
