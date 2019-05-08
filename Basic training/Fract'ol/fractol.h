@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:50:55 by djast             #+#    #+#             */
-/*   Updated: 2019/03/29 16:43:19 by djast            ###   ########.fr       */
+/*   Updated: 2019/05/08 17:27:34 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@
 # define SIZE_MAP_X 600
 # define SIZE_MAP_Y 600
 # define NUM_THREADS 4
-# define FRACTOL_fractol_params 1
+# define FRACTOL_JULIA 1
 # define FRACTOL_MANDEL 2
+# define FRACTOL_BURN 3
+# define FRACTOL_NEWTON 4
 
 typedef struct		s_points
 {
@@ -53,8 +55,8 @@ typedef struct		s_mlx
 	int				endian;
 	long long		zoom;
 	char			*type;
-	int				place_x;
-	int				place_y;
+	long double		place_x;
+	long double		place_y;
 	int				max_step;
 	t_complex		*clx;
 	int 			fixed_image : 2;
@@ -95,14 +97,15 @@ typedef struct		s_thread
 
 
 t_mlx		*init_struct_mlx();
-void		*init_fractol_and_start_to_calc();
+void		*start_to_calc_fractol();
 int			key_release(int key, t_mlx *mlx);
 int			close_win(t_mlx *mlx);
 void		*mandelbrot_fractol();
 int			mouse_press(int button, int x, int y, t_mlx *mlx);
 void		restart(t_mlx *mlx);
-int		init_threads_and_start(t_complex *clx, t_mlx *mlx);
+int			init_threads_and_start(t_complex *clx, t_mlx *mlx);
 void		mandelbrot_threads(t_complex *clx, t_mlx *mlx);
 int			mouse_move(int x, int y, t_mlx *mlx);
+void 		start_mlx(const char *fractol_name);
 
 #endif

@@ -6,17 +6,19 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 17:00:08 by djast             #+#    #+#             */
-/*   Updated: 2019/03/28 18:23:43 by djast            ###   ########.fr       */
+/*   Updated: 2019/05/08 17:24:14 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+
+
 void		move(t_mlx *mlx, int direction)
 {
 	double		step;
 
-	step = direction == 0 || direction == 13 ? -0.1/mlx->zoom: 0.10/mlx->zoom;
+	step = direction == 0 || direction == 13 ? -0.1/mlx->zoom: 0.1/mlx->zoom;
 	if (direction == 0 || direction == 2)
 		mlx->place_x = mlx->place_x + step;
 	else if (direction == 13 || direction == 1)
@@ -43,7 +45,6 @@ int		key_release(int key, t_mlx *mlx)
 int		close_win(t_mlx *mlx)
 {
 	(void) mlx;
-//	free_mem(mlx);
 	exit(0);
 	return (0);
 }
@@ -76,7 +77,7 @@ int		mouse_move(int x, int y, t_mlx *mlx)
 	t_complex *clx;
 
 	restart(mlx);
-	if (ft_strcmp(mlx->type, "fractol_params") == 0 && mlx->fixed_image == 0)
+	if (ft_strcmp(mlx->type, "julia") == 0 && mlx->fixed_image == 0)
 	{
 		clx = (t_complex *)malloc(sizeof(t_complex));
 		clx->c = ((double)x - (SIZE_MAP_X / 2)) /SIZE_MAP_X;
@@ -84,7 +85,7 @@ int		mouse_move(int x, int y, t_mlx *mlx)
 		mlx->clx = clx;
 		init_threads_and_start(clx, mlx);
 	}
-	else if (ft_strcmp(mlx->type, "fractol_params") == 0 && mlx->fixed_image == 1)
+	else if (ft_strcmp(mlx->type, "julia") == 0 && mlx->fixed_image == 1)
 		init_threads_and_start(mlx->clx, mlx);
 	return (0);
 }
