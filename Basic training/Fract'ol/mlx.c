@@ -6,13 +6,13 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:53:10 by djast             #+#    #+#             */
-/*   Updated: 2019/05/08 18:12:48 by djast            ###   ########.fr       */
+/*   Updated: 2019/05/27 18:38:17 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-t_mlx		*init_struct_mlx()
+t_mlx		*init_struct_mlx(void)
 {
 	t_mlx *s_mlx;
 
@@ -30,7 +30,7 @@ t_mlx		*init_struct_mlx()
 	return (s_mlx);
 }
 
-void start_mlx(const char *fractol_name)
+void		start_mlx(const char *fractol_name)
 {
 	t_mlx *mlx;
 
@@ -42,9 +42,9 @@ void start_mlx(const char *fractol_name)
 	mlx->img_data = (int *)mlx_get_data_addr(mlx->img, &mlx->bbp,
 		&mlx->size_line, &mlx->endian);
 	mlx->type = (char *)fractol_name;
-		mlx->clx = (t_complex *)malloc(sizeof(t_complex));
-		mlx->clx->c = 0;
-		mlx->clx->i = 0;
+	mlx->clx = (t_complex *)malloc(sizeof(t_complex));
+	mlx->clx->c = 0;
+	mlx->clx->i = 0;
 	if (ft_strcmp(fractol_name, "julia") != 0)
 		init_threads_and_start(mlx->clx, mlx);
 	mlx_put_image_to_window(mlx->m_p, mlx->w_p, mlx->img, 0, 0);

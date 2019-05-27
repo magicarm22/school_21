@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 16:42:55 by djast             #+#    #+#             */
-/*   Updated: 2019/05/08 18:40:37 by djast            ###   ########.fr       */
+/*   Updated: 2019/05/27 18:21:17 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void		restart(t_mlx *mlx)
 {
 	char *steps;
 
+	printf("%Lf %Lf\n", mlx->place_x, mlx->place_y);
 	mlx_clear_window(mlx->m_p, mlx->w_p);
 	ft_bzero(mlx->img_data, SIZE_MAP_X * SIZE_MAP_Y);
 	init_threads_and_start(mlx->clx, mlx);
@@ -26,14 +27,14 @@ void		restart(t_mlx *mlx)
 	free(steps);
 }
 
-void free_mlx(t_mlx *mlx)
+void		free_mlx(t_mlx *mlx)
 {
 	free(mlx->img_data);
 	free(mlx->clx);
 	free(mlx);
 }
 
-void free_args(t_thread **args)
+void		free_args(t_thread **args)
 {
 	int i;
 

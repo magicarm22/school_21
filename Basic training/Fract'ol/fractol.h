@@ -6,12 +6,12 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:50:55 by djast             #+#    #+#             */
-/*   Updated: 2019/05/08 18:31:13 by djast            ###   ########.fr       */
+/*   Updated: 2019/05/27 15:55:58 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
-#define FRACTOL_H
+# define FRACTOL_H
 
 # include "./mlx/mlx.h"
 # include "./libft/libft.h"
@@ -40,7 +40,6 @@ typedef struct		s_complex
 	long double i;
 }					t_complex;
 
-
 typedef struct		s_mlx
 {
 	int				size_map_x;
@@ -58,55 +57,53 @@ typedef struct		s_mlx
 	long double		place_y;
 	int				max_step;
 	t_complex		*clx;
-	int 			fixed_image : 2;
+	int				fixed_image : 2;
 	int				color_mode;
 }					t_mlx;
 
-
-typedef struct		s_fractol	
+typedef struct		s_fractol
 {
-	t_complex		*const_C;
-	long double		const_R;
+	t_complex		*const_c;
 	int				step;
-	int 			max_step;
-	long double		xMin;
-    long double		yMin;
-    long double		xMax;
-    long double		yMax;
-    long double		xStep;
-    long double		yStep;
-    int				max_idx;
-    long double		tmp;
+	int				max_step;
+	long double		tmp;
 }					t_fractol;
 
 typedef struct		s_thread
 {
 	t_complex		*clx;
-	t_mlx 			*mlx;
-	int 			min_x;
-	int 			min_y;
-	int 			cur_x;
-	int 			cur_y;
-	int 			max_x;
-	int 			max_y;
+	t_mlx			*mlx;
+	int				min_x;
+	int				min_y;
+	int				cur_x;
+	int				cur_y;
+	int				max_x;
+	int				max_y;
 	int				num_thread;
 	int				type_of_fractol;
 }					t_thread;
 
+t_mlx				*init_struct_mlx();
+void				*start_to_calc_fractol();
+int					key_release(int key, t_mlx *mlx);
+int					close_win(t_mlx *mlx);
+void				*mandelbrot_fractol();
+int					mouse_press(int button, int x, int y, t_mlx *mlx);
+void				restart(t_mlx *mlx);
+int					init_threads_and_start(t_complex *clx, t_mlx *mlx);
+void				mandelbrot_threads(t_complex *clx, t_mlx *mlx);
+int					mouse_move(int x, int y, t_mlx *mlx);
+void				start_mlx(const char *fractol_name);
+void				free_mlx(t_mlx *mlx);
+void				free_args(t_thread **args);
+void julia_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
+										t_fractol *fractol_params);
+void mandelbrot_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
+							t_fractol *fractol_params);
+void burning_ship_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
+							t_fractol *fractol_params);
+void newton_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
+							t_fractol *fractol_params);
+void put_color_by_mode(t_mlx *mlx, t_thread *args, int step);
 
-
-
-t_mlx		*init_struct_mlx();
-void		*start_to_calc_fractol();
-int			key_release(int key, t_mlx *mlx);
-int			close_win(t_mlx *mlx);
-void		*mandelbrot_fractol();
-int			mouse_press(int button, int x, int y, t_mlx *mlx);
-void		restart(t_mlx *mlx);
-int			init_threads_and_start(t_complex *clx, t_mlx *mlx);
-void		mandelbrot_threads(t_complex *clx, t_mlx *mlx);
-int			mouse_move(int x, int y, t_mlx *mlx);
-void 		start_mlx(const char *fractol_name);
-void		free_mlx(t_mlx *mlx);
-void		free_args(t_thread **args);
 #endif

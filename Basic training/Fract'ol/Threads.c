@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Threads.c                                          :+:      :+:    :+:   */
+/*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 14:17:39 by djast             #+#    #+#             */
-/*   Updated: 2019/05/08 18:33:22 by djast            ###   ########.fr       */
+/*   Updated: 2019/05/27 15:52:24 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static int init_thread_args(t_thread ***args)
+static int		init_thread_args(t_thread ***args)
 {
 	int i;
 
@@ -29,7 +29,8 @@ static int init_thread_args(t_thread ***args)
 	return (1);
 }
 
-static int filling_args_for_thread(t_complex *clx, t_mlx *mlx, t_thread *args)
+static int		filling_args_for_thread(t_complex *clx, t_mlx *mlx,
+										t_thread *args)
 {
 	t_complex *new_clx;
 
@@ -55,12 +56,12 @@ static int filling_args_for_thread(t_complex *clx, t_mlx *mlx, t_thread *args)
 	return (1);
 }
 
-int init_threads_and_start(t_complex *clx, t_mlx *mlx)
+int				init_threads_and_start(t_complex *clx, t_mlx *mlx)
 {
-	t_thread **args;
-	pthread_t threads[NUM_THREADS];
-	int i;
-	
+	t_thread		**args;
+	pthread_t		threads[NUM_THREADS];
+	int				i;
+
 	if (init_thread_args(&args) == 0)
 		return (0);
 	i = 0;
@@ -68,7 +69,8 @@ int init_threads_and_start(t_complex *clx, t_mlx *mlx)
 	{
 		args[i]->num_thread = i;
 		if (filling_args_for_thread(clx, mlx, args[i]) == 1)
-			pthread_create(&threads[i], NULL, start_to_calc_fractol, (void *)args[i]);
+			pthread_create(&threads[i], NULL, start_to_calc_fractol,
+							(void *)args[i]);
 		i++;
 	}
 	while (i-- >= 0)
