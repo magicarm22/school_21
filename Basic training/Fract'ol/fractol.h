@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:50:55 by djast             #+#    #+#             */
-/*   Updated: 2019/05/27 15:55:58 by djast            ###   ########.fr       */
+/*   Updated: 2019/06/08 15:34:14 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # define FRACTOL_MANDEL 2
 # define FRACTOL_BURN 3
 # define FRACTOL_NEWTON 4
+# define FRACTOL_CUBIC 5
+# define FRACTOL_QUADRATIC 6
+# define FRACTOL_FIFTH 7
 
 typedef struct		s_points
 {
@@ -96,14 +99,20 @@ int					mouse_move(int x, int y, t_mlx *mlx);
 void				start_mlx(const char *fractol_name);
 void				free_mlx(t_mlx *mlx);
 void				free_args(t_thread **args);
-void julia_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
+void				julia_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
 										t_fractol *fractol_params);
-void mandelbrot_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
+void				mandelbrot_calculate(t_complex *clx, t_mlx *mlx,
+									t_thread *args, t_fractol *fractol_params);
+void				burning_ship_calculate(t_complex *clx, t_mlx *mlx,
+									t_thread *args, t_fractol *fractol_params);
+void				newton_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
+									t_fractol *fractol_params);
+void				put_color_by_mode(t_mlx *mlx, t_thread *args, int step);
+void				cubic_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
 							t_fractol *fractol_params);
-void burning_ship_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
+void				quadratic_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
 							t_fractol *fractol_params);
-void newton_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
+void		 		fifth_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
 							t_fractol *fractol_params);
-void put_color_by_mode(t_mlx *mlx, t_thread *args, int step);
 
 #endif

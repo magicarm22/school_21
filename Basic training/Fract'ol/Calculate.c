@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:50:05 by djast             #+#    #+#             */
-/*   Updated: 2019/05/27 16:00:15 by djast            ###   ########.fr       */
+/*   Updated: 2019/06/08 15:33:12 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ static void		take_fractol(t_thread *args, t_fractol *fractol_params)
 		burning_ship_calculate(args->clx, args->mlx, args, fractol_params);
 	else if (args->type_of_fractol == FRACTOL_NEWTON)
 		newton_calculate(args->clx, args->mlx, args, fractol_params);
+	else if (args->type_of_fractol == FRACTOL_CUBIC)
+		cubic_calculate(args->clx, args->mlx, args, fractol_params);
+	else if (args->type_of_fractol == FRACTOL_QUADRATIC)
+		quadratic_calculate(args->clx, args->mlx, args, fractol_params);
+	else if (args->type_of_fractol == FRACTOL_FIFTH)
+		fifth_calculate(args->clx, args->mlx, args, fractol_params);
 }
 
 void			*start_to_calc_fractol(void *arguments)

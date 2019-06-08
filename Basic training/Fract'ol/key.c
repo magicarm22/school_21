@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 17:00:08 by djast             #+#    #+#             */
-/*   Updated: 2019/05/27 18:32:54 by djast            ###   ########.fr       */
+/*   Updated: 2019/06/08 15:50:47 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,11 @@ int		close_win(t_mlx *mlx)
 
 int		mouse_press(int button, int x, int y, t_mlx *mlx)
 {
-	(void)x;
-	(void)y;
-	(void)button;
+	long long tmp;
+
 	if (button == 4)
 	{
-		if (mlx->zoom != 1)
+		if (mlx->zoom > 1)
 		{
 			mlx->zoom /= 2;
 			restart(mlx);
@@ -69,9 +68,13 @@ int		mouse_press(int button, int x, int y, t_mlx *mlx)
 	}
 	else if (button == 5)
 	{
-		mlx->place_x += (double)(x - (SIZE_MAP_X / 2)) / (mlx->zoom * 350);
-		mlx->place_y += (double)(y - (SIZE_MAP_Y / 2)) / (mlx->zoom * 350);
-		mlx->zoom *= 2;
+		tmp = (mlx->zoom * 2);
+		if (tmp < 4611686018427387904)
+		{
+			mlx->place_x += (double)(x - (SIZE_MAP_X / 2)) / (mlx->zoom) / 400;
+			mlx->place_y += (double)(y - (SIZE_MAP_Y / 2)) / (mlx->zoom) / 400;
+			mlx->zoom = tmp;
+		}
 		restart(mlx);
 	}
 	return (0);
@@ -81,7 +84,6 @@ int		mouse_move(int x, int y, t_mlx *mlx)
 {
 	t_complex *clx;
 
-	
 	if (ft_strcmp(mlx->type, "julia") == 0 && mlx->fixed_image == 0)
 	{
 		restart(mlx);

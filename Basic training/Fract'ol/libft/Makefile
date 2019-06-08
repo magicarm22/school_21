@@ -6,15 +6,15 @@
 #    By: djast <djast@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/04 15:37:55 by djast             #+#    #+#              #
-#    Updated: 2018/12/18 16:01:02 by djast            ###   ########.fr        #
+#    Updated: 2019/06/08 14:02:53 by djast            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-OBJ = $(SRC:.c=.o)
+CFLAGS = -Wall -Wextra -Werror
 
-FLAGS = -Wall -Wextra -Werror
+CC = gcc
 
 SRC = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_memccpy.c \
 		ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_strcat.c ft_strchr.c ft_strcmp.c \
@@ -25,10 +25,16 @@ SRC = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c f
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
 		ft_lstadd.c ft_lstiter.c ft_lstmap.c
 
+HEADERS = libft.h
+
+OBJ = $(patsubst %.c, %.o, $(SRC))
+
 all: $(NAME)
 
-$(NAME):
+%.o: %.c $(HEADERS)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
+$(NAME): $(OBJ)
 	@gcc $(FLAGS) -c $(SRC)
 	@ar rc $(NAME) $(OBJ)
 

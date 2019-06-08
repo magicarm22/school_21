@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 16:42:55 by djast             #+#    #+#             */
-/*   Updated: 2019/05/27 18:21:17 by djast            ###   ########.fr       */
+/*   Updated: 2019/06/08 14:07:45 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void		restart(t_mlx *mlx)
 {
 	char *steps;
 
-	printf("%Lf %Lf\n", mlx->place_x, mlx->place_y);
 	mlx_clear_window(mlx->m_p, mlx->w_p);
 	ft_bzero(mlx->img_data, SIZE_MAP_X * SIZE_MAP_Y);
 	init_threads_and_start(mlx->clx, mlx);

@@ -6,34 +6,34 @@
 #    By: djast <djast@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 17:18:06 by djast             #+#    #+#              #
-#    Updated: 2019/03/20 16:57:13 by djast            ###   ########.fr        #
+#    Updated: 2019/06/08 15:27:54 by djast            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
-NAME_LIBFT = ./libft/libft.a
+LIBFT_FOLDER = ./libft/
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -O3
- 
-OBJECTS = $(patsubst %.c, %.o, $(wildcard *.c))
-OBJECTS += $(patsubst ./libft/%.c, ./libft/%.o, $(wildcard ./libft/*.c))
-LIBS = mlx/libmlx.a
-HEADERS = $(wildcard *.h)
+SRC = calculate.c mandatory_fractols.c bonus_fractols.c fractol.c key.c mlx.c threads.c utils.c
+OBJ = $(patsubst %.c, %.o, $(SRC))
+
+LIBS = mlx/libmlx.a libft/libft.a
+HEADERS = fractol.h ./libft/libft.h
 
 all: $(NAME)
 	
 %.o: %.c $(HEADERS)
+	
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJECTS)
-	@$(CC) $(OBJECTS) $(LIBS) -o $(NAME) -framework OpenGL -framework AppKit
+$(NAME): $(OBJ)
+	@$(CC) $(OBJ) $(LIBS) -o $(NAME) -framework OpenGL -framework AppKit
 
 clean:
-	@/bin/rm -rf $(OBJECTS)
+	@/bin/rm -rf $(OBJ)
 
 fclean: clean
 	@/bin/rm -rf $(NAME)
-	@/bin/rm -rf $(NAME_LIBFT)
 
 re: fclean all

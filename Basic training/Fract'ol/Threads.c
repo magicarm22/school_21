@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 14:17:39 by djast             #+#    #+#             */
-/*   Updated: 2019/05/27 15:52:24 by djast            ###   ########.fr       */
+/*   Updated: 2019/06/08 15:33:39 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ static int		filling_args_for_thread(t_complex *clx, t_mlx *mlx,
 		args->type_of_fractol = FRACTOL_BURN;
 	else if (ft_strcmp(mlx->type, "newton") == 0)
 		args->type_of_fractol = FRACTOL_NEWTON;
+	else if (ft_strcmp(mlx->type, "cubic") == 0)
+		args->type_of_fractol = FRACTOL_CUBIC;
+	else if (ft_strcmp(mlx->type, "quadratic") == 0)
+		args->type_of_fractol = FRACTOL_QUADRATIC;
+	else if (ft_strcmp(mlx->type, "fifth") == 0)
+		args->type_of_fractol = FRACTOL_FIFTH;
 	return (1);
 }
 
