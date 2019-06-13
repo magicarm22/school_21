@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 17:00:08 by djast             #+#    #+#             */
-/*   Updated: 2019/06/08 15:50:47 by djast            ###   ########.fr       */
+/*   Updated: 2019/06/13 16:47:43 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	move(t_mlx *mlx, int direction)
 {
 	double		step;
 
-	step = direction == 0 || direction == 13 ? -0.1 / mlx->zoom :
+	step = direction == 123 || direction == 126 ? -0.1 / mlx->zoom :
 												0.1 / mlx->zoom;
-	if (direction == 0 || direction == 2)
+	if (direction == 123 || direction == 124)
 		mlx->place_x = mlx->place_x + step;
-	else if (direction == 13 || direction == 1)
+	else if (direction == 126 || direction == 125)
 		mlx->place_y = mlx->place_y + step;
 	restart(mlx);
 }
@@ -29,7 +29,7 @@ int		key_release(int key, t_mlx *mlx)
 {
 	if (key == 53)
 		close_win(mlx);
-	else if (key == 0 || key == 2 || key == 1 || key == 13)
+	else if (key == 126 || key == 123 || key == 124 || key == 125)
 		move(mlx, key);
 	else if (key == 18 || key == 19 || key == 20 || key == 21 || key == 23)
 	{

@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 14:18:33 by djast             #+#    #+#             */
-/*   Updated: 2019/06/08 15:51:22 by djast            ###   ########.fr       */
+/*   Updated: 2019/06/13 16:36:56 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int	main(int argc, char const *argv[])
 		ft_strcmp(argv[1], "burning ship") != 0 &&
 		ft_strcmp(argv[1], "newton") != 0 &&
 		ft_strcmp(argv[1], "cubic") != 0 &&
-		ft_strcmp(argv[1], "quadratic") != 0 && 
-		ft_strcmp(argv[1], "fifth") != 0))
+		ft_strcmp(argv[1], "quadratic") != 0 &&
+		ft_strcmp(argv[1], "fifth") != 0 &&
+		ft_strcmp(argv[1], "bubble") != 0))
 	{
 		ft_putstr("Invalid argument\n");
 		ft_putstr("Usage: ./fractol [julia/mandelbrot/burning ship/newton/"
-			"cubic/quadratic/fifth/phoenix]");
+			"cubic/quadratic/fifth/bubble]");
 		return (-1);
 	}
 	start_mlx(argv[1]);

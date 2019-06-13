@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:50:55 by djast             #+#    #+#             */
-/*   Updated: 2019/06/08 15:34:14 by djast            ###   ########.fr       */
+/*   Updated: 2019/06/13 16:41:01 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define FRACTOL_CUBIC 5
 # define FRACTOL_QUADRATIC 6
 # define FRACTOL_FIFTH 7
+# define FRACTOL_BUBBLE 8
 
 typedef struct		s_points
 {
@@ -110,9 +111,11 @@ void				newton_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
 void				put_color_by_mode(t_mlx *mlx, t_thread *args, int step);
 void				cubic_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
 							t_fractol *fractol_params);
-void				quadratic_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
+void				quadratic_calculate(t_complex *clx, t_mlx *mlx,
+				t_thread *args, t_fractol *fractol_params);
+void				fifth_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
 							t_fractol *fractol_params);
-void		 		fifth_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
-							t_fractol *fractol_params);
+void				bubble_calculate(t_complex *clx, t_mlx *mlx, t_thread *args,
+						t_fractol *fractol_params);
 
 #endif
