@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 17:43:08 by djast             #+#    #+#             */
-/*   Updated: 2019/06/24 18:44:54 by djast            ###   ########.fr       */
+/*   Updated: 2019/06/30 16:12:26 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "./libft/libft.h"
 # include <stdio.h>
 # include <stdint.h>
+# include <limits.h>
 
 # define CHECK_ERROR -1
 # define CHECK_SUCCESS 1
@@ -64,5 +65,8 @@ int check_params(int argc, char const *argv[], t_stacks *stacks);
 unsigned int		ft_num_size_with_sign(intmax_t n);
 t_stacks *init_lists();
 int check_commands(t_stacks *stacks, char command[3]);
+unsigned int		size_list(t_stack *stack);
+void				translate_to_1_N(t_stack *head_a);
+void				sorting(t_stacks *stacks);
 
 #endif

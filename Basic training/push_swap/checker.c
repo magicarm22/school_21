@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 17:43:00 by djast             #+#    #+#             */
-/*   Updated: 2019/06/24 18:50:31 by djast            ###   ########.fr       */
+/*   Updated: 2019/06/30 16:13:15 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,13 @@ static int read_commands(t_stacks *stacks)
 
 	while ((read_bytes = read(0, command, COMMAND_SIZE)) != 0)
 	{
-		command[ft_strchr(command, '\n') - command] = '\0';
-		if (check_commands(stacks, command) == COMMAND_ERROR)
+		if (ft_strchr(command, '\n') != NULL)
+		{
+			command[ft_strchr(command, '\n') - command] = '\0';
+			if (check_commands(stacks, command) == COMMAND_ERROR)
+				return (COMMAND_ERROR);
+		}
+		else
 			return (COMMAND_ERROR);
 	}
 	return (COMMAND_SUCCESS);

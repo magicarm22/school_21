@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:39:05 by djast             #+#    #+#             */
-/*   Updated: 2019/06/24 17:49:03 by djast            ###   ########.fr       */
+/*   Updated: 2019/06/30 15:24:51 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void print_list(char *label, t_stack *stack)
 void add_list_to_back(t_stack **stack, int data)
 {
 	t_stack *cur_list;
+	
 	if (*stack == NULL)
 	{
 		*stack = (t_stack *) malloc(sizeof(t_stack));

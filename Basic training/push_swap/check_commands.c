@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:20:46 by djast             #+#    #+#             */
-/*   Updated: 2019/06/24 18:55:28 by djast            ###   ########.fr       */
+/*   Updated: 2019/06/30 12:48:22 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static int check_stack_swap(t_stacks *stacks, char command[4])
 		stack_ss(stacks);
 	else
 		return (COMMAND_ERROR);
-	
 	return (COMMAND_SUCCESS);
 }
 
