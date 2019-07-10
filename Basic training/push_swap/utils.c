@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:42:47 by djast             #+#    #+#             */
-/*   Updated: 2019/06/30 14:01:44 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/10 13:03:18 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,63 @@ unsigned int		size_list(t_stack *stack)
 		size++;
 		cur_list = cur_list->next;
 	}
-	return (size);
 
+	return (size);
+}
+
+int find_elem(t_stack *stack, int elem)
+{
+	t_stack *cur_list;
+	int index;
+
+	index = 0;
+	cur_list = stack;
+	//printf("ELEM: %d\n", elem);
+	while (cur_list != NULL)
+	{
+		if (cur_list->data == elem)
+		{
+			return (index);
+		}
+		cur_list = cur_list->next;
+		index++;
+	}
+	return (-1);
+}
+
+int get_elem_by_index(t_stacks *stacks, int index)
+{
+	t_stack *cur_list;
+
+	cur_list = stacks->head_a;
+	while (index-- != 0)
+		cur_list = cur_list->next;
+	return (cur_list->data);
+}
+
+int find_max(t_stack *stack)
+{
+	t_stack *cur_list;
+	int max;
+	int cur_index;
+	int max_index;
+
+	cur_list = stack;
+	if (cur_list == NULL)
+		return (-1);
+	max = cur_list->data;
+	cur_list = cur_list->next;
+	cur_index = 1;
+	max_index = 0;
+	while (cur_list != NULL)
+	{
+		if (cur_list->data > max)
+		{
+			max = cur_list->data;
+			max_index = cur_index;
+		}
+		cur_list = cur_list->next;
+		cur_index++;
+	}
+	return (max_index);
 }

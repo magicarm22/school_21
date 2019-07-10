@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:17:34 by djast             #+#    #+#             */
-/*   Updated: 2019/06/30 16:12:32 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/04 15:08:18 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ int check_params(int argc, char const *argv[], t_stacks *stacks)
 		else
 			return (CHECK_ERROR);
 	}
-	print_list("A: ", stacks->head_a);
+	//print_list("A: ", stacks->head_a);
 	return (CHECK_SUCCESS);
 }
