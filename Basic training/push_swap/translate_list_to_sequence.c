@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:33:53 by djast             #+#    #+#             */
-/*   Updated: 2019/06/30 14:35:22 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/10 14:54:10 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static unsigned int		find_min_index(int *array, t_stack *head_a,
 	return (min_index);
 }
 
-static int *sequence_1_N(t_stack *head_a)
+int *sequence_1_N(t_stack *head_a)
 {
 	int *array;
 	int min_index;

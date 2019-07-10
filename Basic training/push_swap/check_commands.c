@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:20:46 by djast             #+#    #+#             */
-/*   Updated: 2019/06/30 12:48:22 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/10 14:59:55 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int check_commands(t_stacks *stacks, char command[4])
 		check_stack_rotate(stacks, command) == COMMAND_SUCCESS ||
 		check_stack_reverse_rotate(stacks, command) == COMMAND_SUCCESS)
 	{
-		print_list("a: ", stacks->head_a);
-		print_list("b: ", stacks->head_b);
+		// print_list("a: ", stacks->head_a);
+		// print_list("b: ", stacks->head_b);
 		return (COMMAND_SUCCESS);
 	}
 	else

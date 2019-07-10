@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 17:43:08 by djast             #+#    #+#             */
-/*   Updated: 2019/06/30 16:12:26 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/10 14:54:12 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ int check_commands(t_stacks *stacks, char command[3]);
 unsigned int		size_list(t_stack *stack);
 void				translate_to_1_N(t_stack *head_a);
 void				sorting(t_stacks *stacks);
-
+void print_and_make_command(t_stacks *stacks, char *command);
+int check_sort(t_stacks *stacks);
+int *sequence_1_N(t_stack *head_a);
 #endif

@@ -6,56 +6,75 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:36:03 by djast             #+#    #+#             */
-/*   Updated: 2019/06/30 17:08:06 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/10 14:57:35 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-int top(t_stack *stack)
+static void sort_3_num_ASC(t_stacks *stacks)
 {
-	t_stack *cur_list;
-	if (stack == NULL)
+	int *seq;
+
+	seq = sequence_1_N(stacks->head_a);
+	if (seq[0] == 2 && seq[1] == 1)
+		print_and_make_command(stacks, "sa");
+	else if (seq[0] == 3 && seq[1] == 2)
 	{
-		return (0);
+		print_and_make_command(stacks, "sa");
+		print_and_make_command(stacks, "rra");
 	}
-	cur_list = stack;
-	while (cur_list->next != NULL)
-		cur_list = cur_list->next;
-	return cur_list->data;
+	else if (seq[0] == 3 && seq[1] == 1)
+		print_and_make_command(stacks, "ra");
+	else if (seq[0] == 1 && seq[1] == 3)
+	{
+		print_and_make_command(stacks, "sa");
+		print_and_make_command(stacks, "ra");
+	}
+	else if (seq[0] == 2 && seq[1] == 3)
+		print_and_make_command(stacks, "rra");
 }
 
-static int check_sort_b(t_stacks *stacks)
+static void sort_4_to_10_num(t_stacks *stacks, unsigned int list_size)
 {
-	int success;
-	t_stack *cur_list;
-	t_stack *prev_list;
+	int size_b;
 
-	success = 1;
-	if (stacks->head_b == NULL || stacks->head_b->next == NULL)
-		return (SORT_SUCCESS);
-
-	prev_list = stacks->head_b;
-	cur_list = prev_list->next;
-	while (cur_list != NULL)
+	if (check_sort(stacks) == SORT_SUCCESS && stacks->head_b == NULL)
+		return ;
+	while (check_sort(stacks) != SORT_SUCCESS)
 	{
-		if (prev_list->data < cur_list->data)
-		{
-			success = 0;
-			break;
-		}
-		prev_list = cur_list;
-		cur_list = cur_list->next;
+		if (stacks->head_a != NULL && stacks->head_a->data == (int)list_size)
+			print_and_make_command(stacks, "ra");
+		else if (stacks->head_a->data == (int)size_list(stacks->head_b) + 1)
+			print_and_make_command(stacks, "pb");
+		else if (stacks->head_a->data > stacks->head_a->next->data)
+			print_and_make_command(stacks, "sa");
+		else
+			print_and_make_command(stacks, "ra");
 	}
-	if (stacks->head_a == NULL && success == 1)
-		return (SORT_SUCCESS);
-	else
-		return (SORT_ERROR);
+	size_b = size_list(stacks->head_b);
+	while (size_b-- != 0)
+		print_and_make_command(stacks, "pa");
+}
+
+static void sort_many_numbers(t_stacks *stacks)
+{
+	(void) stacks;
 }
 
 void sorting(t_stacks *stacks)
 {
+	unsigned int list_size;
 	
+	list_size = size_list(stacks->head_a);
+	if (list_size <= 3)
+		sort_3_num_ASC(stacks);
+	else if (list_size > 3 && list_size <= 10)
+		sort_4_to_10_num(stacks, list_size);
+	else
+	{
+		sort_many_numbers(stacks);
+	}
 }
 
 /*
