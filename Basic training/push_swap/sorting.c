@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:36:03 by djast             #+#    #+#             */
-/*   Updated: 2019/07/10 14:57:35 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/11 13:19:13 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void sort_3_num_ASC(t_stacks *stacks)
 {
-	int *seq;
+	unsigned int *seq;
 
 	seq = sequence_1_N(stacks->head_a);
 	if (seq[0] == 2 && seq[1] == 1)
@@ -57,94 +57,50 @@ static void sort_4_to_10_num(t_stacks *stacks, unsigned int list_size)
 		print_and_make_command(stacks, "pa");
 }
 
-static void sort_many_numbers(t_stacks *stacks)
+static void sort_many_numbers(t_stacks *stacks, unsigned int list_size)
 {
-	(void) stacks;
+	int index_with_max_markups;
+	int min_index;
+	
+	//print_list("a: ", stacks->head_a);
+	//print_list("b: ", stacks->head_b);
+	index_with_max_markups = find_index_with_max_markups(stacks, list_size);
+	set_selected_markups(stacks->head_a, index_with_max_markups);
+	while (find_false_markup(stacks->head_a) != -1)
+	{
+		if (swap_is_needed(stacks) == 1)
+		{
+			print_and_make_command(stacks, "sa");
+			set_markups(stacks->head_a);
+		}
+		else if (stacks->head_a->markup == 0)
+			print_and_make_command(stacks, "pb");
+		else
+			print_and_make_command(stacks, "ra");
+	}
+	//print_list("a: ", stacks->head_a);
+	//print_list("b: ", stacks->head_b);
+	while (stacks->head_b != NULL)
+	{
+	 	min_index = choose_element(stacks);
+	 	put_index_to_b_up(stacks, min_index);
+	 	create_place_in_a(stacks, min_index);
+	 	print_and_make_command(stacks, "pa");
+	 	//print_list("a: ", stacks->head_a);
+		//print_list("b: ", stacks->head_b);
+	}
+	align_a(stacks);
 }
 
 void sorting(t_stacks *stacks)
 {
 	unsigned int list_size;
-	
+
 	list_size = size_list(stacks->head_a);
 	if (list_size <= 3)
 		sort_3_num_ASC(stacks);
 	else if (list_size > 3 && list_size <= 10)
 		sort_4_to_10_num(stacks, list_size);
 	else
-	{
-		sort_many_numbers(stacks);
-	}
+		sort_many_numbers(stacks, list_size);
 }
-
-/*
-A: 8 --> 9 --> 6 --> 1 --> 4 --> 2 --> 3 --> 7
-pb
-a: 9 --> 6 --> 1 --> 4 --> 2 --> 3 --> 7
-b: 8
-pb
-a: 6 --> 1 --> 4 --> 2 --> 3 --> 7
-b: 9 --> 8
-pb
-a: 1 --> 4 --> 2 --> 3 --> 7
-b: 6 --> 9 --> 8
-rb
-a: 1 --> 4 --> 2 --> 3 --> 7
-b: 9 --> 8 --> 6
-pb
-a: 4 --> 2 --> 3 --> 7
-b: 1 --> 9 --> 8 --> 6
-pb
-a: 2 --> 3 --> 7
-b: 4 --> 1 --> 9 --> 8 --> 6
-rb
-a: 2 --> 3 --> 7
-b: 1 --> 9 --> 8 --> 6 --> 4
-pb
-a: 3 --> 7
-b: 2 --> 1 --> 9 --> 8 --> 6 --> 4
-pb
-a: 7
-b: 3 --> 2 --> 1 --> 9 --> 8 --> 6 --> 4
-rrb
-a: 7
-b: 4 --> 3 --> 2 --> 1 --> 9 --> 8 --> 6
-rrb
-a: 7
-b: 6 --> 4 --> 3 --> 2 --> 1 --> 9 --> 8
-pb
-a:
-b: 7 --> 6 --> 4 --> 3 --> 2 --> 1 --> 9 --> 8
-rrb
-a:
-b: 8 --> 7 --> 6 --> 4 --> 3 --> 2 --> 1 --> 9
-rrb
-a:
-b: 9 --> 8 --> 7 --> 6 --> 4 --> 3 --> 2 --> 1
-pa
-a: 9
-b: 8 --> 7 --> 6 --> 4 --> 3 --> 2 --> 1
-pa
-a: 8 --> 9
-b: 7 --> 6 --> 4 --> 3 --> 2 --> 1
-pa
-a: 7 --> 8 --> 9
-b: 6 --> 4 --> 3 --> 2 --> 1
-pa
-a: 6 --> 7 --> 8 --> 9
-b: 4 --> 3 --> 2 --> 1
-pa
-a: 4 --> 6 --> 7 --> 8 --> 9
-b: 3 --> 2 --> 1
-pa
-a: 3 --> 4 --> 6 --> 7 --> 8 --> 9
-b: 2 --> 1
-pa
-a: 2 --> 3 --> 4 --> 6 --> 7 --> 8 --> 9
-b: 1
-pa
-a: 1 --> 2 --> 3 --> 4 --> 6 --> 7 --> 8 --> 9
-b:
-OK
-
-*/

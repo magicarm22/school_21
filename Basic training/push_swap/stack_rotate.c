@@ -6,50 +6,48 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:12:35 by djast             #+#    #+#             */
-/*   Updated: 2019/06/24 16:56:36 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/10 16:51:53 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-void stack_rb(t_stacks *stacks)
-{
-	t_stack *cur_list;
-	t_stack *prev_list;
-	int		tmp_data;
-
-	if (stacks->head_b == NULL || stacks->head_b->next == NULL)
-		return ;
-	prev_list = stacks->head_b;
-	cur_list = stacks->head_b->next;
-	tmp_data = prev_list->data;
-	while (cur_list != NULL)
-	{
-		prev_list->data = cur_list->data;
-		prev_list = cur_list;
-		cur_list = cur_list->next;
-	}
-	prev_list->data = tmp_data;
-}
-
 void stack_ra(t_stacks *stacks)
 {
-	t_stack *cur_list;
-	t_stack *prev_list;
-	int		tmp_data;
+	t_stack	*first_list;
+	t_stack	*sec_list;
+	t_stack *last_list;
 
 	if (stacks->head_a == NULL || stacks->head_a->next == NULL)
 		return ;
-	prev_list = stacks->head_a;
-	cur_list = stacks->head_a->next;
-	tmp_data = prev_list->data;
-	while (cur_list != NULL)
-	{
-		prev_list->data = cur_list->data;
-		prev_list = cur_list;
-		cur_list = cur_list->next;
-	}
-	prev_list->data = tmp_data;
+	first_list = stacks->head_a;
+	sec_list = first_list->next;
+	last_list = sec_list;
+	while (last_list->next != NULL)
+		last_list = last_list->next;
+
+	stacks->head_a = sec_list;
+	first_list->next = NULL;
+	last_list->next = first_list;
+}
+
+void stack_rb(t_stacks *stacks)
+{
+	t_stack	*first_list;
+	t_stack	*sec_list;
+	t_stack *last_list;
+
+	if (stacks->head_b == NULL || stacks->head_b->next == NULL)
+		return ;
+	first_list = stacks->head_b;
+	sec_list = first_list->next;
+	last_list = sec_list;
+	while (last_list->next != NULL)
+		last_list = last_list->next;
+	
+	stacks->head_b = sec_list;
+	first_list->next = NULL;
+	last_list->next = first_list;
 }
 
 void stack_rr(t_stacks *stacks)

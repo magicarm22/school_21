@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:39:05 by djast             #+#    #+#             */
-/*   Updated: 2019/06/30 15:24:51 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/10 17:42:37 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,27 @@ t_stacks *init_lists()
 	stacks->head_a = NULL;
 	stacks->head_b = NULL;
 	return (stacks);
+}
+
+void print_markups(t_stack *stack)
+{
+	t_stack *cur_list;
+
+	cur_list = stack;
+	if (cur_list == NULL)
+	{
+		write(1, "\n", 1);
+		return ;
+	}
+	write(1, "    ", 4);
+	while (cur_list->next != NULL) 
+	{
+		ft_putnbr(cur_list->markup);
+		write(1, " --> ", 5);
+		cur_list = cur_list->next;
+	}
+	ft_putnbr(cur_list->markup);
+	write(1, "\n", 1);
 }
 
 void print_list(char *label, t_stack *stack)
@@ -51,6 +72,7 @@ void add_list_to_back(t_stack **stack, int data)
 	{
 		*stack = (t_stack *) malloc(sizeof(t_stack));
 		(*stack)->data = data;
+		(*stack)->markup = 0;
 		(*stack)->next = NULL;
 		return ;
 	}
@@ -61,32 +83,6 @@ void add_list_to_back(t_stack **stack, int data)
 
 	cur_list->next = (t_stack *) malloc(sizeof(t_stack));
 	cur_list->next->data = data;
+	cur_list->next->markup = 0;
 	cur_list->next->next = NULL;
-}
-
-int copy_data_to_next_list(t_stack *stack)
-{
-	t_stack *cur_list;
-	int		tmp_cur_data;
-	int		tmp_prev_data;
-
-	cur_list = stack;
-	tmp_prev_data = 0;
-	tmp_cur_data = 0;
-	while (cur_list != NULL)
-	{
-		tmp_cur_data = cur_list->data;
-		cur_list->data = tmp_prev_data;
-		tmp_prev_data = tmp_cur_data;
-		cur_list = cur_list->next;
-	}
-	return tmp_prev_data;
-}
-
-void copy_data_and_add_to_back(t_stack *stack)
-{	
-	int tmp_data;
-
-	tmp_data = copy_data_to_next_list(stack);
-	add_list_to_back(&stack, tmp_data);
 }

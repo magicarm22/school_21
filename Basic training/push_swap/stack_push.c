@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 20:11:03 by djast             #+#    #+#             */
-/*   Updated: 2019/06/24 17:08:03 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/10 16:27:07 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,32 @@
 
 void stack_pa(t_stacks *stacks)
 {
-	t_stack *tmp;
+	t_stack *first_in_a;
+	t_stack *first_in_b;
+	t_stack *second_in_b;
 
 	if (stacks->head_b == NULL)
 		return ;
-	copy_data_and_add_to_back(stacks->head_a);
-	if (stacks->head_a == NULL)
-		add_list_to_back(&stacks->head_a, stacks->head_b->data);
-	else
-		stacks->head_a->data = stacks->head_b->data;
-
-	if (stacks->head_b->next != NULL)
-	{
-		tmp = stacks->head_b;
-		stacks->head_b = stacks->head_b->next;
-		free(tmp);
-	}
-	else
-	{
-		free(stacks->head_b);
-		stacks->head_b = NULL;
-	}
+	first_in_a = stacks->head_a;
+	first_in_b = stacks->head_b;
+	second_in_b = first_in_b->next;
+	stacks->head_a = first_in_b;
+	stacks->head_a->next = first_in_a;
+	stacks->head_b = second_in_b;
 }
 
 void stack_pb(t_stacks *stacks)
 {
-	t_stack *tmp;
+	t_stack *first_in_b;
+	t_stack *first_in_a;
+	t_stack *second_in_a;
 
 	if (stacks->head_a == NULL)
 		return ;
-	copy_data_and_add_to_back(stacks->head_b);
-	if (stacks->head_b == NULL)
-		add_list_to_back(&stacks->head_b, stacks->head_a->data);
-	else
-		stacks->head_b->data = stacks->head_a->data;
-
-	if (stacks->head_a->next != NULL)
-	{
-		tmp = stacks->head_a;
-		stacks->head_a = stacks->head_a->next;
-		free(tmp);
-	}
-	else
-	{
-		free(stacks->head_a);
-		stacks->head_a = NULL;
-	}
+	first_in_a = stacks->head_a;
+	second_in_a = first_in_a->next;
+	first_in_b = stacks->head_b;
+	stacks->head_b = first_in_a;
+	stacks->head_b->next = first_in_b;
+	stacks->head_a = second_in_a;
 }

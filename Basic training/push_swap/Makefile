@@ -6,7 +6,7 @@
 #    By: djast <djast@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 17:18:06 by djast             #+#    #+#              #
-#    Updated: 2019/07/10 14:55:33 by djast            ###   ########.fr        #
+#    Updated: 2019/07/10 17:47:11 by djast            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ CFLAGS = -Wall -Wextra -Werror -O3
 
 SRC_PUSH_SWAP = push_swap.c stack_swap.c stack_push.c lists.c stack_rotate.c \
 		stack_reverse_rotate.c utils.c check_params.c \
-		translate_list_to_sequence.c sorting.c check_sort.c printing.c
+		translate_list_to_sequence.c sorting.c check_sort.c printing.c \
+		setter_markups.c sorting_by_markups.c sorting_from_b_to_a.c
 SRC_CHECKER = checker.c stack_swap.c stack_push.c lists.c stack_rotate.c \
 		stack_reverse_rotate.c check_params.c utils.c check_commands.c \
 		check_sort.c
