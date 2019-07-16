@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:59:37 by djast             #+#    #+#             */
-/*   Updated: 2019/07/10 16:58:38 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/16 15:54:44 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ void stack_rrb(t_stacks *stacks)
 	t_stack	*first_list;
 	t_stack	*prev_last_list;
 	t_stack *last_list;
+	int i;
 
 	if (stacks->head_b == NULL || stacks->head_b->next == NULL)
 		return ;
 	first_list = stacks->head_b;
 	prev_last_list = first_list;
+	i = 0;
 	while (prev_last_list->next->next != NULL)
 		prev_last_list = prev_last_list->next;
 	last_list = prev_last_list->next;

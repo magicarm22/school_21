@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:42:47 by djast             #+#    #+#             */
-/*   Updated: 2019/07/11 12:53:46 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/12 15:08:05 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ unsigned int		size_list(t_stack *stack)
 		cur_list = cur_list->next;
 	}
 	return (size);
+}
+
+int get_index_by_elem(t_stack *head, int elem)
+{
+	t_stack *cur_list;
+	int index;
+
+	cur_list = head;
+	index = 0;
+	while (cur_list != NULL && cur_list->data != elem)
+	{
+		index++;
+		cur_list = cur_list->next;
+	}
+	return (index);
 }
 
 int get_elem_by_index(t_stack *head, int index)
@@ -74,4 +89,14 @@ int find_min(t_stack *stack)
 		cur_index++;
 	}
 	return (min_index);
+}
+
+int get_last_elem(t_stack *head)
+{
+	t_stack *cur_list;
+
+	cur_list = head;
+	while (cur_list->next != 0)
+		cur_list = cur_list->next;
+	return (cur_list->data);
 }

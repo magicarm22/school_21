@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 15:57:10 by djast             #+#    #+#             */
-/*   Updated: 2019/07/11 13:31:52 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/16 16:36:31 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@ int find_false_markup(t_stack *head)
 	while (cur_list != NULL)
 	{
 		if (cur_list->markup == 0)
+			return (cur_index);
+		cur_list = cur_list->next;
+		cur_index++;
+	}
+	return (-1);
+}
+
+int find_true_markup(t_stack *head)
+{
+	unsigned int cur_index;
+	t_stack *cur_list;
+
+	cur_index = 0;
+	cur_list = head;
+	while (cur_list != NULL)
+	{
+		if (cur_list->markup == 1)
 			return (cur_index);
 		cur_list = cur_list->next;
 		cur_index++;
@@ -84,16 +101,21 @@ int swap_is_needed(t_stacks *stacks)
 	int before_swap;
 	int after_swap;
 	int *copy_markups;
+	int index_with_max_markups;
 	
+	//print_list("A: ", stacks->head_a);
+	//print_markups(stacks->head_a);
 	copy_markups = get_markups_copy(stacks->head_a);
 	before_swap = count_of_markups(stacks->head_a);
 	clear_markup(stacks->head_a);
 	stack_sa(stacks);
-	after_swap = set_markups(stacks->head_a);
+	index_with_max_markups = find_index_with_max_markups(stacks, size_list(stacks->head_a));
+	after_swap = set_selected_markups(stacks->head_a, index_with_max_markups);
+	//printf("before: %d  after: %d\n", before_swap, after_swap);
 	clear_markup(stacks->head_a);
 	stack_sa(stacks);
 	set_markups_copy(stacks->head_a, copy_markups);
 	if (before_swap < after_swap)
-		return (1);
+		return (index_with_max_markups);
 	return (0);
 }
