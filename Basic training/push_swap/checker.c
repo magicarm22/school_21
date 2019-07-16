@@ -6,12 +6,11 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 17:43:00 by djast             #+#    #+#             */
-/*   Updated: 2019/07/04 14:58:42 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/10 14:55:00 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
-
 
 static int read_commands(t_stacks *stacks)
 {
@@ -45,7 +44,7 @@ int main(int argc, char const *argv[])
 		write(1, "ERROR\n", 6);
 		return (CHECK_ERROR);
 	}
-	if (check_sort(stacks) == SORT_ERROR || stacks->head_b != NULL)
+	if (check_sort(stacks) == SORT_ERROR)
 	{
 		write(1, "KO\n", 3);
 		return (SORT_ERROR);

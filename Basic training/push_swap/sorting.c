@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:36:03 by djast             #+#    #+#             */
-/*   Updated: 2019/07/10 12:20:49 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/16 18:17:53 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,164 +57,91 @@ static void sort_4_to_10_num(t_stacks *stacks, unsigned int list_size)
 		print_and_make_command(stacks, "pa");
 }
 
-static void put_elem_to_up(t_stacks *stacks, t_sort_info *sort)
+static void sort_many_numbers(t_stacks *stacks, unsigned int list_size,
+														t_commands **commands)
 {
-	if (sort->command == COMMAND_RA)
-	{
-		if (sort->lower_distance < sort->upper_distance)
-			while (sort->lower_distance-- > 0)
-				print_and_make_command(stacks, "ra");
-		else
-			while (sort->upper_distance-- > 0)
-				print_and_make_command(stacks, "ra");
-	}
-	else if (sort->command == COMMAND_RRA)
-	{
-		if (sort->lower_distance >= sort->upper_distance)
-			while (sort->upper_distance-- > 0)
-				print_and_make_command(stacks, "rra");
-		else
-			while (sort->lower_distance-- > 0)
-				print_and_make_command(stacks, "rra");
-	}
-}
-
-static void sort_stack_b_for_chunk_put(t_stacks *stacks, t_sort_info *sort)
-{
-	int index;
-
-	// printf("%d\n", sort->lower_distance);
-	// if (sort->lower_distance == -1)
-	// {
-	// 	index = find_max(stacks->head_b);
-	// 	printf("index: %d\n", index);
-	// 	if (index != -1 && index != 0)
-	// 	{
-	// 		if (index < (int)size_list(stacks->head_b) / 2)
-	// 			while (index-- != 0)
-	// 				print_and_make_command(stacks, "rb");
-	// 		else
-	// 			while ((int)size_list(stacks->head_b) - index++ != 0)
-	// 				print_and_make_command(stacks, "rrb");
-	// 	}
-	// }
-	// else if (sort->upper_distance == -1)
-	// {
-	//printf("lower_now: %d upper_now: %d \n", sort->lower_distance, sort->upper_distance);
-	if (sort->lower_distance == -1)
-	{
-		//printf("from_chunk:%d\n", sort->from_chunk - 2);
-		index = sort->lower_index == sort->upper_index ? 
-							find_elem(stacks->head_b, sort->from_chunk - 1):
-							find_elem(stacks->head_b, sort->from_chunk - 2);
-		//printf("index_lower: %d\n", index);
-		if (index != -1 && index != 0)
-		{
-			if (index < (int)size_list(stacks->head_b) / 2)
-				while (index-- != 0)
-					print_and_make_command(stacks, "rb");
-			else
-				while ((int)size_list(stacks->head_b) - index++ - 1 != 0)
-					print_and_make_command(stacks, "rrb");
-		}
-	}
-	else if (sort->upper_distance == -1)
-	{
-		sort->is_not_start = 1;
-		index =	find_elem(stacks->head_b, sort->to_chunk + 2);
-		if (index == -1)
-		{
-			index =	find_elem(stacks->head_b, sort->from_chunk - 1);
-			sort->is_not_start = 0;
-		}
-		else if (index == 0)
-			print_and_make_command(stacks, "rb");
-		//printf("index_upper: %d\n", index);
-		if (index != -1)
-		{
-			if (index < (int)size_list(stacks->head_b) / 2)
-				while (index-- != 0)
-					print_and_make_command(stacks, "rb");
-			else
-				while ((int)size_list(stacks->head_b) - index++ - sort->is_not_start != 0)
-					print_and_make_command(stacks, "rrb");
-		}
-	}
-	// }
-
-
-}
-
-static void sort_many_numbers(t_stacks *stacks, int chunks,
-								unsigned int list_size)
-{
-	t_sort_info *sort;
-	int i;
-	(void) stacks;
+	int index_with_max_markups;
+	int min_index;
+	int elem;
 	
-	sort = (t_sort_info *)malloc(sizeof(t_sort_info));
-	sort->chunks = chunks;
-	sort->remainder = list_size % sort->chunks;
 
-	sort->from_chunk_const = 1;
-	sort->to_chunk_const = sort->remainder != 0 ? (list_size / sort->chunks) + 1 :
-											(list_size / sort->chunks);
-	sort->to_chunk_before = sort->to_chunk_const;
-	i = 0;
-	while (i != sort->chunks)
+	//print_list("a: ", stacks->head_a);
+	//print_markups(stacks->head_a);
+	//print_list("b: ", stacks->head_b);
+	index_with_max_markups = find_index_with_max_markups(stacks, list_size);
+	//printf("%d %d\n", index_with_max_markups, get_elem_by_index(stacks->head_a, index_with_max_markups));
+	set_selected_markups(stacks->head_a, index_with_max_markups);
+
+	elem = get_elem_by_index(stacks->head_a, index_with_max_markups);
+//	printf("STEP 1\n");
+//	printf("%d\n", get_elem_by_index(stacks->head_a, find_true_markup(stacks->head_a)));
+	while (find_false_markup(stacks->head_a) != -1)
 	{
-		sort->from_chunk = sort->from_chunk_const;
-		sort->to_chunk = sort->to_chunk_const;
 
-		//printf("FROM: %d TO: %d REM: %d\n", sort->from_chunk, sort->to_chunk, sort->remainder);
-		while (sort->to_chunk - sort->from_chunk != -1)
+		// print_list("a: ", stacks->head_a);
+		// print_markups(stacks->head_a);
+		// print_list("b: ", stacks->head_b);
+		// getchar();
+		if ((index_with_max_markups = swap_is_needed(stacks)) != 0)
 		{
-			//print_list("A: ", stacks->head_a);
-			get_sort_info(stacks, sort);
-			put_elem_to_up(stacks, sort);
-			sort_stack_b_for_chunk_put(stacks, sort);
-			print_and_make_command(stacks, "pb");
-			//print_list("A: ", stacks->head_a);
-			//print_list("B: ", stacks->head_b);
+			//print_list("a: ", stacks->head_a);
+			//print_markups(stacks->head_a);
+			//print_list("b: ", stacks->head_b);
+			//getchar();
+			//printf("sa\n");
+			make_and_add_command(stacks, commands, "sa");
+			clear_markup(stacks->head_a);
+			set_selected_markups(stacks->head_a, index_with_max_markups);
 		}
-		sort->to_chunk_before = sort->to_chunk_const;
-		sort->from_chunk_const += sort->remainder > 0 ? (list_size / sort->chunks) + 1:
-													(list_size / sort->chunks);
-		sort->to_chunk_const += sort->remainder > 1 ? (list_size / sort->chunks) + 1:
-											(list_size / sort->chunks);
-		sort->remainder--;
+		else if (stacks->head_a->markup == 0)
+		{
+			//printf("pb\n");
+			make_and_add_command(stacks, commands, "pb");
+		}
+		else
+		{
+			//printf("ra\n");
+			make_and_add_command(stacks, commands, "ra");
+		}
+		//printf("AAAA\n");
 		
-		chunks = sort->chunks;
-		i++;
 	}
+	// 	print_list("a: ", stacks->head_a);
+	// 	print_markups(stacks->head_a);
+	// 	print_list("b: ", stacks->head_b);
+	// getchar();
+	
+	//print_list("a: ", stacks->head_a);
+	//print_list("b: ", stacks->head_b);
+	//printf("STEP 2\n");
+
 	while (stacks->head_b != NULL)
 	{
-		//print_list("A: ", stacks->head_a);
-		//print_list("B: ", stacks->head_b);
-		i = find_max(stacks->head_b);
-		if (i < (int)list_size / 2)
-			sort->command = COMMAND_RA;
-		else
-		{
-			i = size_list(stacks->head_b) - i;
-			sort->command = COMMAND_RRA;
-		}
-		while (i-- != 0)
-		{
-			if (sort->command == COMMAND_RRA)
-				print_and_make_command(stacks, "rrb");
-			else
-				print_and_make_command(stacks, "rb");
-		}
-		print_and_make_command(stacks, "pa");
+		// getchar();
+	 	min_index = choose_element(stacks);
+	 	put_index_to_b_up(stacks, commands, min_index);
+	 // 	print_list("a: ", stacks->head_a);
+		// print_list("b: ", stacks->head_b);
+	 // 	getchar();
+	 	create_place_in_a(stacks, commands);
+	 // 	print_list("a: ", stacks->head_a);
+		// print_list("b: ", stacks->head_b);
+	 // 	getchar();
+	 	make_and_add_command(stacks, commands, "pa");
+	 	// print_list("a: ", stacks->head_a);
+		// print_list("b: ", stacks->head_b);
 	}
-	
+	//exit(0);
+	//getchar();
+	//printf("STEP 3\n");
+	align_a(stacks, commands);
+	//print_list("a: ", stacks->head_a);
+	//printf("Status: %d", check_sort(stacks));
 }
 
-void sorting(t_stacks *stacks)
+void sorting(t_stacks *stacks, t_commands **commands)
 {
 	unsigned int list_size;
-	int chunks;
 
 	list_size = size_list(stacks->head_a);
 	if (list_size <= 3)
@@ -222,19 +149,5 @@ void sorting(t_stacks *stacks)
 	else if (list_size > 3 && list_size <= 10)
 		sort_4_to_10_num(stacks, list_size);
 	else
-	{
-		if (list_size > 10 && list_size <= 50)
-			chunks = 3;
-		if (list_size > 50 && list_size <= 100)
-			chunks = 5;
-		if (list_size > 100 && list_size <= 200)
-			chunks = 7;
-		if (list_size > 200 && list_size <= 350)
-			chunks = 9;
-		if (list_size > 350 && list_size <= 500)
-			chunks = 11;
-		if (list_size > 500)
-			chunks = 15;
-		sort_many_numbers(stacks, chunks, list_size);
-	}
+		sort_many_numbers(stacks, list_size, commands);
 }

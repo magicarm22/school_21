@@ -6,36 +6,36 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 17:42:49 by djast             #+#    #+#             */
-/*   Updated: 2019/06/30 15:24:52 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/16 15:48:52 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-void start_tests(t_stacks *stacks)
-{
-	add_list_to_back(&stacks->head_a, 3);
-	add_list_to_back(&stacks->head_a, 5);
-	add_list_to_back(&stacks->head_a, 8);
-
-	add_list_to_back(&stacks->head_b, 12);
-	add_list_to_back(&stacks->head_b, 22);
-	add_list_to_back(&stacks->head_b, 23);
-}
-
 int main(int argc, char const *argv[])
 {
 	t_stacks *stacks;
+	t_commands *commands;
 
 	stacks = init_lists();
+	commands = (t_commands *) malloc(sizeof(t_commands));
+	commands->data = NULL;
+	commands->next = NULL;
+
 
 	if (check_params(argc, argv, stacks) == CHECK_ERROR)
 	{
 		write(1, "ERROR\n", 6);
 		return (CHECK_ERROR);
 	}
+	
 	translate_to_1_N(stacks->head_a);
-	sorting(stacks);
+	sorting(stacks, &commands);
+	//print_commands(&commands);
+	optimizate_commands(&commands, "rb", "ra", "rr");
+	optimizate_commands(&commands, "sb", "sa", "ss");
+	optimizate_commands(&commands, "rrb", "rra", "rrr");
+	print_commands(&commands);
 
 	// start_tests(stacks);
 

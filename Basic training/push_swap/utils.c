@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:42:47 by djast             #+#    #+#             */
-/*   Updated: 2019/07/10 13:03:18 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/12 15:08:05 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,63 +36,67 @@ unsigned int		size_list(t_stack *stack)
 		size++;
 		cur_list = cur_list->next;
 	}
-
 	return (size);
 }
 
-int find_elem(t_stack *stack, int elem)
+int get_index_by_elem(t_stack *head, int elem)
 {
 	t_stack *cur_list;
 	int index;
 
+	cur_list = head;
 	index = 0;
-	cur_list = stack;
-	//printf("ELEM: %d\n", elem);
-	while (cur_list != NULL)
+	while (cur_list != NULL && cur_list->data != elem)
 	{
-		if (cur_list->data == elem)
-		{
-			return (index);
-		}
-		cur_list = cur_list->next;
 		index++;
+		cur_list = cur_list->next;
 	}
-	return (-1);
+	return (index);
 }
 
-int get_elem_by_index(t_stacks *stacks, int index)
+int get_elem_by_index(t_stack *head, int index)
 {
 	t_stack *cur_list;
 
-	cur_list = stacks->head_a;
+	cur_list = head;
 	while (index-- != 0)
 		cur_list = cur_list->next;
 	return (cur_list->data);
 }
 
-int find_max(t_stack *stack)
+int find_min(t_stack *stack)
 {
 	t_stack *cur_list;
-	int max;
+	int min;
 	int cur_index;
-	int max_index;
+	int min_index;
 
 	cur_list = stack;
 	if (cur_list == NULL)
 		return (-1);
-	max = cur_list->data;
+	min = cur_list->data;
 	cur_list = cur_list->next;
 	cur_index = 1;
-	max_index = 0;
+	min_index = 0;
 	while (cur_list != NULL)
 	{
-		if (cur_list->data > max)
+		if (cur_list->data < min)
 		{
-			max = cur_list->data;
-			max_index = cur_index;
+			min = cur_list->data;
+			min_index = cur_index;
 		}
 		cur_list = cur_list->next;
 		cur_index++;
 	}
-	return (max_index);
+	return (min_index);
+}
+
+int get_last_elem(t_stack *head)
+{
+	t_stack *cur_list;
+
+	cur_list = head;
+	while (cur_list->next != 0)
+		cur_list = cur_list->next;
+	return (cur_list->data);
 }
