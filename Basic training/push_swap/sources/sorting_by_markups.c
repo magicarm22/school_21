@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 15:57:10 by djast             #+#    #+#             */
-/*   Updated: 2019/07/16 16:36:31 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/18 10:52:03 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,13 @@ int swap_is_needed(t_stacks *stacks)
 	int after_swap;
 	int *copy_markups;
 	int index_with_max_markups;
-	
-	//print_list("A: ", stacks->head_a);
-	//print_markups(stacks->head_a);
+
 	copy_markups = get_markups_copy(stacks->head_a);
 	before_swap = count_of_markups(stacks->head_a);
 	clear_markup(stacks->head_a);
 	stack_sa(stacks);
 	index_with_max_markups = find_index_with_max_markups(stacks, size_list(stacks->head_a));
 	after_swap = set_selected_markups(stacks->head_a, index_with_max_markups);
-	//printf("before: %d  after: %d\n", before_swap, after_swap);
 	clear_markup(stacks->head_a);
 	stack_sa(stacks);
 	set_markups_copy(stacks->head_a, copy_markups);

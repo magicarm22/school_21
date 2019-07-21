@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 16:29:32 by djast             #+#    #+#             */
-/*   Updated: 2019/07/12 18:11:13 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/21 18:38:10 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void add_command(t_commands **commands, char *data)
 		return ;
 	}
 	cur_command = *commands;
-	//printf("%p\n", cur_command->next);
 	while (cur_command->next != NULL)
 		cur_command = cur_command->next;
 	cur_command->next = (t_commands *) malloc(sizeof(t_commands));
@@ -71,8 +70,9 @@ void optimizate_commands(t_commands **commands, char *command1, char *command2,
 	cur_command = *commands;
 	count_a = 0;
 	count_b = 0;
-	while (cur_command != NULL)
+	while (cur_command != NULL && cur_command->data != NULL)
 	{
+		
 		start_command = cur_command;
 		while (cur_command != NULL && ft_strcmp(cur_command->data, command1) == 0)
 		{
@@ -86,11 +86,9 @@ void optimizate_commands(t_commands **commands, char *command1, char *command2,
 		}
 		while (cur_command != NULL && count_a != 0 && count_b != 0)
 		{
-			//printf("%d %d\n", count_a, count_b);
 			tmp = count_b;
 			count_b = count_b > count_a ? count_b - count_a : 0;
 			count_a = tmp < count_a ? tmp : count_a;
-			//printf("%d %d\n", count_a, count_b);
 			while (count_b != 0)
 			{
 				start_command = start_command->next;
@@ -98,7 +96,6 @@ void optimizate_commands(t_commands **commands, char *command1, char *command2,
 			}
 			while (count_a != 0)
 			{
-				//printf("AAA\n");
 				next_command = start_command->next;
 				start_command->next = next_command->next;
 				start_command->data = command_result;
@@ -107,6 +104,7 @@ void optimizate_commands(t_commands **commands, char *command1, char *command2,
 				count_a--;
 			}
 		}
+
 		count_a = 0;
 		count_b = 0;
 		if (cur_command != NULL)
@@ -118,8 +116,9 @@ void print_commands(t_commands **commands)
 {
 	t_commands *cur_command;
 
+	if (*commands == NULL || (*commands)->data == NULL)
+		return ;
 	cur_command = *commands;
-	//printf("%p\n", cur_command);
 	while (cur_command != NULL)
 	{
 		if (ft_strcmp(cur_command->data, "rra") == 0 ||

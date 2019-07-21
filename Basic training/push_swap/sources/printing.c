@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:03:16 by djast             #+#    #+#             */
-/*   Updated: 2019/07/02 16:14:20 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/18 19:05:45 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ static void print_and_make_rotate_commands(t_stacks *stacks, char *command)
 {
 	if (ft_strcmp(command, "ra") == 0)
 	{
-		write(1, "ra\n", 3);
+		
 		stack_ra(stacks);
+		write(1, "ra\n", 3);
 	}
 	else if (ft_strcmp(command, "rb") == 0)
 	{

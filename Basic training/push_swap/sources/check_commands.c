@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:20:46 by djast             #+#    #+#             */
-/*   Updated: 2019/07/16 15:48:12 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/20 16:54:10 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,13 @@ static int check_stack_reverse_rotate(t_stacks *stacks, char command[4])
 	return (COMMAND_SUCCESS);
 }
 
-int check_commands(t_stacks *stacks, char command[4])
+int check_commands(t_stacks *stacks, char *command)
 {
 	if (check_stack_swap(stacks, command) == COMMAND_SUCCESS ||
 		check_stack_push(stacks, command) == COMMAND_SUCCESS ||
 		check_stack_rotate(stacks, command) == COMMAND_SUCCESS ||
 		check_stack_reverse_rotate(stacks, command) == COMMAND_SUCCESS)
-	{
-		print_list("a: ", stacks->head_a);
-		print_list("b: ", stacks->head_b);
 		return (COMMAND_SUCCESS);
-	}
 	else
-	{
 		return (COMMAND_ERROR);
-	}
 }

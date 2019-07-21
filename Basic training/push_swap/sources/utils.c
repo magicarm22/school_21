@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:42:47 by djast             #+#    #+#             */
-/*   Updated: 2019/07/12 15:08:05 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/18 18:12:43 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,23 @@ int get_index_by_elem(t_stack *head, int elem)
 {
 	t_stack *cur_list;
 	int index;
+	int is_find;
 
 	cur_list = head;
 	index = 0;
-	while (cur_list != NULL && cur_list->data != elem)
+	is_find = 0;
+	while (cur_list != NULL)
 	{
+		if (cur_list->data == elem)
+		{
+			is_find = 1;
+			break;
+		}
 		index++;
 		cur_list = cur_list->next;
 	}
+	if (is_find == 0)
+		return (-1);
 	return (index);
 }
 

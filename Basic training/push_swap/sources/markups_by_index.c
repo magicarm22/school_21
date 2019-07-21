@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 14:23:54 by djast             #+#    #+#             */
-/*   Updated: 2019/07/12 14:39:48 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/18 10:53:10 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int set_markups_by_index(t_stack *head, unsigned int cur_index)
 	cur_list = head;
 	count_of_markups = 0;
 	while (cur_list->data != (int)cur_index && cur_list != NULL)
-	{
-		//printf("%d %d\n", cur_list->data, cur_index);
 		cur_list = cur_list->next;
-	}
 	if (cur_list != NULL)
 		cur_list = cur_list->next;
 	while (cur_list != NULL)

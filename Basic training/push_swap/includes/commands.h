@@ -6,16 +6,23 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 17:43:08 by djast             #+#    #+#             */
-/*   Updated: 2019/07/16 15:59:01 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/21 20:05:11 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONNANDS_H
 # define CONNANDS_H
-# include "./libft/libft.h"
+# include "libft.h"
 # include <stdio.h>
 # include <stdint.h>
 # include <limits.h>
+# include <SDL.h>
+# include "get_next_line.h"
+
+# define SIZE_WINDOW_X 2550
+# define SIZE_WINDOW_Y 1440
+
+# define SIZE_STACKS_X 2000
 
 # define CHECK_ERROR -1
 # define CHECK_SUCCESS 1
@@ -25,24 +32,33 @@
 # define SORT_ERROR -1
 # define SORT_SUCCESS 1
 
-typedef struct	s_stack
+typedef struct		s_stack
 {
 	int				data;
 	int				markup : 2;
 	struct s_stack	*next;
-}				t_stack;
+}					t_stack;
 
-typedef struct s_stacks
+typedef struct		s_stacks
 {
 	t_stack *head_a;
 	t_stack *head_b;
-}				t_stacks;
+}					t_stacks;
 
 typedef struct			s_commands
 {
 	char				*data;
 	struct s_commands	*next;
 }						t_commands;
+
+typedef struct			s_SDL
+{
+	SDL_Window *window;
+	SDL_Renderer *renderer;
+	t_stacks *stacks;
+	int stack_size;
+	int speed;
+}						t_SDL;
 
 
 void stack_sa(t_stacks *stacks);

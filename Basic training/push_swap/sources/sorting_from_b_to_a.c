@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 17:46:46 by djast             #+#    #+#             */
-/*   Updated: 2019/07/16 18:45:15 by djast            ###   ########.fr       */
+/*   Updated: 2019/07/18 10:52:32 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static unsigned int find_a_steps(t_stacks *stacks, unsigned int index)
 	int cur_index;
 
 	elem = get_elem_by_index(stacks->head_b, index);
-	//printf("elem: %d\n", elem);
 	if (stacks->head_a == NULL)
 		return 0;
 	cur_list = stacks->head_a;
@@ -53,14 +52,12 @@ static unsigned int find_steps_from_b_to_a(t_stacks *stacks, unsigned int index)
 		status++;
 		b_steps = size_list(stacks->head_b) - b_steps;
 	}
-	//printf("B: %d\n", b_steps);
 	a_steps = find_a_steps(stacks, index);
-	//printf("A_before: %d\n", a_steps);
 	if (a_steps == 0)
 	{
 		elem = get_elem_by_index(stacks->head_b, index);
 		if (stacks->head_a->data > elem && 
-			get_elem_by_index(stacks->head_b, size_list(stacks->head_b) - 1) < elem)
+			get_elem_by_index(stacks->head_a, size_list(stacks->head_a) - 1) < elem)
 			a_steps = 0;
 		else
 			a_steps = find_min(stacks->head_a);
@@ -78,7 +75,6 @@ static unsigned int find_steps_from_b_to_a(t_stacks *stacks, unsigned int index)
 			b_steps--;
 			double_steps++;
 		}
-	//printf("b_steps: %d, a_steps: %d, double_steps: %d\n", a_steps, b_steps, double_steps);
 	return b_steps + a_steps + double_steps;
 }
 
@@ -95,7 +91,6 @@ unsigned int choose_element(t_stacks *stacks)
 	while (i != size_list(stacks->head_b))
 	{
 		steps = find_steps_from_b_to_a(stacks, i);
-		//printf("steps: %u, min_steps: %u, elem: %d\n", steps, min_steps, get_elem_by_index(stacks->head_b, i));
 		if (steps < min_steps)
 		{
 			min_steps = steps;
@@ -108,10 +103,8 @@ unsigned int choose_element(t_stacks *stacks)
 
 void put_index_to_b_up(t_stacks *stacks, t_commands **commands, unsigned int index)
 {
-	//printf("choose_index: %d\n", index);
 	if (index > size_list(stacks->head_b) / 2)
 	{
-		//printf("index: %d, size: %d\n", index, size_list(stacks->head_b));
 		index = size_list(stacks->head_b) - index;
 		while (index-- != 0)
 			make_and_add_command(stacks, commands, "rrb");
@@ -119,7 +112,6 @@ void put_index_to_b_up(t_stacks *stacks, t_commands **commands, unsigned int ind
 	else
 		while (index-- != 0)
 			make_and_add_command(stacks, commands, "rb");
-	//print_list("B: ", stacks->head_b);
 }
 
 void create_place_in_a(t_stacks *stacks, t_commands **commands)
@@ -127,10 +119,8 @@ void create_place_in_a(t_stacks *stacks, t_commands **commands)
 	unsigned int a_index;
 	int elem;
 
-	//printf("index: %d", index);
 	elem = get_elem_by_index(stacks->head_b, 0);
 	a_index = find_a_steps(stacks, 0);
-	//printf("a_index: %d\n", a_index);
 	if (a_index == 0)
 	{
 		if (stacks->head_a->data > elem && get_last_elem(stacks->head_a) < elem)
