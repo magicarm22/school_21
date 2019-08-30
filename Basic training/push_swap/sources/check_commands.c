@@ -6,13 +6,13 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:20:46 by djast             #+#    #+#             */
-/*   Updated: 2019/07/20 16:54:10 by djast            ###   ########.fr       */
+/*   Updated: 2019/08/25 12:39:52 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-static int check_stack_swap(t_stacks *stacks, char command[4])
+static int	check_stack_swap(t_stacks *stacks, char command[4])
 {
 	if (ft_strcmp(command, "sa") == 0)
 		stack_sa(stacks);
@@ -25,7 +25,7 @@ static int check_stack_swap(t_stacks *stacks, char command[4])
 	return (COMMAND_SUCCESS);
 }
 
-static int check_stack_push(t_stacks *stacks, char command[4])
+static int	check_stack_push(t_stacks *stacks, char command[4])
 {
 	if (ft_strcmp(command, "pa") == 0)
 		stack_pa(stacks);
@@ -36,7 +36,7 @@ static int check_stack_push(t_stacks *stacks, char command[4])
 	return (COMMAND_SUCCESS);
 }
 
-static int check_stack_rotate(t_stacks *stacks, char command[4])
+static int	check_stack_rotate(t_stacks *stacks, char command[4])
 {
 	if (ft_strcmp(command, "ra") == 0)
 		stack_ra(stacks);
@@ -49,7 +49,7 @@ static int check_stack_rotate(t_stacks *stacks, char command[4])
 	return (COMMAND_SUCCESS);
 }
 
-static int check_stack_reverse_rotate(t_stacks *stacks, char command[4])
+static int	check_stack_reverse_rotate(t_stacks *stacks, char command[4])
 {
 	if (ft_strcmp(command, "rra") == 0)
 		stack_rra(stacks);
@@ -62,13 +62,20 @@ static int check_stack_reverse_rotate(t_stacks *stacks, char command[4])
 	return (COMMAND_SUCCESS);
 }
 
-int check_commands(t_stacks *stacks, char *command)
+int			check_commands(t_stacks *stacks, t_commands *commands)
 {
-	if (check_stack_swap(stacks, command) == COMMAND_SUCCESS ||
-		check_stack_push(stacks, command) == COMMAND_SUCCESS ||
-		check_stack_rotate(stacks, command) == COMMAND_SUCCESS ||
-		check_stack_reverse_rotate(stacks, command) == COMMAND_SUCCESS)
+	if (commands->data == NULL)
 		return (COMMAND_SUCCESS);
-	else
-		return (COMMAND_ERROR);
+	while (commands != NULL)
+	{
+		if (check_stack_swap(stacks, commands->data) == COMMAND_SUCCESS ||
+			check_stack_push(stacks, commands->data) == COMMAND_SUCCESS ||
+			check_stack_rotate(stacks, commands->data) == COMMAND_SUCCESS ||
+			check_stack_reverse_rotate(stacks, commands->data) ==
+																COMMAND_SUCCESS)
+			commands = commands->next;
+		else
+			return (COMMAND_ERROR);
+	}
+	return (COMMAND_SUCCESS);
 }

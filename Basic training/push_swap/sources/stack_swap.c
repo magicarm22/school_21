@@ -6,13 +6,13 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 18:00:01 by djast             #+#    #+#             */
-/*   Updated: 2019/07/18 18:00:31 by djast            ###   ########.fr       */
+/*   Updated: 2019/08/25 12:56:53 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-void stack_sa(t_stacks *stacks)
+void	stack_sa(t_stacks *stacks)
 {
 	t_stack	*first_list;
 	t_stack	*sec_list;
@@ -28,7 +28,7 @@ void stack_sa(t_stacks *stacks)
 	first_list->next = third_list;
 }
 
-void stack_sb(t_stacks *stacks)
+void	stack_sb(t_stacks *stacks)
 {
 	t_stack	*first_list;
 	t_stack	*sec_list;
@@ -44,7 +44,7 @@ void stack_sb(t_stacks *stacks)
 	first_list->next = third_list;
 }
 
-void stack_ss(t_stacks *stacks)
+void	stack_ss(t_stacks *stacks)
 {
 	stack_sa(stacks);
 	stack_sb(stacks);

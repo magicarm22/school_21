@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/02 13:11:19 by djast             #+#    #+#             */
-/*   Updated: 2019/01/03 15:24:47 by djast            ###   ########.fr       */
+/*   Updated: 2019/08/25 12:31:34 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,21 @@ char	*parse_line(char **my_line)
 
 int		get_next_line(const int fd, char **line)
 {
-	static char *my_line[10240];
+	static char *my_line;
 
 	if (fd < 0 || fd > 10240 || line == NULL ||
 		read(fd, NULL, 0) == -1 || BUFF_SIZE <= 0)
 		return (-1);
-	if (my_line[fd] == NULL)
+	if (my_line == NULL)
 	{
-		if ((my_line[fd] = ft_strnew(0)) == NULL)
+		if ((my_line = ft_strnew(0)) == NULL)
 			return (-1);
 	}
-	if (read_lines(fd, &my_line[fd]) == NULL)
+	if (read_lines(fd, &my_line) == NULL)
 		return (-1);
-	if (*my_line[fd])
+	if (*my_line)
 	{
-		if ((*line = parse_line(&my_line[fd])) == NULL)
+		if ((*line = parse_line(&my_line)) == NULL)
 			return (-1);
 		return (1);
 	}

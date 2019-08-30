@@ -6,13 +6,13 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 16:03:16 by djast             #+#    #+#             */
-/*   Updated: 2019/07/18 19:05:45 by djast            ###   ########.fr       */
+/*   Updated: 2019/08/25 12:46:44 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-static void print_and_make_swap_commands(t_stacks *stacks, char *command)
+static void		print_and_make_swap_commands(t_stacks *stacks, char *command)
 {
 	if (ft_strcmp(command, "sa") == 0)
 	{
@@ -31,7 +31,7 @@ static void print_and_make_swap_commands(t_stacks *stacks, char *command)
 	}
 }
 
-static void print_and_make_push_commands(t_stacks *stacks, char *command)
+static void		print_and_make_push_commands(t_stacks *stacks, char *command)
 {
 	if (ft_strcmp(command, "pa") == 0)
 	{
@@ -45,11 +45,10 @@ static void print_and_make_push_commands(t_stacks *stacks, char *command)
 	}
 }
 
-static void print_and_make_rotate_commands(t_stacks *stacks, char *command)
+static void		print_and_make_rotate_commands(t_stacks *stacks, char *command)
 {
 	if (ft_strcmp(command, "ra") == 0)
 	{
-		
 		stack_ra(stacks);
 		write(1, "ra\n", 3);
 	}
@@ -65,7 +64,7 @@ static void print_and_make_rotate_commands(t_stacks *stacks, char *command)
 	}
 }
 
-static void print_and_make_reverse_rotate_commands(t_stacks *stacks,
+static void		print_and_make_reverse_rotate_commands(t_stacks *stacks,
 													char *command)
 {
 	if (ft_strcmp(command, "rra") == 0)
@@ -85,7 +84,7 @@ static void print_and_make_reverse_rotate_commands(t_stacks *stacks,
 	}
 }
 
-void print_and_make_command(t_stacks *stacks, char *command)
+void			print_and_make_command(t_stacks *stacks, char *command)
 {
 	if (ft_strcmp(command, "sa") == 0 || ft_strcmp(command, "sb") == 0 ||
 						ft_strcmp(command, "ss") == 0)
@@ -99,4 +98,3 @@ void print_and_make_command(t_stacks *stacks, char *command)
 						ft_strcmp(command, "rrr") == 0)
 		print_and_make_reverse_rotate_commands(stacks, command);
 }
-

@@ -6,13 +6,13 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:59:37 by djast             #+#    #+#             */
-/*   Updated: 2019/07/16 15:54:44 by djast            ###   ########.fr       */
+/*   Updated: 2019/08/25 12:57:19 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-void stack_rra(t_stacks *stacks)
+void	stack_rra(t_stacks *stacks)
 {
 	t_stack	*first_list;
 	t_stack	*prev_last_list;
@@ -30,12 +30,12 @@ void stack_rra(t_stacks *stacks)
 	prev_last_list->next = NULL;
 }
 
-void stack_rrb(t_stacks *stacks)
+void	stack_rrb(t_stacks *stacks)
 {
 	t_stack	*first_list;
 	t_stack	*prev_last_list;
-	t_stack *last_list;
-	int i;
+	t_stack	*last_list;
+	int		i;
 
 	if (stacks->head_b == NULL || stacks->head_b->next == NULL)
 		return ;
@@ -50,7 +50,7 @@ void stack_rrb(t_stacks *stacks)
 	prev_last_list->next = NULL;
 }
 
-void stack_rrr(t_stacks *stacks)
+void	stack_rrr(t_stacks *stacks)
 {
 	stack_rra(stacks);
 	stack_rrb(stacks);

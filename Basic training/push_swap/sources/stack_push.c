@@ -6,13 +6,13 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 20:11:03 by djast             #+#    #+#             */
-/*   Updated: 2019/07/16 15:49:18 by djast            ###   ########.fr       */
+/*   Updated: 2019/08/25 12:56:08 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-void stack_pa(t_stacks *stacks)
+void	stack_pa(t_stacks *stacks)
 {
 	t_stack *first_in_a;
 	t_stack *first_in_b;
@@ -28,7 +28,7 @@ void stack_pa(t_stacks *stacks)
 	stacks->head_b = second_in_b;
 }
 
-void stack_pb(t_stacks *stacks)
+void	stack_pb(t_stacks *stacks)
 {
 	t_stack *first_in_b;
 	t_stack *first_in_a;

@@ -6,16 +6,16 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 15:57:10 by djast             #+#    #+#             */
-/*   Updated: 2019/07/18 10:52:03 by djast            ###   ########.fr       */
+/*   Updated: 2019/08/25 12:52:26 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-int find_false_markup(t_stack *head)
+int			find_false_markup(t_stack *head)
 {
-	unsigned int cur_index;
-	t_stack *cur_list;
+	unsigned int	cur_index;
+	t_stack			*cur_list;
 
 	cur_index = 0;
 	cur_list = head;
@@ -29,27 +29,10 @@ int find_false_markup(t_stack *head)
 	return (-1);
 }
 
-int find_true_markup(t_stack *head)
+static int	count_of_markups(t_stack *head)
 {
-	unsigned int cur_index;
-	t_stack *cur_list;
-
-	cur_index = 0;
-	cur_list = head;
-	while (cur_list != NULL)
-	{
-		if (cur_list->markup == 1)
-			return (cur_index);
-		cur_list = cur_list->next;
-		cur_index++;
-	}
-	return (-1);
-}
-
-static int count_of_markups(t_stack *head)
-{
-	t_stack *cur_list;
-	int count_of_markups;
+	t_stack		*cur_list;
+	int			count_of_markups;
 
 	cur_list = head;
 	count_of_markups = 0;
@@ -62,11 +45,11 @@ static int count_of_markups(t_stack *head)
 	return (count_of_markups);
 }
 
-static int *get_markups_copy(t_stack *head)
+static int	*get_markups_copy(t_stack *head)
 {
-	t_stack *cur_list;
-	int *copy_markups;
-	unsigned int i;
+	t_stack			*cur_list;
+	int				*copy_markups;
+	unsigned int	i;
 
 	i = 0;
 	cur_list = head;
@@ -77,13 +60,13 @@ static int *get_markups_copy(t_stack *head)
 		cur_list = cur_list->next;
 		i++;
 	}
-	return copy_markups;
+	return (copy_markups);
 }
 
-static void set_markups_copy(t_stack *head, int *copy_markups)
+static void	set_markups_copy(t_stack *head, int *copy_markups)
 {
-	t_stack *cur_list;
-	unsigned int i;
+	t_stack			*cur_list;
+	unsigned int	i;
 
 	i = 0;
 	cur_list = head;
@@ -96,7 +79,7 @@ static void set_markups_copy(t_stack *head, int *copy_markups)
 	free(copy_markups);
 }
 
-int swap_is_needed(t_stacks *stacks)
+int			swap_is_needed(t_stacks *stacks)
 {
 	int before_swap;
 	int after_swap;
@@ -107,7 +90,8 @@ int swap_is_needed(t_stacks *stacks)
 	before_swap = count_of_markups(stacks->head_a);
 	clear_markup(stacks->head_a);
 	stack_sa(stacks);
-	index_with_max_markups = find_index_with_max_markups(stacks, size_list(stacks->head_a));
+	index_with_max_markups = find_index_with_max_markups(stacks,
+									size_list(stacks->head_a));
 	after_swap = set_selected_markups(stacks->head_a, index_with_max_markups);
 	clear_markup(stacks->head_a);
 	stack_sa(stacks);

@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:33:53 by djast             #+#    #+#             */
-/*   Updated: 2019/07/18 19:28:20 by djast            ###   ########.fr       */
+/*   Updated: 2019/08/28 19:50:40 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@ static unsigned int		check_if_index_in_array(unsigned int *array,
 	{
 		if (array[i] == cur_index)
 		{
-			return 1;
+			return (1);
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
 static unsigned int		find_max_index(unsigned int *array, t_stack *head_a,
 										int already_added)
 {
-	t_stack *cur_list;
-	int min;
-	unsigned int min_index;
-	unsigned int cur_index;
+	t_stack			*cur_list;
+	int				min;
+	unsigned int	min_index;
+	unsigned int	cur_index;
 
 	cur_list = head_a;
 	min = INT_MAX;
@@ -58,15 +58,14 @@ static unsigned int		find_max_index(unsigned int *array, t_stack *head_a,
 	return (min_index);
 }
 
-unsigned int *sequence_1_N(t_stack *head_a)
+static unsigned int		*sequence_1_n(t_stack *head_a)
 {
-	unsigned int *array;
-	int min_index;
-	int i;
-	int list_size;
+	unsigned int	*array;
+	int				min_index;
+	int				i;
+	int				list_size;
 
 	list_size = size_list(head_a);
-
 	array = (unsigned int *)malloc(sizeof(unsigned int) * list_size);
 	i = 0;
 	while (i < list_size)
@@ -78,14 +77,14 @@ unsigned int *sequence_1_N(t_stack *head_a)
 	return (array);
 }
 
-void translate_to_1_N(t_stack *head_a)
+void					translate_to_1_n(t_stack *head_a)
 {
-	unsigned int *sequence;
-	t_stack *cur_list;
-	unsigned int i;
-	unsigned int j;
+	unsigned int	*sequence;
+	t_stack			*cur_list;
+	unsigned int	i;
+	unsigned int	j;
 
-	sequence = sequence_1_N(head_a);
+	sequence = sequence_1_n(head_a);
 	i = 1;
 	cur_list = head_a;
 	while (i <= size_list(head_a))
@@ -96,11 +95,12 @@ void translate_to_1_N(t_stack *head_a)
 			if (i == sequence[j])
 			{
 				cur_list->data = j + 1;
-				break;
+				break ;
 			}
 			j++;
 		}
 		cur_list = cur_list->next;
 		i++;
-	} 
+	}
+	free(sequence);
 }

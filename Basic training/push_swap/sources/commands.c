@@ -6,13 +6,15 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 16:29:32 by djast             #+#    #+#             */
-/*   Updated: 2019/07/21 18:38:10 by djast            ###   ########.fr       */
+/*   Updated: 2019/08/28 20:33:25 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-void make_and_add_command(t_stacks *stacks, t_commands **commands, char *data)
+void				make_and_add_command(t_stacks *stacks,
+												t_commands **commands,
+														char *data)
 {
 	if (ft_strcmp(data, "sa") == 0)
 		stack_sa(stacks);
@@ -39,7 +41,7 @@ void make_and_add_command(t_stacks *stacks, t_commands **commands, char *data)
 	add_command(commands, data);
 }
 
-void add_command(t_commands **commands, char *data)
+void				add_command(t_commands **commands, char *data)
 {
 	t_commands *cur_command;
 
@@ -52,67 +54,73 @@ void add_command(t_commands **commands, char *data)
 	cur_command = *commands;
 	while (cur_command->next != NULL)
 		cur_command = cur_command->next;
-	cur_command->next = (t_commands *) malloc(sizeof(t_commands));
+	cur_command->next = (t_commands *)malloc(sizeof(t_commands));
 	cur_command->next->data = data;
 	cur_command->next->next = NULL;
 }
 
-void optimizate_commands(t_commands **commands, char *command1, char *command2,
-								char *command_result)
+static t_commands	*change_steps(t_commands *start_command,
+									t_commands *cur_command,
+									int count_array[2], char *command_result)
 {
-	t_commands *cur_command;
-	t_commands *next_command;
-	t_commands *start_command;
-	int count_a;
-	int count_b;
-	int tmp;
+	t_commands	*next_command;
+	int			tmp;
+
+	while (cur_command != NULL && count_array[0] != 0 && count_array[1] != 0)
+	{
+		tmp = count_array[1];
+		count_array[1] = count_array[1] > count_array[0] ? count_array[1] -
+															count_array[0] : 0;
+		count_array[0] = tmp < count_array[0] ? tmp : count_array[0];
+		while (count_array[1] != 0)
+		{
+			start_command = start_command->next;
+			count_array[1]--;
+		}
+		while (count_array[0] != 0)
+		{
+			next_command = start_command->next;
+			start_command->next = next_command->next;
+			start_command->data = command_result;
+			free(next_command);
+			start_command = start_command->next;
+			count_array[0]--;
+		}
+	}
+	return (cur_command);
+}
+
+void				optimizate_commands(t_commands **commands, char *com1,
+										char *com2, char *command_result)
+{
+	t_commands		*cur_command;
+	t_commands		*start_command;
+	int				count_array[2];
 
 	cur_command = *commands;
-	count_a = 0;
-	count_b = 0;
 	while (cur_command != NULL && cur_command->data != NULL)
 	{
-		
+		count_array[0] = 0;
+		count_array[1] = 0;
 		start_command = cur_command;
-		while (cur_command != NULL && ft_strcmp(cur_command->data, command1) == 0)
+		while (cur_command != NULL && ft_strcmp(cur_command->data, com1) == 0)
 		{
-			count_b++;
+			count_array[1]++;
 			cur_command = cur_command->next;
 		}
-		while (cur_command != NULL && ft_strcmp(cur_command->data, command2) == 0)
+		while (cur_command != NULL && ft_strcmp(cur_command->data, com2) == 0)
 		{
-			count_a++;
+			count_array[0]++;
 			cur_command = cur_command->next;
 		}
-		while (cur_command != NULL && count_a != 0 && count_b != 0)
-		{
-			tmp = count_b;
-			count_b = count_b > count_a ? count_b - count_a : 0;
-			count_a = tmp < count_a ? tmp : count_a;
-			while (count_b != 0)
-			{
-				start_command = start_command->next;
-				count_b--;
-			}
-			while (count_a != 0)
-			{
-				next_command = start_command->next;
-				start_command->next = next_command->next;
-				start_command->data = command_result;
-				free(next_command);
-				start_command = start_command->next;
-				count_a--;
-			}
-		}
-
-		count_a = 0;
-		count_b = 0;
+		cur_command = change_steps(start_command, cur_command,
+												count_array, command_result);
 		if (cur_command != NULL)
 			cur_command = cur_command->next;
 	}
 }
 
-void print_commands(t_commands **commands)
+void				print_commands(t_commands **commands)
 {
 	t_commands *cur_command;
 

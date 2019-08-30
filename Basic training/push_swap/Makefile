@@ -6,7 +6,7 @@
 #    By: djast <djast@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 17:18:06 by djast             #+#    #+#              #
-#    Updated: 2019/07/21 20:27:53 by djast            ###   ########.fr        #
+#    Updated: 2019/08/28 20:16:17 by djast            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,11 @@ COMMON_FILES =	stack_swap.c \
 				sorting_by_markups.c \
 				sorting_from_b_to_a.c \
 				markups_by_index.c \
-				commands.c
+				commands.c \
+				free.c \
+				draw.c \
+				key.c \
+				sorting_many_numbers.c
 
 PUSH_SWAP_FILES = push_swap.c
 CHECKER_FILES = checker.c
