@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   check_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/24 17:42:47 by djast             #+#    #+#             */
-/*   Updated: 2019/06/30 14:01:44 by djast            ###   ########.fr       */
+/*   Created: 2019/07/02 16:19:35 by djast             #+#    #+#             */
+/*   Updated: 2019/08/25 12:40:53 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-unsigned int		ft_num_size_with_sign(intmax_t n)
+int			check_sort(t_stacks *stacks)
 {
-	unsigned int	count;
+	int		success;
+	t_stack	*cur_list;
+	t_stack	*prev_list;
 
-	count = 0;
-	if (n < 0)
-		count++;
-	while ((n = n / 10) != 0)
-		count++;
-	return (count + 1);
-}
-
-unsigned int		size_list(t_stack *stack)
-{
-	unsigned int size;
-	t_stack *cur_list;
-
-	cur_list = stack;
-	size = 0;
+	success = 1;
+	if (stacks->head_a == NULL)
+		return (SORT_ERROR);
+	prev_list = stacks->head_a;
+	cur_list = prev_list->next;
 	while (cur_list != NULL)
 	{
-		size++;
+		if (prev_list->data > cur_list->data)
+		{
+			success = 0;
+			break ;
+		}
+		prev_list = cur_list;
 		cur_list = cur_list->next;
 	}
-	return (size);
-
+	if (success == 1)
+		return (SORT_SUCCESS);
+	else
+		return (SORT_ERROR);
 }

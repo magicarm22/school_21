@@ -6,36 +6,37 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:33:53 by djast             #+#    #+#             */
-/*   Updated: 2019/06/30 14:35:22 by djast            ###   ########.fr       */
+/*   Updated: 2019/08/28 19:50:40 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-static unsigned int		check_if_index_in_array(int *array, int cur_index,
-												int already_added)
+static unsigned int		check_if_index_in_array(unsigned int *array,
+												unsigned int cur_index,
+												unsigned int already_added)
 {
-	int i;
+	unsigned int i;
 
 	i = 0;
 	while (i < already_added)
 	{
 		if (array[i] == cur_index)
 		{
-			return 1;
+			return (1);
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
-static unsigned int		find_min_index(int *array, t_stack *head_a,
+static unsigned int		find_max_index(unsigned int *array, t_stack *head_a,
 										int already_added)
 {
-	t_stack *cur_list;
-	int min;
-	int min_index;
-	int cur_index;
+	t_stack			*cur_list;
+	int				min;
+	unsigned int	min_index;
+	unsigned int	cur_index;
 
 	cur_list = head_a;
 	min = INT_MAX;
@@ -57,38 +58,49 @@ static unsigned int		find_min_index(int *array, t_stack *head_a,
 	return (min_index);
 }
 
-static int *sequence_1_N(t_stack *head_a)
+static unsigned int		*sequence_1_n(t_stack *head_a)
 {
-	int *array;
-	int min_index;
-	int i;
-	int list_size;
+	unsigned int	*array;
+	int				min_index;
+	int				i;
+	int				list_size;
 
 	list_size = size_list(head_a);
-
-	array = (int *)malloc(sizeof(int) * list_size);
+	array = (unsigned int *)malloc(sizeof(unsigned int) * list_size);
 	i = 0;
 	while (i < list_size)
 	{
-		min_index = find_min_index(array, head_a, i);
+		min_index = find_max_index(array, head_a, i);
 		array[i] = min_index;
 		i++;
 	}
 	return (array);
 }
 
-void translate_to_1_N(t_stack *head_a)
+void					translate_to_1_n(t_stack *head_a)
 {
-	int *sequence;
-	t_stack *cur_list;
-	int i;
+	unsigned int	*sequence;
+	t_stack			*cur_list;
+	unsigned int	i;
+	unsigned int	j;
 
-	sequence = sequence_1_N(head_a);
+	sequence = sequence_1_n(head_a);
+	i = 1;
 	cur_list = head_a;
-	i = 0;
-	while (cur_list != NULL)
+	while (i <= size_list(head_a))
 	{
-		cur_list->data = sequence[i++];
+		j = 0;
+		while (j < size_list(head_a))
+		{
+			if (i == sequence[j])
+			{
+				cur_list->data = j + 1;
+				break ;
+			}
+			j++;
+		}
 		cur_list = cur_list->next;
+		i++;
 	}
+	free(sequence);
 }
