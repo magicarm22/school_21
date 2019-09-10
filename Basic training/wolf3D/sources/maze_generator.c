@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maze_generator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 16:02:17 by djast             #+#    #+#             */
-/*   Updated: 2019/08/27 19:28:10 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/09 15:44:32 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,15 @@ static int get_info_from_file(t_map *map_info, t_player *player, int fd)
 	free(numbers[1]);
 	free(numbers);
 	get_next_line(fd, &line);
-	if (line == NULL || countwords(line, ' ') != 2)
+	if (line == NULL || countwords(line, ' ') != 3)
 		return (ERROR_NON_VALID_FILE);
 	numbers = ft_strsplit(line, ' ');
-	player->coord_x = ft_atoi(numbers[0]);
-	player->coord_y = ft_atoi(numbers[1]);
+	player->x = ft_atoi(numbers[0]);
+	player->y = ft_atoi(numbers[1]);
+	player->point_of_view = ft_atoi(numbers[2]);
 	free(numbers[0]);
 	free(numbers[1]);
+	free(numbers[2]);
 	free(numbers);
 	return (0);
 }
@@ -105,7 +107,7 @@ t_map *get_map_from_file(t_player *player, int fd)
 	init_map(map_info);
 	if (read_map(map_info, fd) == ERROR_NON_VALID_FILE)
 		return (NULL);
-	if (map_info->map[player->coord_y][player->coord_x] == 1)
+	if (map_info->map[player->y / 64][player->x / 64] == 1)
 		return (NULL);
 	print_map(map_info);
 	//return (map);
