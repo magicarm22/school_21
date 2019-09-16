@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 16:02:51 by djast             #+#    #+#             */
-/*   Updated: 2019/09/10 13:40:22 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/15 12:58:56 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # include "get_next_line.h"
 # define ERROR_NON_VALID_FILE -1
 # define FIELD_OF_VIEW 60.0 //1.047197 // 60 * 3.141593 / 180
-# define SIZE_WIN_X 2560
-# define SIZE_WIN_Y 1440
-# define RESOL_X 640
-# define RESOL_Y 480
+# define SIZE_WIN_X 2880
+# define SIZE_WIN_Y 1620
+# define RESOL_X 320
+# define RESOL_Y 200
 # define RESOL_RATIO_X SIZE_WIN_X / RESOL_X
 # define RESOL_RATIO_Y SIZE_WIN_Y / RESOL_Y
 
