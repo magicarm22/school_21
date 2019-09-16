@@ -6,7 +6,7 @@
 /*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 13:51:14 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/14 12:42:57 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/16 13:18:31 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,41 +56,41 @@ int	main (int argc, char **argv)
 
     SDL_SetWindowFullscreen(SDL->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	redraw(SDL, map_info, player);
-	while ( 1 )
+	while (1)
 	{
-		if ( SDL_PollEvent( &(SDL->windowEvent) ) )
+		if ( SDL_PollEvent(&(SDL->windowEvent)))
 		{
-			if ( SDL_QUIT == SDL->windowEvent.type )
+			if (SDL_QUIT == SDL->windowEvent.type)
 				break;
-			else if ( SDLK_ESCAPE == SDL->windowEvent.key.keysym.sym )
+			else if (SDLK_ESCAPE == SDL->windowEvent.key.keysym.sym)
 				break;
-			else if ( SDLK_a == SDL->windowEvent.key.keysym.sym )
+			else if (SDLK_a == SDL->windowEvent.key.keysym.sym)
 			{
-				player->x += 10 * sin(player->point_of_view * 0.0175); // sin a = cos (a + 90)//ДОДЕЛАТЬ
-				player->y += -10 * cos(player->point_of_view * 0.0175);
+				player->x += 10 * cos((player->point_of_view + 90) * 0.0175); // sin a = cos (a + 90)
+				player->y += -10 * sin((player->point_of_view + 90) * 0.0175);
 			}
-			else if ( SDLK_d == SDL->windowEvent.key.keysym.sym )
+			else if (SDLK_d == SDL->windowEvent.key.keysym.sym)
 			{
-				player->x += -10 * sin(player->point_of_view * 0.0175); //ДОДЕЛАТЬ
-				player->y += 10 * cos(player->point_of_view * 0.0175);
+				player->x += 10 * cos((player->point_of_view + 269) * 0.0175);
+				player->y += -10 * sin((player->point_of_view + 269) * 0.0175);
 			}
-			else if ( SDLK_w == SDL->windowEvent.key.keysym.sym )
+			else if (SDLK_w == SDL->windowEvent.key.keysym.sym)
 			{
 				player->x += 10 * cos(player->point_of_view * 0.0175);
 				player->y += -10 * sin(player->point_of_view * 0.0175);
 			}
-			else if ( SDLK_s == SDL->windowEvent.key.keysym.sym )
+			else if (SDLK_s == SDL->windowEvent.key.keysym.sym)
 			{
 				player->x += -10 * cos(player->point_of_view * 0.0175);
 				player->y += 10 * sin(player->point_of_view * 0.0175);
 			}
-			else if ( SDLK_q == SDL->windowEvent.key.keysym.sym )
+			else if (SDLK_q == SDL->windowEvent.key.keysym.sym)
 			{
 				player->point_of_view += 1;
 				if (player->point_of_view == 361)
 					player->point_of_view = 1;
 			}
-			else if ( SDLK_e == SDL->windowEvent.key.keysym.sym )
+			else if (SDLK_e == SDL->windowEvent.key.keysym.sym)
 			{
 				player->point_of_view -= 1;
 				if (player->point_of_view == 0)
