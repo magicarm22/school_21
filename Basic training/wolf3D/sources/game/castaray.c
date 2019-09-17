@@ -6,7 +6,7 @@
 /*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 14:07:17 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/10 14:02:34 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/17 12:10:12 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double	find_a_wall_hor(t_map *map_info, t_player *point, double angle) // гор
 	double	delta_y;
 
 	delta_y = 0;
-	radian_angle = angle * 0.0175;//3.141593 / 180;
+	radian_angle = angle * RADIAN;
 	if (angle > 0 && angle < 180)
 		point->check_y = floor(point->y / 64) * 64 - 1;
 	else if (angle > 180 && angle < 360)
@@ -57,7 +57,7 @@ double	find_a_wall_vert(t_map *map_info, t_player *point, double angle)
 	double	delta_y;
 
 	delta_x = 0;
-	radian_angle = angle * 0.0175;//3.141593 / 180;
+	radian_angle = angle * RADIAN;
 	if (angle > 90 && angle < 270)
 		point->check_x = floor(point->x / 64) * 64 - 1;
 	else if ((angle >= 0 && angle < 90) || (angle > 270 && angle <= 360))
@@ -102,15 +102,15 @@ void	cast_a_ray(t_SDL *sdl, t_player *point, t_map *map_info)
 	{
 		dist_hor = find_a_wall_hor(map_info, point, angle);
 		dist_vert = find_a_wall_vert(map_info, point, angle);
-		printf("dist_hor: %f, dist_vert: %f\n", dist_hor, dist_vert);
+		//printf("dist_hor: %f, dist_vert: %f\n", dist_hor, dist_vert);
 		if ((dist_hor <= dist_vert && dist_hor != 0) || dist_vert == 0)
-			draw_a_wall(sdl, ray, dist_hor * cos((point->point_of_view - angle) * 0.0175));
+			draw_a_wall(sdl, ray, dist_hor * cos((point->point_of_view - angle) * RADIAN));
 		else if ((dist_hor >= dist_vert && dist_vert != 0) || dist_hor == 0)
-			draw_a_wall(sdl, ray, dist_vert * cos((point->point_of_view - angle) * 0.0175));
+			draw_a_wall(sdl, ray, dist_vert * cos((point->point_of_view - angle) * RADIAN));
 		angle = angle + FIELD_OF_VIEW / RESOL_X;
 		if ((int)angle > 359)
 			angle = angle - 360;
-		printf("angle: %f\n", angle);
+		//printf("angle: %f\n", angle);
 		ray++;
 	}
 }
