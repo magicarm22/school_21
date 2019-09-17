@@ -6,7 +6,7 @@
 /*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 13:51:14 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/17 12:07:37 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/17 12:27:28 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void redraw(t_SDL *SDL, t_map *map_info, t_player *player)
 {
 //	SDL_Texture	*texture_sky;
 	SDL_Rect	sky;
+	SDL_Rect	floor;
 //	SDL_Surface *temp;
 
 	SDL_SetRenderDrawColor(SDL->renderer, 0, 0, 0, 255);
@@ -28,13 +29,21 @@ void redraw(t_SDL *SDL, t_map *map_info, t_player *player)
 	sky.x = 0;
 	sky.y = 0;
 	sky.w = SIZE_WIN_X;
-//	sky.h = SIZE_WIN_Y / 2;
-	sky.h = SIZE_WIN_Y;
-	// Set render color (rect will be rendered in this color)
-	SDL_SetRenderDrawColor(SDL->renderer, 051, 051, 051, 0);
+	sky.h = SIZE_WIN_Y / 2;
+	floor.x = 0;
+	floor.y = SIZE_WIN_Y / 2;
+	floor.w = SIZE_WIN_X;
+	floor.h = SIZE_WIN_Y / 2;
 
+	// Set render color (rect will be rendered in this color)
+	SDL_SetRenderDrawColor(SDL->renderer, 102, 102, 102, 0);
 	// Render rect
 	SDL_RenderFillRect(SDL->renderer, &sky);
+
+	// Set render color (rect will be rendered in this color)
+	SDL_SetRenderDrawColor(SDL->renderer, 051, 051, 051, 0);
+	// Render rect
+	SDL_RenderFillRect(SDL->renderer, &floor);
 //	SDL_RenderCopy(SDL->renderer, texture_sky, NULL, &sky);
 	cast_a_ray(SDL, player, map_info);
 	SDL_RenderPresent(SDL->renderer);
