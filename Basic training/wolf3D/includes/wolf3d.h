@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wolf3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 16:02:51 by djast             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/09/19 16:05:02 by djast            ###   ########.fr       */
+=======
+/*   Updated: 2019/09/17 12:08:40 by eharrag-         ###   ########.fr       */
+>>>>>>> 4f96c5c005e7e397253a2717fe245285f58a0fa0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +31,7 @@
 # define RESOL_Y 200
 # define RESOL_RATIO_X SIZE_WIN_X / RESOL_X
 # define RESOL_RATIO_Y SIZE_WIN_Y / RESOL_Y
+# define RADIAN M_PI / 180
 
 typedef struct		s_SDL
 {
