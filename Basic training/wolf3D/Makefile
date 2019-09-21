@@ -6,7 +6,7 @@
 #    By: djast <djast@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 17:18:06 by djast             #+#    #+#              #
-#    Updated: 2019/09/16 13:18:51 by djast            ###   ########.fr        #
+#    Updated: 2019/09/21 11:40:16 by djast            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,15 @@ ID_UN := $(shell id -un)
 SDL_FOLDER = /Users/$(ID_UN)/.brew/Cellar/sdl2/2.0.10/include/SDL2
 SDL_LIB = /Users/$(ID_UN)/.brew/Cellar/sdl2/2.0.10/lib
 
+SDL_TTF_FOLDER = /Users/$(ID_UN)/.brew/Cellar/sdl2_ttf/2.0.15/include/SDL2
+SDL_TTF_LIB = /Users/$(ID_UN)/.brew/Cellar/sdl2_ttf/2.0.15/lib
+
 HEADERS_DIRECTORY = ./includes
 HEADERS_WOLF3D = $(HEADERS_DIRECTORY)/wolf3d.h
 HEADERS_EDITOR = $(HEADERS_DIRECTORY)/editor.h
 
-LIBS = -lft -L$(LIBFT_FOLDER) -L$(SDL_LIB) -lSDL2
-INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_FOLDER) -I$(SDL_FOLDER)
+LIBS = -lft -L$(LIBFT_FOLDER) -L$(SDL_TTF_LIB) -L$(SDL_LIB)  -lSDL2 -lSDL2_ttf
+INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_FOLDER) -I$(SDL_TTF_FOLDER) -I$(SDL_FOLDER)
 
 WOLF3D_FILES =	wolf3d.c \
 				maze_generator.c \
@@ -40,9 +43,16 @@ WOLF3D_FILES =	wolf3d.c \
 
 EDITOR_FILES =	editor.c \
 				draw.c \
-				input_field.c \
 				init.c \
-				action.c
+				action_mouse.c \
+				action_keyboard.c \
+				right_panel.c \
+				draw_text.c \
+				create_sdl_var.c \
+				save_map.c \
+				load_map.c \
+				utils.c \
+				sdl.c
 
 SRC_DIRECTORY = ./sources/
 SRC_DIRECTORY_WOLF3D = $(SRC_DIRECTORY)game/
