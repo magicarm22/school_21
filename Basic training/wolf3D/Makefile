@@ -6,11 +6,11 @@
 #    By: djast <djast@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 17:18:06 by djast             #+#    #+#              #
-#    Updated: 2019/09/21 11:40:16 by djast            ###   ########.fr        #
+#    Updated: 2019/09/22 16:56:09 by djast            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME_WOLF3D = wold3d
+NAME_WOLF3D = wolf3d
 NAME_EDITOR = editor
 
 CC = gcc
@@ -28,12 +28,15 @@ SDL_LIB = /Users/$(ID_UN)/.brew/Cellar/sdl2/2.0.10/lib
 SDL_TTF_FOLDER = /Users/$(ID_UN)/.brew/Cellar/sdl2_ttf/2.0.15/include/SDL2
 SDL_TTF_LIB = /Users/$(ID_UN)/.brew/Cellar/sdl2_ttf/2.0.15/lib
 
+SDL_MIXER_FOLDER = /Users/$(ID_UN)/.brew/Cellar/sdl2_mixer/2.0.4/include/SDL2
+SDL_MIXER_LIB = /Users/$(ID_UN)/.brew/Cellar/sdl2_mixer/2.0.4/lib
+
 HEADERS_DIRECTORY = ./includes
 HEADERS_WOLF3D = $(HEADERS_DIRECTORY)/wolf3d.h
 HEADERS_EDITOR = $(HEADERS_DIRECTORY)/editor.h
 
-LIBS = -lft -L$(LIBFT_FOLDER) -L$(SDL_TTF_LIB) -L$(SDL_LIB)  -lSDL2 -lSDL2_ttf
-INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_FOLDER) -I$(SDL_TTF_FOLDER) -I$(SDL_FOLDER)
+LIBS = -lft -L$(LIBFT_FOLDER) -L$(SDL_TTF_LIB) -L$(SDL_MIXER_LIB) -L$(SDL_LIB)  -lSDL2 -lSDL2_ttf -lSDL2_mixer
+INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_FOLDER) -I$(SDL_TTF_FOLDER) -I$(SDL_MIXER_FOLDER) -I$(SDL_FOLDER)
 
 WOLF3D_FILES =	wolf3d.c \
 				maze_generator.c \
@@ -52,7 +55,8 @@ EDITOR_FILES =	editor.c \
 				save_map.c \
 				load_map.c \
 				utils.c \
-				sdl.c
+				sdl.c \
+				free.c
 
 SRC_DIRECTORY = ./sources/
 SRC_DIRECTORY_WOLF3D = $(SRC_DIRECTORY)game/

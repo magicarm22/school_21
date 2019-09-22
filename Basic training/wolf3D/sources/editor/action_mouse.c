@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 13:14:23 by djast             #+#    #+#             */
-/*   Updated: 2019/09/21 13:40:28 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/22 16:15:31 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,68 @@ static int		lower_buttons(t_sdl *sdl)
 	}
 	else
 	{
-		printf("BBB\n");
 		sdl->input_pushed = 0;
 		SDL_StopTextInput();
 		return (0);
 	}
 	return (1);
+}
 
+static int		change_map_size(t_sdl *sdl)
+{
+	if (sdl->windowEvent.button.x > BUTTON_UP_X_X &&
+		sdl->windowEvent.button.x < BUTTON_UP_X_X + BUTTON_UP_X_SIZE_X &&
+		sdl->windowEvent.button.y > BUTTON_UP_X_Y &&
+		sdl->windowEvent.button.y < BUTTON_UP_X_Y + BUTTON_UP_X_SIZE_Y)
+	{
+		if (sdl->mesh->size_x < INT_MAX - 2)
+		{
+			free_map(sdl->mesh);
+			sdl->mesh->size_x += 1;
+			init_map(&(sdl->mesh));
+		}
+		return (1);
+	}
+	else if (sdl->windowEvent.button.x > BUTTON_DOWN_X_X &&
+		sdl->windowEvent.button.x < BUTTON_DOWN_X_X + BUTTON_DOWN_X_SIZE_X &&
+		sdl->windowEvent.button.y > BUTTON_DOWN_X_Y &&
+		sdl->windowEvent.button.y < BUTTON_DOWN_X_Y + BUTTON_DOWN_X_SIZE_Y)
+	{
+		if (sdl->mesh->size_x > 3)
+		{
+			free_map(sdl->mesh);
+			sdl->mesh->size_x -= 1;
+			init_map(&(sdl->mesh));
+		}
+		return (1);
+	}
+	else if (sdl->windowEvent.button.x > BUTTON_UP_Y_X &&
+		sdl->windowEvent.button.x < BUTTON_UP_Y_X + BUTTON_UP_Y_SIZE_X &&
+		sdl->windowEvent.button.y > BUTTON_UP_Y_Y &&
+		sdl->windowEvent.button.y < BUTTON_UP_Y_Y + BUTTON_UP_Y_SIZE_Y)
+	{
+		if (sdl->mesh->size_y < INT_MAX - 2)
+		{
+			free_map(sdl->mesh);
+			sdl->mesh->size_y += 1;
+			init_map(&(sdl->mesh));
+		}
+		return (1);
+	}
+	else if (sdl->windowEvent.button.x > BUTTON_DOWN_Y_X &&
+		sdl->windowEvent.button.x < BUTTON_DOWN_Y_X + BUTTON_DOWN_Y_SIZE_X &&
+		sdl->windowEvent.button.y > BUTTON_DOWN_Y_Y &&
+		sdl->windowEvent.button.y < BUTTON_DOWN_Y_Y + BUTTON_DOWN_Y_SIZE_Y)
+	{
+		if (sdl->mesh->size_y > 3)
+		{
+			free_map(sdl->mesh);
+			sdl->mesh->size_y -= 1;
+			init_map(&(sdl->mesh));
+		}
+		return (1);
+	}
+	return 0;
 }
 
 static void		put_texture(t_sdl *sdl, int *click)
@@ -89,7 +144,6 @@ static void		put_texture(t_sdl *sdl, int *click)
 	}
 }
 
-
 void			action_mouse(t_sdl *sdl, int *click)
 {
 	if (sdl->windowEvent.type == SDL_MOUSEWHEEL)
@@ -112,6 +166,8 @@ void			action_mouse(t_sdl *sdl, int *click)
 		if (select_texture(sdl) == 1)
 			return ;
 		else if (lower_buttons(sdl) == 1)
+			return ;
+		else if (change_map_size(sdl) == 1)
 			return ;
 		
 	}

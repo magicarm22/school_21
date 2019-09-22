@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 12:59:27 by djast             #+#    #+#             */
-/*   Updated: 2019/09/21 13:17:31 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/22 13:17:43 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,4 +176,5 @@ void			change_player_position(t_sdl *sdl, int x, int y);
 int				ft_num_len(int n);
 void			reset_swaped(t_sdl *sdl);
 int				countwords(char *str, char c);
+void			free_map(t_mesh *mesh);
 #endif

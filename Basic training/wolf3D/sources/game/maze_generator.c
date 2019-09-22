@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 16:02:17 by djast             #+#    #+#             */
-/*   Updated: 2019/09/17 12:36:32 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/22 16:16:33 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ static int get_info_from_file(t_map *map_info, t_player *player, int fd)
 	player->x = ft_atoi(numbers[0]);
 	player->y = ft_atoi(numbers[1]);
 	player->point_of_view = ft_atoi(numbers[2]);
+	player->is_shooting = 0;
+	player->shooting_frame = PISTOL_LAST_FRAME;
+	player->mouse_x = SIZE_WIN_X / 2;
+	player->mouse_y = SIZE_WIN_Y / 2;
 	free(numbers[0]);
 	free(numbers[1]);
 	free(numbers[2]);

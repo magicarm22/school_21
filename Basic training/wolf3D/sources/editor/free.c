@@ -6,10 +6,22 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 14:35:41 by djast             #+#    #+#             */
-/*   Updated: 2019/09/19 14:35:51 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/22 13:28:05 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
+void	free_map(t_mesh *mesh)
+{
+	int i;
 
+	i = 0;
+	while (i != mesh->size_y)
+	{
+		printf("%d AAAA\n", i);
+		free(mesh->map[i++]);
+	}
+
+	free(mesh->map);
+}
