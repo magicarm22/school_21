@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawawall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 13:00:06 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/22 15:50:48 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/23 14:18:58 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	draw_a_wall(t_SDL *sdl, t_player *point, int slice, double distance_to_the_
 
 	// Render rect
 	//	SDL_RenderFillRect(sdl->renderer, &newrect);
+
 	if (point->hor_or_vert == 1)
 	{
 		if (point->check_hor_y > point->y)

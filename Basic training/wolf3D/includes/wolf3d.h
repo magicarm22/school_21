@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 16:02:51 by djast             #+#    #+#             */
-/*   Updated: 2019/09/22 17:16:12 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/23 14:20:46 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 # define PISTOL_X SIZE_WIN_X / 2 - 700
 # define PISTOL_Y SIZE_WIN_Y * 2 / 5
-# define PISTOL_SIZE_X SIZE_WIN_X / 2 - 300 
+# define PISTOL_SIZE_X SIZE_WIN_X / 2 - 300
 # define PISTOL_SIZE_Y SIZE_WIN_Y * 3 / 5
 
 # define PISTOL_IMAGE_X 192
@@ -56,6 +56,7 @@ typedef struct		s_SDL
 	SDL_Texture		*texture_south;
 	SDL_Texture		*texture_east;
 	SDL_Texture		*texture_west;
+	SDL_Texture		*texture_sky;
 	SDL_Texture		*pistol;
 	Mix_Chunk		*shooting;
 	Mix_Chunk		*steps;
@@ -91,5 +92,6 @@ t_map				*get_map_from_file(t_player *player, int fd);
 int					countwords(char *str, char c);
 void				cast_a_ray(t_SDL *sdl, t_player *point, t_map *map_info);
 void				draw_a_wall(t_SDL *sdl, t_player *point, int slice, double distance_to_the_wall);
+void				draw_the_sky(t_SDL *sdl, int point_of_view);
 
 #endif
