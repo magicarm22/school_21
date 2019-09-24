@@ -6,7 +6,7 @@
 /*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 13:00:06 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/23 14:18:58 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/24 11:15:47 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	draw_a_wall(t_SDL *sdl, t_player *point, int slice, double distance_to_the_
 	//	rectwall.x = ((int)point->check_x - RESOL_RATIO_X) % 64;
 	rectwall.y = 0;
 	rectwall.w = 1;
-	rectwall.h = 64;// * RESOL_RATIO_Y;
+	rectwall.h = 64 * RESOL_RATIO_Y;
 
 	// Set render color (rect will be rendered in this color)
 	//	SDL_SetRenderDrawColor(sdl->renderer, 102, 051, 051, 0);

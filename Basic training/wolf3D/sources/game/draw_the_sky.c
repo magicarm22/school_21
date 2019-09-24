@@ -6,7 +6,7 @@
 /*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 13:40:01 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/23 15:35:10 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/24 11:43:38 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,40 @@ void	draw_the_sky(t_SDL *sdl, int point_of_view)
 		sky_background_l.y = 0;
 		sky_background_l.w = SIZE_WIN_X;
 		sky_background_l.h = SIZE_WIN_Y / 2;
-		sky_l.x = (point_of_view - 30) * (4096 / 360);
+
+		// sky_l.x = (point_of_view - 30) * (8192 / 360);
+		// sky_l.y = 0;
+		// sky_l.w = (8192 / 360) * 60;// * RESOL_RATIO_X;
+		// sky_l.h = 4096 / 2;
+
+		sky_l.x = 8192 - (point_of_view - 30) * (8192 / 360);
 		sky_l.y = 0;
-		sky_l.w = (4096 / 360) * 60;// * RESOL_RATIO_X;
-		sky_l.h = 1024;
+		sky_l.w = (8192 / 360) * 60;// * RESOL_RATIO_X;
+		sky_l.h = 4096;// / 2;
 		SDL_RenderCopy(sdl->renderer, sdl->texture_sky, &sky_l, &sky_background_l);
 	}
 	else
 	{
-		if (point_of_view > 330)
+		if (point_of_view >= 330)
 			point_of_view = point_of_view - 360;
-		sky_l.x = 4096 + (point_of_view - 30) * (4096 / 360);
+		// if (point_of_view <= 30)
+		// 	point_of_view = point_of_view + 360;
+		// sky_l.x = 8192 + (point_of_view - 30) * (8192 / 360);
+		// sky_l.y = 0;
+		// sky_l.w = (-(point_of_view - 30) * (8192 / 360));// * RESOL_RATIO_X;
+		// sky_l.h = 4096 / 2;
+		// sky_r.x = 0;
+		// sky_r.y = 0;
+		// sky_r.w = ((8192 / 360) * 60 + (point_of_view - 30) * (8192 / 360));// * RESOL_RATIO_X;
+		// sky_r.h = 4096 / 2;
+		sky_l.x = 8192 - (point_of_view + 30) * (8192 / 360);
 		sky_l.y = 0;
-		sky_l.w = (-(point_of_view - 30) * (4096 / 360));// * RESOL_RATIO_X;
-		sky_l.h = 1024;
+		sky_l.w = (point_of_view + 30) * (8192 / 360);// * RESOL_RATIO_X;
+		sky_l.h = 4096;// / 2;
 		sky_r.x = 0;
 		sky_r.y = 0;
-		sky_r.w = ((4096 / 360) * 60 + (point_of_view - 30) * (4096 / 360));// * RESOL_RATIO_X;
-		sky_r.h = 1024;
-
+		sky_r.w = (60 - (point_of_view + 30)) * (8192 / 360);// * RESOL_RATIO_X;
+		sky_r.h = 4096;// / 2;
 		coef = (double)sky_l.w / ((double)sky_l.w + (double)sky_r.w);
 		printf("coef = %f\n", coef);
 		printf("point = %d\n", point_of_view);

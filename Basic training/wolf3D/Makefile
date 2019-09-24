@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: djast <djast@student.42.fr>                +#+  +:+       +#+         #
+#    By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 17:18:06 by djast             #+#    #+#              #
-#    Updated: 2019/09/22 16:56:09 by djast            ###   ########.fr        #
+#    Updated: 2019/09/23 14:14:36 by eharrag-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ WOLF3D_FILES =	wolf3d.c \
 				maze_generator.c \
 				utils.c \
 				drawawall.c \
-				castaray.c
+				castaray.c \
+				draw_the_sky.c
 
 EDITOR_FILES =	editor.c \
 				draw.c \

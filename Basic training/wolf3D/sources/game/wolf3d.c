@@ -6,7 +6,7 @@
 /*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 13:51:14 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/23 15:33:26 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/24 11:42:30 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	main (int argc, char **argv)
 	//free memory allocated to the temp SDL_Surface
 	SDL_FreeSurface(SDL->temp);
 
-	SDL->temp = SDL_LoadBMP("resources/game/skysky.bmp");
+	SDL->temp = SDL_LoadBMP("resources/game/night.bmp");
 	SDL->texture_sky = SDL_CreateTextureFromSurface(SDL->renderer, SDL->temp);
 	//free memory allocated to the temp SDL_Surface
 	SDL_FreeSurface(SDL->temp);
