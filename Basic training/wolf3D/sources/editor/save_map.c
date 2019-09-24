@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   save_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 11:53:31 by djast             #+#    #+#             */
-/*   Updated: 2019/09/19 16:20:48 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/24 14:54:44 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-
-static int create_and_write_header(t_sdl *sdl)
+static int	create_and_write_header(t_sdl *sdl)
 {
-	int fd;
-	char filename[120];
+	int		fd;
+	char	filename[120];
 
 	ft_strcpy(filename, "resources/maps/");
 	ft_strcat(filename, sdl->map_name->text);
@@ -37,10 +36,10 @@ static int create_and_write_header(t_sdl *sdl)
 	return (fd);
 }
 
-static void write_map(t_sdl *sdl, int fd)
+static void	write_map(t_sdl *sdl, int fd)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < sdl->mesh->size_y)
@@ -55,7 +54,7 @@ static void write_map(t_sdl *sdl, int fd)
 			else if (sdl->mesh->map[i][j] == 0)
 				write(fd, "0", 1);
 			if (j + 1 != sdl->mesh->size_x)
-					write(fd, " ", 1);
+				write(fd, " ", 1);
 			j++;
 		}
 		write(fd, "\n", 1);
@@ -63,10 +62,10 @@ static void write_map(t_sdl *sdl, int fd)
 	}
 }
 
-void	save_map(t_sdl *sdl)
+void		save_map(t_sdl *sdl)
 {
 	int fd;
-	
+
 	if (sdl->player->x == -1 || sdl->player->y == -1)
 	{
 		sdl->status_save = ERROR_NO_PLAYER;

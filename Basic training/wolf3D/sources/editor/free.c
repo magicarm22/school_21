@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 14:35:41 by djast             #+#    #+#             */
-/*   Updated: 2019/09/22 13:28:05 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/24 14:45:12 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ void	free_map(t_mesh *mesh)
 		printf("%d AAAA\n", i);
 		free(mesh->map[i++]);
 	}
-
 	free(mesh->map);
 }

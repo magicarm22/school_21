@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 12:19:51 by djast             #+#    #+#             */
-/*   Updated: 2019/09/19 16:20:22 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/24 14:57:23 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_num_len(int n)
 	return (count + 1);
 }
 
-void change_player_position(t_sdl *sdl, int x, int y)
+void	change_player_position(t_sdl *sdl, int x, int y)
 {
 	int i;
 	int j;

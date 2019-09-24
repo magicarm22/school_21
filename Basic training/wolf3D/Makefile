@@ -6,7 +6,7 @@
 #    By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 17:18:06 by djast             #+#    #+#              #
-#    Updated: 2019/09/23 14:14:36 by eharrag-         ###   ########.fr        #
+#    Updated: 2019/09/24 13:04:34 by eharrag-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ WOLF3D_FILES =	wolf3d.c \
 				utils.c \
 				drawawall.c \
 				castaray.c \
-				draw_the_sky.c
+				draw_the_sky.c \
+				load_bmps.c
 
 EDITOR_FILES =	editor.c \
 				draw.c \

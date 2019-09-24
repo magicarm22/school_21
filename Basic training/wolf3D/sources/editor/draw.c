@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 14:27:22 by djast             #+#    #+#             */
-/*   Updated: 2019/09/19 17:47:49 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/24 14:43:46 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			draw_button(t_sdl *sdl, SDL_Rect r, char *name, int color)
 	free(color_text);
 }
 
-static void 	draw_mesh(t_sdl *sdl)
+static void		draw_mesh(t_sdl *sdl)
 {
 	int i;
 
@@ -55,9 +55,9 @@ static void 	draw_mesh(t_sdl *sdl)
 
 void			draw_texture(t_sdl *sdl)
 {
-	SDL_Rect *r;
-	int i;
-	int j;
+	SDL_Rect	*r;
+	int			i;
+	int			j;
 
 	i = 0;
 	while (i != sdl->mesh->size_y)

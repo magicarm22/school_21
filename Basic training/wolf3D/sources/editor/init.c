@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 16:21:29 by djast             #+#    #+#             */
-/*   Updated: 2019/09/22 14:33:16 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/24 14:46:32 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 t_input_field	*init_input_field(int x, int y, int size_x, int size_y)
 {
-	t_input_field *field;
+	t_input_field	*field;
 
 	field = (t_input_field *)malloc(sizeof(t_input_field));
-
 	field->x = x;
 	field->y = y;
 	field->size_x = size_x;
@@ -28,9 +27,9 @@ t_input_field	*init_input_field(int x, int y, int size_x, int size_y)
 	return (field);
 }
 
-void		init_mesh(t_sdl **sdl)
+void			init_mesh(t_sdl **sdl)
 {
-	t_mesh *mesh;
+	t_mesh	*mesh;
 
 	mesh = (t_mesh *)malloc(sizeof(t_mesh));
 	mesh->x = MESH_START_X;
@@ -42,10 +41,10 @@ void		init_mesh(t_sdl **sdl)
 	(*sdl)->mesh = mesh;
 }
 
-void		init_map(t_mesh **mesh)
+void			init_map(t_mesh **mesh)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	(*mesh)->map = (int **)malloc(sizeof(int *) * (*mesh)->size_y);

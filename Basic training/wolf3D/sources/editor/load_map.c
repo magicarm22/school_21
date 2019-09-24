@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 12:17:48 by djast             #+#    #+#             */
-/*   Updated: 2019/09/19 16:15:52 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/24 14:49:04 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-static int get_info_from_file(t_sdl *sdl, int fd)
+static int	get_info_from_file(t_sdl *sdl, int fd)
 {
-	char *line;
-	char **numbers;
+	char	*line;
+	char	**numbers;
 
 	get_next_line(fd, &line);
 	if (line == NULL || countwords(line, ' ') != 2)
@@ -39,12 +39,12 @@ static int get_info_from_file(t_sdl *sdl, int fd)
 	return (0);
 }
 
-static int read_map(t_sdl *sdl, int fd)
+static int	read_map(t_sdl *sdl, int fd)
 {
-	int i;
-	int j;
-	char *line;
-	char **numbers;
+	int		i;
+	int		j;
+	char	*line;
+	char	**numbers;
 
 	i = 0;
 	while (get_next_line(fd, &line) > 0)
@@ -65,43 +65,23 @@ static int read_map(t_sdl *sdl, int fd)
 	return (0);
 }
 
-void load_map(t_sdl *sdl)
+void		load_map(t_sdl *sdl)
 {
-	int fd;
-	(void) sdl;
-	char filename[120];
+	int		fd;
+	char	filename[120];
 
+	(void)sdl;
 	ft_strcpy(filename, "resources/maps/");
 	ft_strcat(filename, sdl->map_name->text);
 	fd = open(filename, O_RDONLY);
 	if (read(fd, NULL, 0) == -1)
 		sdl->status_save = ERROR_NO_FILE;
- 	else if (get_info_from_file(sdl, fd) == ERROR_NON_VALID_FILE)
- 		sdl->status_save = ERROR_NON_VALID_FILE;
- 	else if (read_map(sdl, fd) == ERROR_NON_VALID_FILE)
- 		sdl->status_save = ERROR_NON_VALID_FILE;
- 	else if (sdl->mesh->map[sdl->player->y / 64][sdl->player->x / 64] == 1)
- 		sdl->status_save = ERROR_NON_VALID_FILE;
- 	else
- 		sdl->status_save = ERROR_OK;
+	else if (get_info_from_file(sdl, fd) == ERROR_NON_VALID_FILE)
+		sdl->status_save = ERROR_NON_VALID_FILE;
+	else if (read_map(sdl, fd) == ERROR_NON_VALID_FILE)
+		sdl->status_save = ERROR_NON_VALID_FILE;
+	else if (sdl->mesh->map[sdl->player->y / 64][sdl->player->x / 64] == 1)
+		sdl->status_save = ERROR_NON_VALID_FILE;
+	else
+		sdl->status_save = ERROR_OK;
 }
-
-
-
-
-
-// t_map *get_map_from_file(t_sdl *sdl, int fd)
-// {
-// 	t_mesh *map_info;
-
-// 	if (get_info_from_file(sdl, fd) == ERROR_NON_VALID_FILE)
-// 		return (NULL);
-// 	printf("X: %d Y: %d\n", sdl->mesh->size_x, sdl->mesh->size_y);
-// 	init_map(sdl->mesh->map_info);
-// 	if (read_map(map_info, fd) == ERROR_NON_VALID_FILE)
-// 		return (NULL);
-// 	if (map_info->map[player->y / 64][player->x / 64] == 1)
-// 		return (NULL);
-// 	print_map(map_info);
-// 	return (map_info);
-// }

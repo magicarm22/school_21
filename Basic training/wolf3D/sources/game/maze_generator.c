@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   maze_generator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 16:02:17 by djast             #+#    #+#             */
-/*   Updated: 2019/09/22 16:16:33 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/24 14:36:03 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-static void init_map(t_map *map_info)
+static void	init_map(t_map *map_info)
 {
 	int i;
 
@@ -22,7 +22,7 @@ static void init_map(t_map *map_info)
 		map_info->map[i++] = (int *)malloc(sizeof(int) * map_info->size_x);
 }
 
-static void print_map(t_map *map_info)
+static void	print_map(t_map *map_info)
 {
 	int i;
 	int j;
@@ -43,12 +43,12 @@ static void print_map(t_map *map_info)
 	}
 }
 
-static int read_map(t_map *map_info, int fd)
+static int	read_map(t_map *map_info, int fd)
 {
-	int i;
-	int j;
-	char *line;
-	char **numbers;
+	int		i;
+	int		j;
+	char	*line;
+	char	**numbers;
 
 	i = 0;
 	while (get_next_line(fd, &line) > 0)
@@ -68,7 +68,7 @@ static int read_map(t_map *map_info, int fd)
 	return (0);
 }
 
-static int get_info_from_file(t_map *map_info, t_player *player, int fd)
+static int	get_info_from_file(t_map *map_info, t_player *player, int fd)
 {
 	char *line;
 	char **numbers;
@@ -100,7 +100,7 @@ static int get_info_from_file(t_map *map_info, t_player *player, int fd)
 	return (0);
 }
 
-t_map *get_map_from_file(t_player *player, int fd)
+t_map		*get_map_from_file(t_player *player, int fd)
 {
 	t_map *map_info;
 
@@ -114,6 +114,5 @@ t_map *get_map_from_file(t_player *player, int fd)
 	if (map_info->map[player->y / 64][player->x / 64] == 1)
 		return (NULL);
 	print_map(map_info);
-	//return (map);
 	return (map_info);
 }

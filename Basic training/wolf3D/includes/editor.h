@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 12:59:27 by djast             #+#    #+#             */
-/*   Updated: 2019/09/22 13:17:43 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/24 15:00:00 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@
 
 typedef struct				s_sdl
 {
-	SDL_Window      		*window;
-    SDL_Renderer		    *renderer;
-	SDL_Event				windowEvent;
+	SDL_Window				*window;
+	SDL_Renderer			*renderer;
+	SDL_Event				window_event;
 	SDL_Texture				*floor;
 	SDL_Texture				*wall;
 	SDL_Texture				*player_texture;
@@ -132,38 +132,38 @@ typedef struct				s_sdl
 
 typedef struct				s_player
 {
-	int		x;
-	int		y;
+	int						x;
+	int						y;
 }							t_player;
 
-typedef struct		s_mesh
+typedef struct				s_mesh
 {
-	int		x;
-	int		y;
-	int		size_x;
-	int		size_y;
-	int		zoom;
-	int		**map;
-}					t_mesh;
+	int						x;
+	int						y;
+	int						size_x;
+	int						size_y;
+	int						zoom;
+	int						**map;
+}							t_mesh;
 
-typedef struct	 	s_input_field
+typedef struct				s_input_field
 {
-	int		x;
-	int		y;
-	int		size_x;
-	int		size_y;
-	int		max_text_size;
-	char	*text;
-	int		text_size;
-}					t_input_field;
+	int						x;
+	int						y;
+	int						size_x;
+	int						size_y;
+	int						max_text_size;
+	char					*text;
+	int						text_size;
+}							t_input_field;
 
 void			draw_full(t_sdl *sdl);
 void			init_mesh(t_sdl **sdl);
 void			init_map(t_mesh **mesh);
-t_sdl 			*init_sdl(void);
+t_sdl			*init_sdl(void);
 t_input_field	*init_input_field(int x, int y, int size_x, int size_y);
 void			action_mouse(t_sdl *sdl, int *click);
-void		 	draw_right_panel(t_sdl *sdl);
+void			draw_right_panel(t_sdl *sdl);
 void			draw_button(t_sdl *sdl, SDL_Rect r, char *name, int color);
 void			draw_text(t_sdl *sdl, char *text, SDL_Rect r, SDL_Color color);
 void			draw_result_text(t_sdl *sdl, char *text, int color_status);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_text.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 10:39:37 by djast             #+#    #+#             */
-/*   Updated: 2019/09/19 17:05:45 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/24 14:42:03 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void			draw_text(t_sdl *sdl, char *text, SDL_Rect r, SDL_Color color)
 
 void			draw_result_text(t_sdl *sdl, char *text, int color_result)
 {
-	SDL_Color *color;
-	SDL_Rect *rect;
+	SDL_Color	*color;
+	SDL_Rect	*rect;
 
 	if (color_result == COLOR_RESULT_OK)
 		color = create_sdl_color(0, 255, 0, 255);
@@ -33,7 +33,8 @@ void			draw_result_text(t_sdl *sdl, char *text, int color_result)
 		color = create_sdl_color(255, 0, 0, 255);
 	else
 		color = create_sdl_color(0, 0, 0, 255);
-	rect = create_sdl_rect(BUTTON_X, TEXT_RESULT_Y, INPUT_MAP_NAME_SIZE_X, BUTTON_SIZE_Y);
+	rect = create_sdl_rect(BUTTON_X, TEXT_RESULT_Y,
+			INPUT_MAP_NAME_SIZE_X, BUTTON_SIZE_Y);
 	draw_text(sdl, text, *rect, *color);
 	free(rect);
 	free(color);

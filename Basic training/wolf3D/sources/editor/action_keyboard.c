@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action_keyboard.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 17:16:31 by djast             #+#    #+#             */
-/*   Updated: 2019/09/22 13:48:17 by djast            ###   ########.fr       */
+/*   Updated: 2019/09/24 15:00:32 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,33 @@
 
 int		action_keyboard(t_sdl *sdl)
 {
-	if (SDL_QUIT == sdl->windowEvent.type)
+	if (SDL_QUIT == sdl->window_event.type)
 		return (1);
-	else if (sdl->windowEvent.type == SDL_KEYDOWN && SDLK_ESCAPE == sdl->windowEvent.key.keysym.sym)
+	else if (sdl->window_event.type == SDL_KEYDOWN && SDLK_ESCAPE == sdl->window_event.key.keysym.sym)
 		return (1);
-	else if (sdl->windowEvent.type == SDL_TEXTINPUT)
+	else if (sdl->window_event.type == SDL_TEXTINPUT)
 	{
-		printf("AAAA\n");
 		if (sdl->map_name->text_size + 1 < sdl->map_name->max_text_size)
 		{
-			ft_strcat(sdl->map_name->text, sdl->windowEvent.text.text);
+			ft_strcat(sdl->map_name->text, sdl->window_event.text.text);
 			sdl->map_name->text_size++;
 		}
 	}
-	else if (sdl->windowEvent.type == SDL_KEYDOWN)
+	else if (sdl->window_event.type == SDL_KEYDOWN)
 	{
-		if (sdl->windowEvent.key.keysym.sym == SDLK_BACKSPACE && sdl->map_name->text_size > 0)
+		if (sdl->window_event.key.keysym.sym == SDLK_BACKSPACE && sdl->map_name->text_size > 0)
 		{
 			sdl->map_name->text[sdl->map_name->text_size - 1] = '\0';
 			sdl->map_name->text_size--;
 		}
-		else if (sdl->windowEvent.key.keysym.sym == SDLK_a)
+		else if (sdl->window_event.key.keysym.sym == SDLK_a)
 			sdl->mesh->x -= 5;
-		else if (sdl->windowEvent.key.keysym.sym == SDLK_d)
+		else if (sdl->window_event.key.keysym.sym == SDLK_d)
 			sdl->mesh->x += 5;
-		else if (sdl->windowEvent.key.keysym.sym == SDLK_w)
+		else if (sdl->window_event.key.keysym.sym == SDLK_w)
 			sdl->mesh->y -= 5;
-		else if (sdl->windowEvent.key.keysym.sym == SDLK_s)
+		else if (sdl->window_event.key.keysym.sym == SDLK_s)
 			sdl->mesh->y += 5;
 	}
-	
 	return (0);
 }
