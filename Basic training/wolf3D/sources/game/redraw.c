@@ -6,7 +6,7 @@
 /*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 14:52:19 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/25 14:53:27 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/26 13:09:45 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	redraw(t_sdl *sdl, t_map *map_info, t_player *player)
 	floor.y = SIZE_WIN_Y / 2;
 	floor.w = SIZE_WIN_X;
 	floor.h = SIZE_WIN_Y / 2;
-	SDL_SetRenderDrawColor(sdl->renderer, 051, 051, 051, 0);
+	SDL_SetRenderDrawColor(sdl->renderer, 30, 50, 20, 0);
 	SDL_RenderFillRect(sdl->renderer, &floor);
 	draw_the_sky(sdl, player->point_of_view);
 	cast_a_ray(sdl, player, map_info);

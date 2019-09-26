@@ -6,7 +6,7 @@
 /*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 13:00:06 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/24 14:24:09 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/26 13:16:54 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_walls(t_player *point, int slice, SDL_Rect *rect, SDL_Rect *wall)
 	rect->y = top_of_the_wall * RESOL_RATIO_Y;
 	rect->w = (SIZE_WIN_X / RESOL_X);
 	rect->h = wall_height * RESOL_RATIO_Y;
-	wall->x = point->strip % 64;
+	wall->x = (point->strip % 64) * 8;
 	wall->y = 0;
 	wall->w = 1;
 	wall->h = 64 * RESOL_RATIO_Y;
