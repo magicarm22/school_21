@@ -6,7 +6,7 @@
 /*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 13:40:01 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/24 14:24:28 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/25 14:32:07 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	draw_the_sky_full(t_sdl *sdl, int point_of_view)
 	sky_background_l.y = 0;
 	sky_background_l.w = SIZE_WIN_X;
 	sky_background_l.h = SIZE_WIN_Y / 2;
-	sky_l.x = SKY_IMAGE_X - (point_of_view - 30) * (SKY_IMAGE_X / 360);
+	sky_l.x = SKY_IMAGE_X - (point_of_view - 30) * (SKY_IMAGE_X / 360) -
+			(SKY_IMAGE_X / 360) * 60;
 	sky_l.y = 0;
 	sky_l.w = (SKY_IMAGE_X / 360) * 60;
 	sky_l.h = SKY_IMAGE_Y;

@@ -6,7 +6,7 @@
 /*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 12:59:27 by djast             #+#    #+#             */
-/*   Updated: 2019/09/24 15:00:00 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/26 11:11:07 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,24 +157,32 @@ typedef struct				s_input_field
 	int						text_size;
 }							t_input_field;
 
-void			draw_full(t_sdl *sdl);
-void			init_mesh(t_sdl **sdl);
-void			init_map(t_mesh **mesh);
-t_sdl			*init_sdl(void);
-t_input_field	*init_input_field(int x, int y, int size_x, int size_y);
-void			action_mouse(t_sdl *sdl, int *click);
-void			draw_right_panel(t_sdl *sdl);
-void			draw_button(t_sdl *sdl, SDL_Rect r, char *name, int color);
-void			draw_text(t_sdl *sdl, char *text, SDL_Rect r, SDL_Color color);
-void			draw_result_text(t_sdl *sdl, char *text, int color_status);
-SDL_Color		*create_sdl_color(int r, int g, int b, int a);
-SDL_Rect		*create_sdl_rect(int x, int y, int w, int h);
-int				action_keyboard(t_sdl *sdl);
-void			save_map(t_sdl *sdl);
-void			load_map(t_sdl *sdl);
-void			change_player_position(t_sdl *sdl, int x, int y);
-int				ft_num_len(int n);
-void			reset_swaped(t_sdl *sdl);
-int				countwords(char *str, char c);
-void			free_map(t_mesh *mesh);
+void						draw_full(t_sdl *sdl);
+void						init_mesh(t_sdl **sdl);
+void						init_map(t_mesh **mesh);
+int							change_map_size(t_sdl *sdl);
+t_sdl						*init_sdl(void);
+t_input_field				*init_input_field(int x, int y,
+								int size_x, int size_y);
+void						action_mouse(t_sdl *sdl, int *click);
+void						choose_mesh_zoom(t_sdl *sdl);
+void						draw_right_panel(t_sdl *sdl);
+void						draw_button(t_sdl *sdl, SDL_Rect r,
+								char *name, int color);
+void						draw_text(t_sdl *sdl, char *text, SDL_Rect r,
+								SDL_Color color);
+void						draw_result_text(t_sdl *sdl, char *text,
+								int color_status);
+SDL_Color					*create_sdl_color(int r, int g, int b, int a);
+SDL_Rect					*create_sdl_rect(int x, int y, int w, int h);
+int							action_keyboard(t_sdl *sdl);
+void						textinput(t_sdl *sdl);
+void						save_map(t_sdl *sdl);
+void						load_map(t_sdl *sdl);
+void						change_player_position(t_sdl *sdl, int x, int y);
+int							ft_num_len(int n);
+void						reset_swaped(t_sdl *sdl);
+int							countwords(char *str, char c);
+void						free_map(t_mesh *mesh);
+void						destroy(t_sdl *sdl);
 #endif

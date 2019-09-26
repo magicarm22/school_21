@@ -6,13 +6,23 @@
 /*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 13:05:37 by djast             #+#    #+#             */
-/*   Updated: 2019/09/24 15:02:34 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/26 10:02:39 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
 
-int	main()
+void	destroy(t_sdl *sdl)
+{
+	SDL_DestroyTexture(sdl->floor);
+	SDL_DestroyTexture(sdl->wall);
+	SDL_DestroyTexture(sdl->player_texture);
+	SDL_DestroyTexture(sdl->text);
+	SDL_DestroyWindow(sdl->window);
+	SDL_Quit();
+}
+
+int		main(void)
 {
 	t_sdl	*sdl;
 	int		click;
@@ -38,10 +48,4 @@ int	main()
 			draw_full(sdl);
 		}
 	}
-	SDL_DestroyTexture(sdl->floor);
-	SDL_DestroyTexture(sdl->wall);
-	SDL_DestroyTexture(sdl->player_texture);
-	SDL_DestroyTexture(sdl->text);
-	SDL_DestroyWindow(sdl->window);
-	SDL_Quit();
 }

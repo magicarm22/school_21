@@ -6,7 +6,7 @@
 #    By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 17:18:06 by djast             #+#    #+#              #
-#    Updated: 2019/09/24 13:04:34 by eharrag-         ###   ########.fr        #
+#    Updated: 2019/09/26 10:12:59 by eharrag-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,19 @@ INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_FOLDER) -I$(SDL_TTF_FOLDER) -I$(SDL_
 
 WOLF3D_FILES =	wolf3d.c \
 				maze_generator.c \
+				get_info.c \
 				utils.c \
+				big_loop.c \
+				keys.c \
+				redraw.c \
+				draw_a_weapon.c \
 				drawawall.c \
 				castaray.c \
 				draw_the_sky.c \
-				load_bmps.c
+				load_bmps.c \
+				find_a_wall_hor.c \
+				find_a_wall_vert.c \
+				happyend.c
 
 EDITOR_FILES =	editor.c \
 				draw.c \
@@ -54,6 +62,7 @@ EDITOR_FILES =	editor.c \
 				right_panel.c \
 				draw_text.c \
 				create_sdl_var.c \
+				change_map_size.c \
 				save_map.c \
 				load_map.c \
 				utils.c \

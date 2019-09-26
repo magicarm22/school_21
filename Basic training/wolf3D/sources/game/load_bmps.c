@@ -6,7 +6,7 @@
 /*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:01:05 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/24 14:24:35 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/26 09:43:27 by eharrag-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	load_bmps(t_sdl *sdl)
 	sdl->temp = SDL_LoadBMP("resources/game/animated_pistol.bmp");
 	sdl->pistol = SDL_CreateTextureFromSurface(sdl->renderer, sdl->temp);
 	SDL_FreeSurface(sdl->temp);
-	sdl->temp = SDL_LoadBMP("resources/game/bluesky.bmp");
+	sdl->temp = SDL_LoadBMP("resources/game/fullsky.bmp");
 	sdl->texture_sky = SDL_CreateTextureFromSurface(sdl->renderer, sdl->temp);
 	SDL_FreeSurface(sdl->temp);
 }
