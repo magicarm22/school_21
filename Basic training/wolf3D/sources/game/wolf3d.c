@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 13:51:14 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/25 15:21:40 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/28 13:29:16 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ void	init_sdl(t_sdl *sdl)
 	load_bmps(sdl);
 }
 
-void	check_map_info(t_map *map_info)
+void	check_map_info(t_map *map_info, t_player *player)
 {
 	if (map_info == NULL)
 	{
 		write(1, "Wrong with map format\n", 22);
+		free(player);
 		exit(-1);
 	}
 }
@@ -53,12 +54,13 @@ int		main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (read(fd, NULL, 0) == -1)
 	{
+		close(fd);
 		write(1, "Error, no such map\n", 19);
 		return (-1);
 	}
 	player = (t_player *)malloc(sizeof(t_player));
 	map_info = get_map_from_file(player, fd);
-	check_map_info(map_info);
+	check_map_info(map_info, player);
 	sdl = (t_sdl *)malloc(sizeof(t_sdl));
 	init_sdl(sdl);
 	redraw(sdl, map_info, player);

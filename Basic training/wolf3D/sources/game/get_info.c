@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 14:37:14 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/25 14:44:12 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/28 11:26:22 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,6 @@ void		init_map(t_map *map_info)
 	map_info->map = (int **)malloc(sizeof(int *) * map_info->size_y);
 	while (i < map_info->size_y)
 		map_info->map[i++] = (int *)malloc(sizeof(int) * map_info->size_x);
-}
-
-void		print_map(t_map *map_info)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < map_info->size_y)
-	{
-		j = 0;
-		while (j < map_info->size_x)
-		{
-			printf("%d", map_info->map[i][j]);
-			if (j != map_info->size_x - 1)
-				printf(" ");
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
 }
 
 int			read_map(t_map *map_info, int fd)
@@ -62,6 +41,7 @@ int			read_map(t_map *map_info, int fd)
 			map_info->map[i][j] = ft_atoi(numbers[j]);
 			free(numbers[j++]);
 		}
+		free(numbers);
 		free(line);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 12:17:48 by djast             #+#    #+#             */
-/*   Updated: 2019/09/24 14:49:04 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/28 12:54:26 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	get_info_from_file(t_sdl *sdl, int fd)
 	numbers = ft_strsplit(line, ' ');
 	sdl->player->x = ft_atoi(numbers[0]);
 	sdl->player->y = ft_atoi(numbers[1]);
+	printf("%d %d\n", sdl->player->x, sdl->player->y);
 	free(numbers[0]);
 	free(numbers[1]);
 	free(numbers[2]);
@@ -47,6 +48,7 @@ static int	read_map(t_sdl *sdl, int fd)
 	char	**numbers;
 
 	i = 0;
+	init_map(&(sdl->mesh));
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (countwords(line, ' ') != sdl->mesh->size_x)
@@ -71,6 +73,11 @@ void		load_map(t_sdl *sdl)
 	char	filename[120];
 
 	(void)sdl;
+	if (ft_strlen(sdl->map_name->text) == 0)
+	{
+		sdl->status_save = ERROR_NO_FILE;
+		return ;
+	}
 	ft_strcpy(filename, "resources/maps/");
 	ft_strcat(filename, sdl->map_name->text);
 	fd = open(filename, O_RDONLY);

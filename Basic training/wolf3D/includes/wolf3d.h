@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 16:02:51 by djast             #+#    #+#             */
-/*   Updated: 2019/09/26 11:11:59 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/28 13:11:25 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define WOLF3D_H
 # include <SDL.h>
 # include <SDL_mixer.h>
-# include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
@@ -105,8 +104,6 @@ int					get_info_from_file(t_map *map_info,
 int					countwords(char *str, char c);
 int					read_map(t_map *map_info, int fd);
 void				init_map(t_map *map_info);
-void				print_map(t_map *map_info);
-void				check_map_info(t_map *map_info);
 void				init_player(t_player *player, char **numbers);
 void				init_sdl(t_sdl *sdl);
 void				big_loop(t_sdl *sdl, t_map *map_info, t_player *player);
@@ -138,5 +135,6 @@ void				draw_the_sky_parts(t_sdl *sdl, int point_of_view);
 void				redraw(t_sdl *sdl, t_map *map_info, t_player *player);
 void				load_bmps(t_sdl *sdl);
 void				happyend(t_sdl *sdl);
+void				free_map(t_map *map);
 
 #endif

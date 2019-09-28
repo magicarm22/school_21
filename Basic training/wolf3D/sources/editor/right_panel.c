@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_panel.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 17:10:26 by djast             #+#    #+#             */
-/*   Updated: 2019/09/24 14:53:15 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/28 11:34:17 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void		draw_input_fields_on_right_panel(t_sdl *sdl)
 		INPUT_LETTER_SIZE * sdl->map_name->text_size, sdl->map_name->size_y);
 	draw_text(sdl, sdl->map_name->text, *r, *color_text);
 	free(r);
+	free(color_text);
 }
 
 static void		draw_map_size_buttons(t_sdl *sdl)

@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   save_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 11:53:31 by djast             #+#    #+#             */
-/*   Updated: 2019/09/24 14:54:44 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/28 11:42:27 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
+
+static void	write_info_to_file(t_sdl *sdl, int fd)
+{
+	char *tmp;
+
+	tmp = ft_itoa(sdl->mesh->size_x);
+	write(fd, tmp, ft_num_len(sdl->mesh->size_x));
+	free(tmp);
+	write(fd, " ", 1);
+	tmp = ft_itoa(sdl->mesh->size_y);
+	write(fd, tmp, ft_num_len(sdl->mesh->size_y));
+	free(tmp);
+	write(fd, "\n", 1);
+	tmp = ft_itoa(sdl->player->x);
+	write(fd, tmp, ft_num_len(sdl->player->x));
+	free(tmp);
+	write(fd, " ", 1);
+	tmp = ft_itoa(sdl->player->y);
+	write(fd, tmp, ft_num_len(sdl->player->y));
+	free(tmp);
+	write(fd, " 0\n", 3);
+}
 
 static int	create_and_write_header(t_sdl *sdl)
 {
@@ -25,14 +47,7 @@ static int	create_and_write_header(t_sdl *sdl)
 		open(filename, O_CREAT);
 		fd = open(filename, O_WRONLY);
 	}
-	write(fd, ft_itoa(sdl->mesh->size_x), ft_num_len(sdl->mesh->size_x));
-	write(fd, " ", 1);
-	write(fd, ft_itoa(sdl->mesh->size_y), ft_num_len(sdl->mesh->size_y));
-	write(fd, "\n", 1);
-	write(fd, ft_itoa(sdl->player->x), ft_num_len(sdl->player->x));
-	write(fd, " ", 1);
-	write(fd, ft_itoa(sdl->player->y), ft_num_len(sdl->player->y));
-	write(fd, " 0\n", 3);
+	write_info_to_file(sdl, fd);
 	return (fd);
 }
 

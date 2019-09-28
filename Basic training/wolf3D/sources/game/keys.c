@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 15:31:15 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/26 13:19:46 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/28 13:32:21 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	key_a(t_sdl *sdl, t_map *map_info, t_player *player)
 	{
 		if (Mix_Playing(1) == 0)
 			Mix_PlayChannel(1, sdl->steps, 0);
-		player->x += 30 * cos((player->point_of_view + 90) * RADIAN) * 2;
-		player->y += -30 * sin((player->point_of_view + 90) * RADIAN) * 2;
+		player->x += 30 * cos((player->point_of_view + 90) * RADIAN);
+		player->y += -30 * sin((player->point_of_view + 90) * RADIAN);
 	}
 }

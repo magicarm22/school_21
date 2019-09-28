@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   happyend.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 14:56:08 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/25 14:57:15 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/09/28 13:33:07 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,16 @@ void	happyend(t_sdl *sdl)
 	Mix_FreeChunk(sdl->shooting);
 	Mix_CloseAudio();
 	SDL_Quit();
+}
+
+void	free_map(t_map *map)
+{
+	int i;
+
+	i = 0;
+	while (i != map->size_y)
+	{
+		free(map->map[i++]);
+	}
+	free(map->map);
 }
