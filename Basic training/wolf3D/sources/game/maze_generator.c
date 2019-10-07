@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 16:02:17 by djast             #+#    #+#             */
-/*   Updated: 2019/09/28 13:20:43 by djast            ###   ########.fr       */
+/*   Updated: 2019/10/07 13:15:53 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,31 @@ int			get_info_from_file(t_map *map_info, t_player *player, int fd)
 	return (0);
 }
 
+static int	check_map(t_map *map_info, t_player *player)
+{
+	int i;
+
+	if (map_info->map[player->y / 64][player->x / 64] == 1)
+		return (0);
+	i = 0;
+	while (i < map_info->size_x)
+	{
+		if (map_info->map[0][i] == 0 ||
+								map_info->map[map_info->size_y - 1][i++] == 0)
+			return (0);
+	}
+	i = 0;
+	while (i < map_info->size_y)
+	{
+		if (map_info->map[i][0] == 0 ||
+								map_info->map[i++][map_info->size_x - 1] == 0)
+			return (0);
+	}
+	if (player->point_of_view < 0 || player->point_of_view > 360)
+		return (0);
+	return (1);
+}
+
 t_map		*get_map_from_file(t_player *player, int fd)
 {
 	t_map *map_info;
@@ -52,12 +77,8 @@ t_map		*get_map_from_file(t_player *player, int fd)
 		return (NULL);
 	}
 	init_map(map_info);
-	if (read_map(map_info, fd) == ERROR_NON_VALID_FILE)
-	{
-		free(map_info);
-		return (NULL);
-	}
-	if (map_info->map[player->y / 64][player->x / 64] == 1)
+	if (read_map(map_info, fd) == ERROR_NON_VALID_FILE ||
+				check_map(map_info, player) == 0)
 	{
 		free(map_info);
 		return (NULL);

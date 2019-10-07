@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 14:37:14 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/28 11:26:22 by djast            ###   ########.fr       */
+/*   Updated: 2019/10/07 13:22:07 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ int			read_map(t_map *map_info, int fd)
 		j = 0;
 		while (j < map_info->size_x)
 		{
+			if (ft_strcmp(numbers[j], "0") != 0 &&
+					ft_strcmp(numbers[j], "1") != 0)
+				return (ERROR_NON_VALID_FILE);
 			map_info->map[i][j] = ft_atoi(numbers[j]);
 			free(numbers[j++]);
 		}
