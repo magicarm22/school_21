@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   big_loop.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 15:17:53 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/09/26 13:20:12 by eharrag-         ###   ########.fr       */
+/*   Updated: 2019/10/07 13:32:41 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,26 @@ void	mousemotion(t_sdl *sdl, t_player *player)
 		player->point_of_view = 360;
 }
 
+void	key_event(t_sdl *sdl, t_map *map_info, t_player *player)
+{
+	if (sdl->window_event.type == SDL_KEYDOWN && (SDLK_d ==
+				sdl->window_event.key.keysym.sym || SDLK_RIGHT ==
+				sdl->window_event.key.keysym.sym))
+		key_d(sdl, map_info, player);
+	else if (sdl->window_event.type == SDL_KEYDOWN && (SDLK_w ==
+				sdl->window_event.key.keysym.sym || SDLK_UP ==
+				sdl->window_event.key.keysym.sym))
+		key_w(sdl, map_info, player);
+	else if (sdl->window_event.type == SDL_KEYDOWN && (SDLK_s ==
+				sdl->window_event.key.keysym.sym || SDLK_DOWN ==
+				sdl->window_event.key.keysym.sym))
+		key_s(sdl, map_info, player);
+	else if (sdl->window_event.type == SDL_KEYDOWN && (SDLK_a ==
+				sdl->window_event.key.keysym.sym || SDLK_LEFT ==
+				sdl->window_event.key.keysym.sym))
+		key_a(sdl, map_info, player);
+}
+
 void	poll_event(t_sdl *sdl, t_map *map_info, t_player *player)
 {
 	if (SDL_PollEvent(&(sdl->window_event)))
@@ -46,20 +66,10 @@ void	poll_event(t_sdl *sdl, t_map *map_info, t_player *player)
 		else if (sdl->window_event.type == SDL_KEYDOWN && SDLK_ESCAPE ==
 					sdl->window_event.key.keysym.sym)
 			exit(0);
-		else if (sdl->window_event.type == SDL_KEYDOWN && SDLK_a ==
-					sdl->window_event.key.keysym.sym)
-			key_a(sdl, map_info, player);
-		else if (sdl->window_event.type == SDL_KEYDOWN && SDLK_d ==
-					sdl->window_event.key.keysym.sym)
-			key_d(sdl, map_info, player);
-		else if (sdl->window_event.type == SDL_KEYDOWN && SDLK_w ==
-					sdl->window_event.key.keysym.sym)
-			key_w(sdl, map_info, player);
-		else if (sdl->window_event.type == SDL_KEYDOWN && SDLK_s ==
-					sdl->window_event.key.keysym.sym)
-			key_s(sdl, map_info, player);
 		else if (sdl->window_event.type == SDL_MOUSEMOTION)
 			mousemotion(sdl, player);
+		else
+			key_event(sdl, map_info, player);
 		mousebutton(sdl, player);
 		redraw(sdl, map_info, player);
 	}
