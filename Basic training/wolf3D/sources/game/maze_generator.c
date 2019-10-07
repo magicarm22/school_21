@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 16:02:17 by djast             #+#    #+#             */
-/*   Updated: 2019/10/07 13:15:53 by djast            ###   ########.fr       */
+/*   Updated: 2019/10/07 13:43:45 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	check_map(t_map *map_info, t_player *player)
 {
 	int i;
 
-	if (map_info->map[player->y / 64][player->x / 64] == 1)
+	if (map_info->map[(player->y - 10) / 64][(player->x - 10) / 64] == 1)
 		return (0);
 	i = 0;
 	while (i < map_info->size_x)
@@ -71,7 +71,8 @@ t_map		*get_map_from_file(t_player *player, int fd)
 
 	map_info = (t_map *)malloc(sizeof(t_map));
 	if (get_info_from_file(map_info, player, fd) == ERROR_NON_VALID_FILE ||
-											player->x < 64 || player->y < 64)
+	player->x < 0 || player->y < 0 ||
+	player->x > 64 * map_info->size_x || player->y > 64 * map_info->size_y)
 	{
 		free(map_info);
 		return (NULL);
