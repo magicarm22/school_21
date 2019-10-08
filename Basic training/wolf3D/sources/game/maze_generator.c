@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 16:02:17 by djast             #+#    #+#             */
-/*   Updated: 2019/10/07 13:43:45 by djast            ###   ########.fr       */
+/*   Updated: 2019/10/08 12:56:36 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_map		*get_map_from_file(t_player *player, int fd)
 	if (read_map(map_info, fd) == ERROR_NON_VALID_FILE ||
 				check_map(map_info, player) == 0)
 	{
+		free_map(map_info);
 		free(map_info);
 		return (NULL);
 	}

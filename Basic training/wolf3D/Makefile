@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eharrag- <eharrag-@student.42.fr>          +#+  +:+       +#+         #
+#    By: djast <djast@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 17:18:06 by djast             #+#    #+#              #
-#    Updated: 2019/09/26 10:12:59 by eharrag-         ###   ########.fr        #
+#    Updated: 2019/10/08 12:54:17 by djast            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,15 @@ GREEN = \033[0;32m
 RED = \033[0;31m
 RESET = \033[0m
 
-all: $(NAME_WOLF3D) $(NAME_EDITOR)
+all: install_sdl $(NAME_WOLF3D) $(NAME_EDITOR)
+
+install_sdl:
+	@brew install sdl2
+	@brew switch sdl2 2.0.10
+	@brew install sdl2_ttf
+	@brew switch sdl2_ttf 2.0.15
+	@brew install sdl2_mixer
+	@brew switch sdl2_mixer 2.0.4
 
 $(NAME_WOLF3D): $(LIBFT) $(OBJ_DIRECTORY) $(OBJ_DIRECTORY_WOLF3D) $(OBJ_WOLF3D_FILES)
 	@$(CC) $(CFLAGS) $(LIBS) $(INCLUDES) $(OBJ_WOLF3D_FILES)  -o $(NAME_WOLF3D)
