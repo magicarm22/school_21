@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 14:37:14 by eharrag-          #+#    #+#             */
-/*   Updated: 2019/10/07 13:22:07 by djast            ###   ########.fr       */
+/*   Updated: 2019/10/08 13:36:27 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,43 @@ void		init_map(t_map *map_info)
 		map_info->map[i++] = (int *)malloc(sizeof(int) * map_info->size_x);
 }
 
+int			write_map(t_map *map_info, char *line, int i)
+{
+	int		j;
+	char	**num;
+
+	if (countwords(line, ' ') != map_info->size_x)
+		return (ERROR_NON_VALID_FILE);
+	num = ft_strsplit(line, ' ');
+	j = 0;
+	while (j < map_info->size_x)
+	{
+		if (ft_strcmp(num[j], "0") != 0 && ft_strcmp(num[j], "1") != 0)
+		{
+			free_strsplit(num, map_info->size_x);
+			return (ERROR_NON_VALID_FILE);
+		}
+		map_info->map[i][j] = ft_atoi(num[j]);
+		j++;
+	}
+	free_strsplit(num, map_info->size_x);
+	free(line);
+	return (0);
+}
+
 int			read_map(t_map *map_info, int fd)
 {
 	int		i;
-	int		j;
 	char	*line;
-	char	**numbers;
 
 	i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (countwords(line, ' ') != map_info->size_x)
-			return (ERROR_NON_VALID_FILE);
-		numbers = ft_strsplit(line, ' ');
-		j = 0;
-		while (j < map_info->size_x)
+		if (write_map(map_info, line, i) == ERROR_NON_VALID_FILE)
 		{
-			if (ft_strcmp(numbers[j], "0") != 0 &&
-					ft_strcmp(numbers[j], "1") != 0)
-				return (ERROR_NON_VALID_FILE);
-			map_info->map[i][j] = ft_atoi(numbers[j]);
-			free(numbers[j++]);
+			free(line);
+			return (ERROR_NON_VALID_FILE);
 		}
-		free(numbers);
-		free(line);
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 16:02:51 by djast             #+#    #+#             */
-/*   Updated: 2019/09/28 13:11:25 by djast            ###   ########.fr       */
+/*   Updated: 2019/10/08 13:30:16 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,5 @@ void				redraw(t_sdl *sdl, t_map *map_info, t_player *player);
 void				load_bmps(t_sdl *sdl);
 void				happyend(t_sdl *sdl);
 void				free_map(t_map *map);
-
+void				free_strsplit(char **res, int count);
 #endif

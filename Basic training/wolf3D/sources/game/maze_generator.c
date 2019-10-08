@@ -6,7 +6,7 @@
 /*   By: djast <djast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 16:02:17 by djast             #+#    #+#             */
-/*   Updated: 2019/10/08 12:56:36 by djast            ###   ########.fr       */
+/*   Updated: 2019/10/08 13:31:34 by djast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,24 @@ int			get_info_from_file(t_map *map_info, t_player *player, int fd)
 
 	get_next_line(fd, &line);
 	if (line == NULL || countwords(line, ' ') != 2)
+	{
+		free(line);
 		return (ERROR_NON_VALID_FILE);
+	}
 	numbers = ft_strsplit(line, ' ');
 	map_info->size_x = ft_atoi(numbers[0]);
 	map_info->size_y = ft_atoi(numbers[1]);
-	free(numbers[0]);
-	free(numbers[1]);
-	free(numbers);
+	free_strsplit(numbers, 2);
 	free(line);
 	get_next_line(fd, &line);
 	if (line == NULL || countwords(line, ' ') != 3)
+	{
+		free(line);
 		return (ERROR_NON_VALID_FILE);
+	}
 	numbers = ft_strsplit(line, ' ');
 	init_player(player, numbers);
-	free(numbers[0]);
-	free(numbers[1]);
-	free(numbers[2]);
-	free(numbers);
+	free_strsplit(numbers, 3);
 	free(line);
 	return (0);
 }
